@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//https://www.youtube.com/watch?v=_QajrabyTJc
 public class MouseCameraControl : MonoBehaviour
 {
     public float mouseSensitivity = 100.0f;
