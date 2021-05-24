@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -490,44 +490,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &512750921 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1130074878021942453, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
-  m_PrefabInstance: {fileID: 1130074877661334012}
-  m_PrefabAsset: {fileID: 0}
---- !u!143 &512750922 stripped
-CharacterController:
-  m_CorrespondingSourceObject: {fileID: 5373827355211569709, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
-  m_PrefabInstance: {fileID: 1130074877661334012}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &512750923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 512750921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34a64aad2170c3c4b9a5af0f377d2198, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 512750922}
-  speed: 10
-  gravity: -10
-  jumpHeight: 2
-  groundCheck: {fileID: 2093811887}
-  groundDistance: 0.1
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
-  vel: {x: 0, y: 0, z: 0}
-  isGrounded: 0
---- !u!4 &512750925 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1130074878021942449, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
-  m_PrefabInstance: {fileID: 1130074877661334012}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &586088111
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,25 +919,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &963194225 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8464820739674196015, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
-  m_PrefabInstance: {fileID: 1130074877661334012}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &963194226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d594021e98700fd44a05324a63ac0c17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mouseSensitivity: 1000
-  playerTrans: {fileID: 512750925}
 --- !u!1 &1052157560
 GameObject:
   m_ObjectHideFlags: 0
@@ -2302,36 +2245,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2093811886
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2093811887}
-  m_Layer: 0
-  m_Name: GroundCheck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2093811887
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2093811886}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 512750925}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1130074877661334012
 PrefabInstance:
