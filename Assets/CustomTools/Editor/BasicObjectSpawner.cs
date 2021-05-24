@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
 //THIS IS AN EXAMPLE AND IS USED FOR REFERENCE ONLY: https://www.youtube.com/watch?v=34736DHWzaI
 public class BasicObjectSpawner : EditorWindow
 {
+    enum Shape
+    {
+        DISK,
+        SPHERE
+    }
+    Shape spawnerShape = Shape.DISK;
     string objectBaseName = "";
     int objectID = 1;
     GameObject objectToSpawn;
     float objectScale;
     float spawnRadius = 5f;
+    float spawnHeight = 2f;
 
-    [MenuItem("Tools/Basic Object Spawner")]
+
+    [MenuItem("Window/Custom Tools/Basic Object Spawner")]
     public static void ShowWindow()
     {
         GetWindow(typeof(BasicObjectSpawner));
@@ -22,12 +28,18 @@ public class BasicObjectSpawner : EditorWindow
     {
         GUILayout.Label("Spawn New Object", EditorStyles.boldLabel);
 
+        spawnerShape = (Shape) EditorGUILayout.EnumPopup("Spawner Shape", spawnerShape);
+        objectToSpawn = EditorGUILayout.ObjectField("Prefab to Spawn", objectToSpawn, typeof(GameObject), false) as GameObject;
         objectBaseName = EditorGUILayout.TextField("Base Name", objectBaseName);
         objectID = EditorGUILayout.IntField("Object ID", objectID);
         objectScale = EditorGUILayout.Slider("Object Scale", objectScale, 0.5f, 3f);
         spawnRadius = EditorGUILayout.FloatField("Spawn Radius", spawnRadius);
-        objectToSpawn = EditorGUILayout.ObjectField("Prefab to Spawn", objectToSpawn, typeof(GameObject), false) as GameObject;
+        if (spawnerShape == Shape.DISK)
+        {
+            spawnHeight = EditorGUILayout.FloatField("Spawn Height", spawnHeight);
+        }
 
+        
         if (GUILayout.Button("Spawn Object"))
         {
             SpawnObject();
@@ -47,8 +59,19 @@ public class BasicObjectSpawner : EditorWindow
             return;
         }
 
-        Vector2 spawnCircle = Random.insideUnitCircle * spawnRadius;
-        Vector3 spawnPos = new Vector3(spawnCircle.x, 0f, spawnCircle.y);
+        Vector3 spawnPos = Vector3.zero;
+        switch (spawnerShape)
+        {
+            case Shape.DISK:
+                Vector2 spawnCircle = Random.insideUnitCircle * spawnRadius;
+                spawnPos = new Vector3(spawnCircle.x, spawnHeight, spawnCircle.y);
+                break;
+            case Shape.SPHERE:
+                Vector3 spawnSphere = Random.insideUnitSphere * spawnRadius;
+                spawnPos = new Vector3(spawnSphere.x, spawnSphere.y, spawnSphere.z);
+                break;
+        }
+
 
         GameObject newObject = Instantiate(objectToSpawn, spawnPos, Quaternion.identity);
         newObject.name = objectBaseName + objectID;

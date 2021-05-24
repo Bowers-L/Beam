@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 //https://www.youtube.com/watch?v=_QajrabyTJc
 public class MouseCameraControl : MonoBehaviour
@@ -10,6 +9,7 @@ public class MouseCameraControl : MonoBehaviour
     public Transform playerTrans;
 
     private float xRot = 0f;    //Look up/down ("pitch")
+    private float mouseX, mouseY;
 
     // Start is called before the first frame update
     void Start()
@@ -20,16 +20,23 @@ public class MouseCameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float deltaX = mouseX * mouseSensitivity * Time.deltaTime;
+        float deltaY = mouseY * mouseSensitivity * Time.deltaTime;
 
-        xRot -= mouseY;
+        xRot -= deltaY;
 
         xRot = Mathf.Clamp(xRot, -90f, 90f);
 
         //The mouse x rotates the whole player while the y is used to look up and down, 
         //which is why these require 2 separate lines.
         transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);
-        playerTrans.Rotate(Vector3.up * mouseX);
+        playerTrans.Rotate(Vector3.up * deltaX);
+    }
+
+    public void OnLook(InputAction.CallbackContext ctx)
+    {
+        Vector2 lookVal = ctx.ReadValue<Vector2>();
+        mouseX = lookVal.x;
+        mouseY = lookVal.y;
     }
 }

@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 //https://www.youtube.com/watch?v=_QajrabyTJc
 public class PlayerMovement : MonoBehaviour
@@ -17,13 +16,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Vector3 vel;
 
+    private float deltaX;
+    private float deltaZ;
+
     [SerializeField]
     private bool isGrounded;
 
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -31,21 +32,16 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        //float deltaX = Input.GetAxis("Horizontal");
+        //float deltaZ = Input.GetAxis("Vertical");
 
-        Vector3 deltaPos = (transform.right * x + transform.forward * z) * speed;
+        Vector3 deltaPos = (transform.right * deltaX + transform.forward * deltaZ) * speed;
 
         if (isGrounded)
         {
             if (vel.y < 0)
             {
                 vel.y = 0;
-            }
-
-            if (Input.GetButtonDown("Jump"))
-            {
-                vel.y = Mathf.Sqrt(-2f * jumpHeight * gravity);
             }
         }
         else
@@ -56,5 +52,17 @@ public class PlayerMovement : MonoBehaviour
         vel.z = deltaPos.z;
 
         controller.Move(vel * Time.deltaTime);
+    }
+
+    public void OnMove(InputAction.CallbackContext ctx)
+    {
+        Vector2 moveDir = ctx.ReadValue<Vector2>();
+        deltaX = moveDir.x;
+        deltaZ = moveDir.y;
+    }
+
+    public void OnJump(InputAction.CallbackContext ctx)
+    {
+            vel.y = isGrounded ? Mathf.Sqrt(-2f * jumpHeight * gravity) : 0;
     }
 }
