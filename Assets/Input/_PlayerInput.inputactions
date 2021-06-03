@@ -1,5 +1,5 @@
 {
-    "name": "PlayerInput",
+    "name": "_PlayerInput",
     "maps": [
         {
             "name": "Player",
@@ -10,6 +10,14 @@
                     "type": "Value",
                     "id": "80f333e8-6ac8-4489-9374-a625bf8f135f",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "9ca8988a-1c5a-4da6-887d-9fa04a73dd53",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 },
@@ -25,14 +33,6 @@
                     "name": "Fire",
                     "type": "Button",
                     "id": "ae0a5e84-3868-40a6-9579-058af3b336ee",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "9ca8988a-1c5a-4da6-887d-9fa04a73dd53",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
