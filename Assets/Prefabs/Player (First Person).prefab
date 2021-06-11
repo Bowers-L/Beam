@@ -112,7 +112,19 @@ MonoBehaviour:
     m_ActionId: 0fb70367-8334-4925-934d-113512241a0b
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2914195950158468213}
+        m_TargetAssemblyTypeName: Beam.Core.Beams.PlayerBeamSource, Assembly-CSharp
+        m_MethodName: OnShoot
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: ae0a5e84-3868-40a6-9579-058af3b336ee
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -337,6 +349,7 @@ GameObject:
   - component: {fileID: 3627940316773768363}
   - component: {fileID: 2466471339985402330}
   - component: {fileID: 970953125165186033}
+  - component: {fileID: 2914195950158468213}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -421,5 +434,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d594021e98700fd44a05324a63ac0c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 100
+  mouseSensitivity: 20
   playerTrans: {fileID: 1130074878021942449}
+--- !u!114 &2914195950158468213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8464820739674196015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dceda1a5c330b94a96bf0132d9977fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxBeamRange: 1000

@@ -48,7 +48,7 @@ public class @_PlayerInput : IInputActionCollection, IDisposable
                     ""id"": ""ae0a5e84-3868-40a6-9579-058af3b336ee"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
