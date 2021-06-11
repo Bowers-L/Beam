@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Scripts.Core.Interactables
+namespace Beam.Core.Beams
 {
     interface Beamable
     {
-        OnBeamAttached(BeamSource source);
+        public void attachBeam();
     }
 }
