@@ -202,13 +202,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 5373827355211569709}
   speed: 10
-  gravity: -10
+  gravity: -15
   jumpHeight: 2
   groundCheck: {fileID: 2722610955488524463}
   groundDistance: 0.5
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+  forceMag: 3
   vel: {x: 0, y: 0, z: 0}
   isGrounded: 0
 --- !u!1 &1377156412551839548

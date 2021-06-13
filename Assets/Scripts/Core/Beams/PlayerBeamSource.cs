@@ -16,8 +16,10 @@ namespace Beam.Core.Beams
 
         public void OnShoot(InputAction.CallbackContext ctx)
         {
-            Debug.Log("Shooting");
-            activateBeam(new Ray(transform.position, transform.forward));
+            if (ctx.performed)
+            {
+                activateBeam(new Ray(transform.position, transform.forward));
+            }   
         }
     }
 }
