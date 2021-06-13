@@ -1,8 +1,15 @@
 using UnityEngine;
+using UnityEngine.Events;
+
+using Beam.Events;
 using Beam.Utility;
+
 
 namespace Beam.Core.Beams
 {
+
+    public class BeamEvent : UnityEvent<Transform> { }
+
     public abstract class BeamSource : MonoBehaviour
     {
         public float maxBeamRange;
@@ -12,9 +19,12 @@ namespace Beam.Core.Beams
             private set;
         }
 
+        public class BeamShotEvent : UnityEvent<Ray> { }
+
         public void activateBeam(Ray beamRay)
         {
             beamActive = true;
+            EventManager.InvokeEvent<BeamShotEvent, Ray>(beamRay);
 
             RaycastHit hitInfo;
             UnityEngineExt.GetMaskWithout("Ignore Raycast");
