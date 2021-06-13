@@ -18,7 +18,7 @@ namespace Beam.Events
      * 
      * 3. It enforces an invariant that only one instance of each event type exists.
      */
-    public sealed class EventManager : MonoBehaviour
+    public sealed class EventManager
     {
         #region Singleton Pattern
         //This code is meant to ensure that only one EventManager ever exists at runtime.

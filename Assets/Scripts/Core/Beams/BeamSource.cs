@@ -8,8 +8,6 @@ using Beam.Utility;
 namespace Beam.Core.Beams
 {
 
-    public class BeamEvent : UnityEvent<Transform> { }
-
     public abstract class BeamSource : MonoBehaviour
     {
         public float maxBeamRange;

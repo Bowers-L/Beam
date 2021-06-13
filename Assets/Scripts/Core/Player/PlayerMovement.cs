@@ -16,6 +16,8 @@ namespace Beam.Core.Player
         public float groundDistance = 0.1f;
         public LayerMask groundMask;
 
+        public float forceMag = 10.0f;  //used for physics when the player collides with a rigidbody.
+
         [SerializeField]
         private Vector3 vel;
 
@@ -67,6 +69,13 @@ namespace Beam.Core.Player
         public void OnJump(InputAction.CallbackContext ctx)
         {
             vel.y = isGrounded ? Mathf.Sqrt(-2f * jumpHeight * gravity) : 0;
+        }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if (hit.rigidbody != null) {
+                hit.rigidbody.AddForceAtPosition(vel * forceMag, hit.point);
+            }
         }
     }
 }
