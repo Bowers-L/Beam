@@ -201,8 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 5373827355211569709}
-  speed: 10
-  gravity: -30
+  gravity: 30
   jumpHeight: 3
   groundCheck: {fileID: 2722610955488524463}
   groundDistance: 0.5
@@ -211,7 +210,9 @@ MonoBehaviour:
     m_Bits: 64
   forceMag: 3
   vel: {x: 0, y: 0, z: 0}
-  isGrounded: 0
+  moveParams:
+    maxMoveSpeed: 10
+    accel: 100
 --- !u!1 &1377156412551839548
 GameObject:
   m_ObjectHideFlags: 0

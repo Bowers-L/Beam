@@ -7,9 +7,26 @@ namespace Beam.Core.Player
     //https://www.youtube.com/watch?v=_QajrabyTJc
     public class PlayerMovement : MonoBehaviour
     {
+
+        [System.Serializable]
+        public struct MovementParameters
+        {
+            public float maxMoveSpeed;
+
+            public float accel;
+
+            //raw movement from player's input
+            //x = right movement, y = forward movement
+            public Vector2 rawMoveInput {
+                get;
+                internal set;
+            }
+        }
+
         public CharacterController controller;
-        public float speed = 10f;
-        public float gravity = -1f;
+        
+        //might need to put gravity in an external game manager.
+        public float gravity = 1f;
         public float jumpHeight = 3f;
 
         public Transform groundCheck;
@@ -21,26 +38,29 @@ namespace Beam.Core.Player
         [SerializeField]
         private Vector3 vel;
 
-        private float deltaX;
-        private float deltaZ;
+        [SerializeField]
+        private MovementParameters moveParams;
+
 
         [SerializeField]
-        private bool isGrounded;
-
-        // Start is called before the first frame update
-        void Start()
+        private bool isGrounded
         {
+            get
+            {
+                return Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            }
         }
 
         // Update is called once per frame
         void Update()
         {
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
             //float deltaX = Input.GetAxis("Horizontal");
             //float deltaZ = Input.GetAxis("Vertical");
 
-            Vector3 deltaPos = (transform.right * deltaX + transform.forward * deltaZ) * speed;
+            Vector3 moveVel = calcMovementVel();
+
+            vel.x = moveVel.x;
+            vel.z = moveVel.z;
 
             if (isGrounded)
             {
@@ -51,34 +71,47 @@ namespace Beam.Core.Player
             }
             else
             {
-                vel.y += gravity * Time.deltaTime;
+                vel.y -= gravity * Time.deltaTime;
             }
-            vel.x = deltaPos.x;
-            vel.z = deltaPos.z;
+
 
             controller.Move(vel * Time.deltaTime);
         }
 
         public void OnMove(InputAction.CallbackContext ctx)
         {
-            Vector2 moveDir = ctx.ReadValue<Vector2>();
-            deltaX = moveDir.x;
-            deltaZ = moveDir.y;
+            moveParams.rawMoveInput = ctx.ReadValue<Vector2>();
         }
 
         public void OnJump(InputAction.CallbackContext ctx)
         {
             if (ctx.performed)
             {
-                vel.y = isGrounded ? Mathf.Sqrt(-2f * jumpHeight * gravity) : 0;
+                vel.y = isGrounded ? Mathf.Sqrt(2f * jumpHeight * gravity) : vel.y;
+            }
+
+            if (ctx.canceled && vel.y > 0f)
+            {
+                vel.y = 0f;
             }
         }
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
+            //Implement collision physics manually because character controller doesn't come with rigidbody.
             if (hit.rigidbody != null) {
                 hit.rigidbody.AddForceAtPosition(vel * forceMag, hit.point);
             }
         }
+
+        private Vector3 calcMovementVel()
+        {
+            //Outputs the final movement of the player based on input, taking into account smoothing, player rotation, etc.
+            Vector3 deltaVelUnit = Vector3.Normalize((transform.right * moveParams.rawMoveInput.x + transform.forward * moveParams.rawMoveInput.y));
+
+            Vector3 newMoveVel = deltaVelUnit * moveParams.accel * Time.deltaTime + new Vector3(vel.x, 0, vel.z);
+            return Vector3.Normalize(newMoveVel) * Mathf.Min(newMoveVel.magnitude, moveParams.maxMoveSpeed);
+        }
+        
     }
 }
