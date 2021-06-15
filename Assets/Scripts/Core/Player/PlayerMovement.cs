@@ -68,7 +68,10 @@ namespace Beam.Core.Player
 
         public void OnJump(InputAction.CallbackContext ctx)
         {
-            vel.y = isGrounded ? Mathf.Sqrt(-2f * jumpHeight * gravity) : 0;
+            if (ctx.performed)
+            {
+                vel.y = isGrounded ? Mathf.Sqrt(-2f * jumpHeight * gravity) : 0;
+            }
         }
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
