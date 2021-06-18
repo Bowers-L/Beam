@@ -213,6 +213,7 @@ MonoBehaviour:
   moveParams:
     maxMoveSpeed: 10
     accel: 100
+    overCapSmoothing: 0.08
 --- !u!1 &1377156412551839548
 GameObject:
   m_ObjectHideFlags: 0
