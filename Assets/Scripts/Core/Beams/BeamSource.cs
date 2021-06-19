@@ -7,6 +7,9 @@ using Beam.Utility;
 
 namespace Beam.Core.Beams
 {
+    public class BeamShot : UnityEvent<Ray> { }
+    public class BeamRelease : UnityEvent<BeamSource> { }
+    public class BeamSourceMoved : UnityEvent<BeamSource> { }
 
     public abstract class BeamSource : MonoBehaviour
     {
@@ -17,21 +20,29 @@ namespace Beam.Core.Beams
             private set;
         }
 
-        public class BeamShotEvent : UnityEvent<Ray> { }
+
+
+        public void Update()
+        {
+            if (beamActive)
+            {
+                EventManager.InvokeEvent<BeamSourceMoved, BeamSource>(this);
+            }
+        }
 
         public void activateBeam(Ray beamRay)
         {
             beamActive = true;
-            EventManager.InvokeEvent<BeamShotEvent, Ray>(beamRay);
+            EventManager.InvokeEvent<BeamShot, Ray>(beamRay);
 
             RaycastHit hitInfo;
             UnityEngineExt.GetMaskWithout("Ignore Raycast");
             if (Physics.Raycast(beamRay, out hitInfo, maxBeamRange))
             {
-                Beamable beamTarget = hitInfo.collider.GetComponent<Beamable>();
-                if (beamTarget != null)
+                BeamTarget target = hitInfo.collider.GetComponent<BeamTarget>();
+                if (target != null)
                 {
-                    beamTarget.attachBeam();
+                    target.attachBeam(this, beamRay);
                 }
             }
         }
@@ -39,11 +50,8 @@ namespace Beam.Core.Beams
         public void deactivateBeam()
         {
             beamActive = false;
-        }
 
-        protected Ray getBeamRay()
-        {
-            return new Ray(transform.position, transform.forward);
+            EventManager.InvokeEvent<BeamRelease, BeamSource>(this);
         }
     }
 
