@@ -10,5 +10,23 @@ namespace Beam.Utility
         {
             return ~LayerMask.GetMask(layerNames);
         }
+
+        //Outputs the closest point on the given line to the given point.
+        public static Vector3 projectPointOntoLine(Vector3 point, Ray line)
+        {
+            /*
+             * Math:
+             * Let point P and line L represent the arguments
+             * L has an origin point O and a direction V
+             * Let S be the closest point to P on the line. Mathematically, this means that S is a point on L such that V is orthogonal to PS.
+             * 
+             * The line segment OP is the hypotenuse of right triangle OPS
+             * By projecting OP onto line L, the result will be OS.
+             * Writing OS in the form S-O, the point S = O + OS
+             */
+
+            Vector3 OP = point - line.origin;
+            return line.origin + Vector3.Project(OP, line.direction);
+        }
     }
 }

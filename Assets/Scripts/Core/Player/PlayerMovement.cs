@@ -7,7 +7,7 @@ namespace Beam.Core.Player
     //https://www.youtube.com/watch?v=_QajrabyTJc
     public class PlayerMovement : MonoBehaviour
     {
-        //Parameters used for calculated the velocity
+        //Parameters used to calculate the velocity
         [System.Serializable]
         public struct MovementParameters
         {
@@ -28,7 +28,7 @@ namespace Beam.Core.Player
 
         public CharacterController controller;
         
-        //might need to put gravity in an external game manager.
+        //might need to put gravity in an external game manager if other things use it.
         public float gravity = 1f;
         public float jumpHeight = 3f;
 
@@ -46,7 +46,7 @@ namespace Beam.Core.Player
 
 
         [SerializeField]
-        private bool isGrounded
+        public bool isGrounded
         {
             get
             {
@@ -97,7 +97,7 @@ namespace Beam.Core.Player
         //Updates the player's velocity, taking into account smoothing, player rotation, input, etc.
         private void updateVelocity()
         {
-
+            //Get the acceleration vector from the player's imput.
             Vector3 moveAccel = moveParams.accel * Vector3.Normalize((transform.right * moveParams.rawMoveInput.x + transform.forward * moveParams.rawMoveInput.y));
 
             //determines the max xz speed that the player can have 
@@ -106,6 +106,7 @@ namespace Beam.Core.Player
             //update player's y velocity based on gravity
             if (isGrounded)
             {
+                //Stops the player when they hit the ground. 
                 if (vel.y < 0)
                 {
                     vel.y = 0;
@@ -129,7 +130,7 @@ namespace Beam.Core.Player
                 newVelMagAdjusted = Mathf.Min(newXZVel.magnitude, playerSpeedCap);
             }
 
-            newXZVel = newVelDir * newVelMagAdjusted;
+            newXZVel = newVelMagAdjusted * newVelDir;
             vel.x = newXZVel.x;
             vel.z = newXZVel.z;
         }

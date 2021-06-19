@@ -19,7 +19,12 @@ namespace Beam.Core.Beams
             if (ctx.performed)
             {
                 activateBeam(new Ray(transform.position, transform.forward));
-            }   
+            } 
+            
+            if (ctx.canceled)
+            {
+                deactivateBeam();
+            }
         }
     }
 }

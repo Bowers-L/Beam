@@ -2677,10 +2677,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (First Person)
       objectReference: {fileID: 0}
-    - target: {fileID: 2251184424026648098, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
-      propertyPath: moveParams.overCapSmoothing
-      value: 0.08
-      objectReference: {fileID: 0}
     - target: {fileID: 2785743722217414107, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
       propertyPath: m_NotificationBehavior
       value: 2
@@ -2688,10 +2684,6 @@ PrefabInstance:
     - target: {fileID: 2785743722217414107, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5373827355211569709, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
-      propertyPath: m_StepOffset
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8230580247023661561, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
       propertyPath: m_LocalPosition.y
