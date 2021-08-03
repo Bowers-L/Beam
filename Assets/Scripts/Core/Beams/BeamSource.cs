@@ -20,19 +20,16 @@ namespace Beam.Core.Beams
             private set;
         }
 
-
-
         public void Update()
         {
             if (beamActive)
-            {
-                EventManager.InvokeEvent<BeamSourceMoved, BeamSource>(this);
+            {   //Useless event bc anything that cares can just check if the beam is active.
+                //EventManager.InvokeEvent<BeamSourceMoved, BeamSource>(this);
             }
         }
 
         public void activateBeam(Ray beamRay)
         {
-            beamActive = true;
             EventManager.InvokeEvent<BeamShot, Ray>(beamRay);
 
             RaycastHit hitInfo;
@@ -42,6 +39,7 @@ namespace Beam.Core.Beams
                 BeamTarget target = hitInfo.collider.GetComponent<BeamTarget>();
                 if (target != null)
                 {
+                    beamActive = true;
                     target.attachBeam(this, beamRay);
                 }
             }
