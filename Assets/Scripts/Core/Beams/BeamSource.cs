@@ -13,7 +13,9 @@ namespace Beam.Core.Beams
 
     public abstract class BeamSource : MonoBehaviour
     {
-        public float maxBeamRange;
+        public float maxBeamRange;  //The maximum distance the beam can travel to latch onto an object
+        public float maxBeamFlex;   //The maximum angle between an object and the player's cursor before the beam breaks.
+        public float beamSnapSpeed;
         public bool beamActive
         {
             get;
@@ -22,10 +24,6 @@ namespace Beam.Core.Beams
 
         public void Update()
         {
-            if (beamActive)
-            {   //Useless event bc anything that cares can just check if the beam is active.
-                //EventManager.InvokeEvent<BeamSourceMoved, BeamSource>(this);
-            }
         }
 
         public void activateBeam(Ray beamRay)

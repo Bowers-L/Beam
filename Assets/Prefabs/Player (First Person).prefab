@@ -452,3 +452,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxBeamRange: 1000
+  maxBeamFlex: 30
+  beamSnapSpeed: 20
