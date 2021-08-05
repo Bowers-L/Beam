@@ -25,17 +25,42 @@ namespace Beam.Core.Beams
 
         public void FixedUpdate()
         {
-            //Beam is attached to something
-            if (currSource != null)
-            {
-                //TEMPORARY SOLUTION: Need to handle collisions & physics.
-                Vector3 targetPos = currSource.transform.position + currSource.transform.forward * currBeamDist;
-                rb.MovePosition(targetPos);
 
+            if (currSource != null)                //Beam is attached to something
+            {
                 //Stop translational and rotational velocity
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
                 transform.forward = currSource.transform.forward;
+
+                //Check how much the beam bends and detach if needed
+                Vector3 sourceToTarget = transform.position - currSource.transform.position;
+                float beamFlex = Vector3.Angle(sourceToTarget, currSource.transform.forward);
+                beamFlex = beamFlex < 0 ? -beamFlex : beamFlex; //Make sure beamFlex is positive
+                if (beamFlex > currSource.maxBeamFlex)
+                {
+                    detachBeam(currSource);
+                } else
+                {
+                    Vector3 targetPos = currSource.transform.position + currSource.transform.forward * currBeamDist;
+                    Vector3 targetDir = targetPos - transform.position;
+
+                    rb.AddForce(targetDir * currSource.beamSnapSpeed, ForceMode.VelocityChange);
+                    /*
+                    RaycastHit hitInfo;
+                    bool hit = Physics.Raycast(transform.position, targetDir, out hitInfo, targetDir.magnitude);
+                    if (hit)
+                    {
+                        //TODO Snap the object to the edge of the collider.
+                    }
+                    else
+                    {
+                        //This will always snap the object, regardless of if there is a collision, which will cause it to go through objects.
+                        rb.MovePosition(targetPos);
+                        rb.AddForce()
+                    }
+                    */
+                }
             }
         }
 

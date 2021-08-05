@@ -38,6 +38,8 @@ namespace Beam.Core.Player
 
         public float forceMag = 10.0f;  //used for physics when the player collides with a rigidbody.
 
+        public bool noClip; //for debugging purposes
+
         [SerializeField]
         private Vector3 vel;
 
@@ -54,6 +56,14 @@ namespace Beam.Core.Player
             }
         }
 
+        private void Start()
+        {
+            if (GetComponent<CharacterController>() == null)
+            {
+                Debug.LogError("Player should have a CharacterController component.");
+            }
+        }
+
         // Update is called once per frame
         void Update()
         {
@@ -62,7 +72,14 @@ namespace Beam.Core.Player
 
             updateVelocity();
 
-            controller.Move(vel * Time.deltaTime);
+            GetComponent<CharacterController>().enabled = !noClip;
+            if (noClip)
+            {
+                transform.position += vel * Time.deltaTime;
+            } else
+            {
+                controller.Move(vel * Time.deltaTime);
+            }
         }
 
         public void OnMove(InputAction.CallbackContext ctx)
@@ -98,7 +115,16 @@ namespace Beam.Core.Player
         private void updateVelocity()
         {
             //Get the acceleration vector from the player's imput.
-            Vector3 moveAccel = moveParams.accel * Vector3.Normalize((transform.right * moveParams.rawMoveInput.x + transform.forward * moveParams.rawMoveInput.y));
+            Vector3 moveAccel;
+            if (noClip)
+            {
+                MouseCameraControl camera = GetComponentInChildren<MouseCameraControl>();
+                moveAccel = moveParams.accel * Vector3.Normalize((camera.transform.right * moveParams.rawMoveInput.x + camera.transform.forward * moveParams.rawMoveInput.y));
+            } else
+            {
+                moveAccel = moveParams.accel * Vector3.Normalize((transform.right * moveParams.rawMoveInput.x + transform.forward * moveParams.rawMoveInput.y));
+            }
+
 
             //determines the max xz speed that the player can have 
             float playerSpeedCap = moveParams.maxMoveSpeed * moveParams.rawMoveInput.magnitude;
@@ -117,7 +143,7 @@ namespace Beam.Core.Player
                 vel.y -= gravity * Time.deltaTime;
             }
 
-            Vector3 oldXZVel = new Vector3(vel.x, 0, vel.z);
+            Vector3 oldXZVel = new Vector3(vel.x, noClip ? vel.y : 0, vel.z);
             Vector3 newXZVel = moveAccel * Time.deltaTime + oldXZVel;
             Vector3 newVelDir = Vector3.Normalize(newXZVel);
 
@@ -131,8 +157,14 @@ namespace Beam.Core.Player
             }
 
             newXZVel = newVelMagAdjusted * newVelDir;
+
             vel.x = newXZVel.x;
             vel.z = newXZVel.z;
+
+            if (noClip)
+            {
+                vel.y = newXZVel.y;
+            }
         }
     }
 }
