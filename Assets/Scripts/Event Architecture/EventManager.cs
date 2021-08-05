@@ -23,6 +23,7 @@ namespace Beam.Events
         #region Singleton Pattern
         //This code is meant to ensure that only one EventManager ever exists at runtime.
         //There are multiple ways to do this, as seen here: https://csharpindepth.com/Articles/Singleton
+        //DON'T USE THIS CODE WITH MONO BEHAVIOUR! (see alternative example in GameManager.cs)
 
         //visible Instance to everyone else
         public static EventManager Instance { get { return SingletonImp._instance; } }
