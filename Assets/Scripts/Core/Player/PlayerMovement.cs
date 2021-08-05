@@ -18,6 +18,8 @@ namespace Beam.Core.Player
 
             //Controls how fast the player slows down when exceeding the speed cap.
             public float overCapSmoothing;
+            //The speed cap while in the air as a percentage of the liftoff speed
+            public float airCapWeight;
 
             //raw movement from player's input
             //x = right movement, y = forward movement
@@ -43,6 +45,8 @@ namespace Beam.Core.Player
 
         [SerializeField]
         private Vector3 vel;
+        [SerializeField]
+        private Vector3 velAtLastJump;
 
         [SerializeField]
         private MovementParameters moveParams;
@@ -66,7 +70,14 @@ namespace Beam.Core.Player
         {
             get
             {
-                return Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+                //Multiple groundchecks around the player's capsule to cover the more complicated cases (such as ascending stairs)
+                float groundCheckPrecision = 0.5f;
+                bool center = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+                bool xplus = Physics.CheckSphere(groundCheck.position + controller.radius * groundCheckPrecision * Vector3.right, groundDistance, groundMask);
+                bool xminus = Physics.CheckSphere(groundCheck.position + controller.radius * groundCheckPrecision * Vector3.right, groundDistance, groundMask);
+                bool zplus = Physics.CheckSphere(groundCheck.position + controller.radius * groundCheckPrecision * Vector3.forward, groundDistance, groundMask);
+                bool zminus = Physics.CheckSphere(groundCheck.position + controller.radius * groundCheckPrecision * Vector3.back, groundDistance, groundMask);
+                return center || xplus || xminus || zplus || zminus;
             }
         }
 
@@ -105,7 +116,9 @@ namespace Beam.Core.Player
         {
             if (ctx.performed)
             {
+                velAtLastJump = vel;
                 vel.y = isGrounded ? Mathf.Sqrt(2f * jumpHeight * gravity) : vel.y;
+                
             }
 
             /* Don't know if this should be kept since there's problems with external forces.
@@ -128,6 +141,7 @@ namespace Beam.Core.Player
         //Updates the player's velocity, taking into account smoothing, player rotation, input, etc.
         private void updateVelocity()
         {
+            #region Ground Check
             //update player's y velocity based on gravity
             if (isGrounded)
             {
@@ -141,6 +155,7 @@ namespace Beam.Core.Player
             {
                 vel.y -= gravity * Time.deltaTime;
             }
+            #endregion
 
             //Get the acceleration vector from the player's imput.
             Vector3 moveAccel;
@@ -157,24 +172,22 @@ namespace Beam.Core.Player
             Vector3 oldXZVel = new Vector3(vel.x, noClip ? vel.y : 0, vel.z);
             Vector3 newXZVel = moveAccel * Time.deltaTime + oldXZVel;
 
-
-            if (isGrounded || noClip) //Preserve momentum in air, otherwise cap player's speed.
+            //Cap the player's speed based on parameter weights/player input
+            #region Speed Cap
+            float playerSpeedCap = isGrounded ? moveParams.maxMoveSpeed * moveParams.rawMoveInput.magnitude : velAtLastJump.magnitude * moveParams.airCapWeight;
+            Vector3 newVelDir = Vector3.Normalize(newXZVel);
+            float newVelMagAdjusted;
+            if (newXZVel.magnitude > playerSpeedCap)
             {
-                //determines the max xz speed that the player can have 
-                float playerSpeedCap = moveParams.maxMoveSpeed * moveParams.rawMoveInput.magnitude;
-                Vector3 newVelDir = Vector3.Normalize(newXZVel);
-                float newVelMagAdjusted;
-                if (newXZVel.magnitude > playerSpeedCap)
-                {
-                    newVelMagAdjusted = Mathf.Lerp(oldXZVel.magnitude, playerSpeedCap, moveParams.overCapSmoothing);
-                }
-                else
-                {
-                    newVelMagAdjusted = Mathf.Min(newXZVel.magnitude, playerSpeedCap);
-                }
-
-                newXZVel = newVelMagAdjusted * newVelDir;
+                newVelMagAdjusted = Mathf.Lerp(oldXZVel.magnitude, playerSpeedCap, moveParams.overCapSmoothing);
             }
+            else
+            {
+                newVelMagAdjusted = newXZVel.magnitude;
+            }
+
+            newXZVel = newVelMagAdjusted * newVelDir;
+            #endregion
 
             vel.x = newXZVel.x;
             vel.z = newXZVel.z;

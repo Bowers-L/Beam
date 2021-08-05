@@ -227,11 +227,13 @@ MonoBehaviour:
   forceMag: 3
   noClip: 0
   vel: {x: 0, y: 0, z: 0}
+  velAtLastJump: {x: 0, y: 0, z: 0}
   moveParams:
     maxMoveSpeed: 10
     accelGround: 100
-    accelAir: 5
+    accelAir: 20
     overCapSmoothing: 0.08
+    airCapWeight: 1
 --- !u!1 &1377156412551839548
 GameObject:
   m_ObjectHideFlags: 0
