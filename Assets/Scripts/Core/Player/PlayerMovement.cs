@@ -13,7 +13,8 @@ namespace Beam.Core.Player
         {
             public float maxMoveSpeed;
 
-            public float accel;
+            public float accelGround;
+            public float accelAir;
 
             //Controls how fast the player slows down when exceeding the speed cap.
             public float overCapSmoothing;
@@ -45,6 +46,19 @@ namespace Beam.Core.Player
 
         [SerializeField]
         private MovementParameters moveParams;
+
+        public Vector3 Velocity
+        {
+            get
+            {
+                return vel;
+            }
+
+            set
+            {
+                vel = value;
+            }
+        }
 
 
         [SerializeField]
@@ -114,21 +128,6 @@ namespace Beam.Core.Player
         //Updates the player's velocity, taking into account smoothing, player rotation, input, etc.
         private void updateVelocity()
         {
-            //Get the acceleration vector from the player's imput.
-            Vector3 moveAccel;
-            if (noClip)
-            {
-                MouseCameraControl camera = GetComponentInChildren<MouseCameraControl>();
-                moveAccel = moveParams.accel * Vector3.Normalize((camera.transform.right * moveParams.rawMoveInput.x + camera.transform.forward * moveParams.rawMoveInput.y));
-            } else
-            {
-                moveAccel = moveParams.accel * Vector3.Normalize((transform.right * moveParams.rawMoveInput.x + transform.forward * moveParams.rawMoveInput.y));
-            }
-
-
-            //determines the max xz speed that the player can have 
-            float playerSpeedCap = moveParams.maxMoveSpeed * moveParams.rawMoveInput.magnitude;
-
             //update player's y velocity based on gravity
             if (isGrounded)
             {
@@ -143,20 +142,39 @@ namespace Beam.Core.Player
                 vel.y -= gravity * Time.deltaTime;
             }
 
-            Vector3 oldXZVel = new Vector3(vel.x, noClip ? vel.y : 0, vel.z);
-            Vector3 newXZVel = moveAccel * Time.deltaTime + oldXZVel;
-            Vector3 newVelDir = Vector3.Normalize(newXZVel);
-
-            float newVelMagAdjusted;
-            if (newXZVel.magnitude > playerSpeedCap)
+            //Get the acceleration vector from the player's imput.
+            Vector3 moveAccel;
+            if (noClip)
             {
-                newVelMagAdjusted = Mathf.Lerp(oldXZVel.magnitude, playerSpeedCap, moveParams.overCapSmoothing);
-            } else
+                MouseCameraControl camera = GetComponentInChildren<MouseCameraControl>();
+                moveAccel = moveParams.accelGround * Vector3.Normalize((camera.transform.right * moveParams.rawMoveInput.x + camera.transform.forward * moveParams.rawMoveInput.y));
+            }
+            else
             {
-                newVelMagAdjusted = Mathf.Min(newXZVel.magnitude, playerSpeedCap);
+                moveAccel = (isGrounded ? moveParams.accelGround : moveParams.accelAir) * Vector3.Normalize((transform.right * moveParams.rawMoveInput.x + transform.forward * moveParams.rawMoveInput.y));
             }
 
-            newXZVel = newVelMagAdjusted * newVelDir;
+            Vector3 oldXZVel = new Vector3(vel.x, noClip ? vel.y : 0, vel.z);
+            Vector3 newXZVel = moveAccel * Time.deltaTime + oldXZVel;
+
+
+            if (isGrounded || noClip) //Preserve momentum in air, otherwise cap player's speed.
+            {
+                //determines the max xz speed that the player can have 
+                float playerSpeedCap = moveParams.maxMoveSpeed * moveParams.rawMoveInput.magnitude;
+                Vector3 newVelDir = Vector3.Normalize(newXZVel);
+                float newVelMagAdjusted;
+                if (newXZVel.magnitude > playerSpeedCap)
+                {
+                    newVelMagAdjusted = Mathf.Lerp(oldXZVel.magnitude, playerSpeedCap, moveParams.overCapSmoothing);
+                }
+                else
+                {
+                    newVelMagAdjusted = Mathf.Min(newXZVel.magnitude, playerSpeedCap);
+                }
+
+                newXZVel = newVelMagAdjusted * newVelDir;
+            }
 
             vel.x = newXZVel.x;
             vel.z = newXZVel.z;
