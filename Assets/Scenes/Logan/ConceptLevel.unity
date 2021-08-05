@@ -2667,6 +2667,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 970953125165186033, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
+      propertyPath: mouseSensitivity
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1130074878021942449, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -2726,10 +2730,6 @@ PrefabInstance:
     - target: {fileID: 1130074878021942453, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
       propertyPath: m_Name
       value: Player (First Person)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2251184424026648098, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
-      propertyPath: noClip
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2785743722217414107, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
       propertyPath: m_NotificationBehavior

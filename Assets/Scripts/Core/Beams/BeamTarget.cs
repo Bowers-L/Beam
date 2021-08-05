@@ -39,7 +39,7 @@ namespace Beam.Core.Beams
                 beamFlex = beamFlex < 0 ? -beamFlex : beamFlex; //Make sure beamFlex is positive
                 if (beamFlex > currSource.maxBeamFlex)
                 {
-                    detachBeam(currSource);
+                    detachBeam();
                 } else
                 {
                     Vector3 targetPos = currSource.transform.position + currSource.transform.forward * currBeamDist;
@@ -67,8 +67,6 @@ namespace Beam.Core.Beams
         public void attachBeam(BeamSource source, Ray beam)
         {
             currSource = source;
-            //EventManager.StartListening<BeamSourceMoved, BeamSource>(handleBeamMoved);
-            EventManager.StartListening<BeamRelease, BeamSource>(detachBeam);
 
             //snap object center to the cursor
             rb.MovePosition(UnityEngineExt.projectPointOntoLine(transform.position, beam));
@@ -79,16 +77,10 @@ namespace Beam.Core.Beams
             //Change sprite to highlight change.
         }
 
-        public void detachBeam(BeamSource source)
+        public void detachBeam()
         {
-            if (currSource == source)
-            {
-                currSource = null;
-                //EventManager.StopListening<BeamSourceMoved, BeamSource>(handleBeamMoved);
-                EventManager.StopListening<BeamRelease, BeamSource>(detachBeam);
-
-                rb.useGravity = true;
-            }
+            currSource = null;
+            rb.useGravity = true;
         }
 
         //The Callee is responsible for checking if the source is the same as currSource!
