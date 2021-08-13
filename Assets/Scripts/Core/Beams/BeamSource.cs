@@ -7,7 +7,13 @@ using Beam.Utility;
 
 namespace Beam.Core.Beams
 {
-    public class BeamShot : UnityEvent<Ray> { }
+    public enum BeamType
+    {
+        Grab,
+        Swap
+    }
+
+    public class BeamShot : UnityEvent<BeamSource, Ray> { }
     public class BeamRelease : UnityEvent<BeamSource> { }
     public class BeamSourceMoved : UnityEvent<BeamSource> { }
 
@@ -23,10 +29,10 @@ namespace Beam.Core.Beams
         {
         }
 
-        public void ActivateBeam(Ray beamRay)
+        public void GrabBeam(Ray beamRay)
         {
-            EventManager.InvokeEvent<BeamShot, Ray>(beamRay);
-            BeamTarget target = FindTarget(beamRay);
+            EventManager.InvokeEvent<BeamShot, BeamSource, Ray>(this, beamRay);
+            BeamTarget target = FindTarget(beamRay, BeamType.Grab);
             if ( target != null)
             {
                 target.attachBeam(this, beamRay);
@@ -45,9 +51,9 @@ namespace Beam.Core.Beams
             }
         }
 
-        public virtual void TravelBeam(Ray beamRay)
+        public virtual void SwapBeam(Ray beamRay)
         {
-            BeamTarget target = currTarget != null ? currTarget : FindTarget(beamRay);
+            BeamTarget target = currTarget != null ? currTarget : FindTarget(beamRay, BeamType.Swap);
 
             if (target != null)
             {
@@ -59,13 +65,25 @@ namespace Beam.Core.Beams
 
         }
 
-        protected BeamTarget FindTarget(Ray beamRay)
+        protected BeamTarget FindTarget(Ray beamRay, BeamType type)
         {
-            RaycastHit hitInfo;
-            UnityEngineExt.GetMaskWithout("Ignore Raycast");
-            if (Physics.Raycast(beamRay, out hitInfo, maxBeamRange))
+
+            int layerMask = UnityEngineExt.GetMaskWithout("Ignore Raycast");
+            switch (type)
             {
-                BeamTarget target = hitInfo.collider.GetComponent<BeamTarget>();
+                case BeamType.Grab:
+                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Grab");
+                    break;
+                case BeamType.Swap:
+                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Swap");
+                    break;
+                default:
+                    break;
+            }
+            RaycastHit hitInfo;
+            if (Physics.Raycast(beamRay, out hitInfo, maxBeamRange, layerMask))
+            {
+                BeamTarget target = hitInfo.collider.GetComponentInParent<BeamTarget>();
                 return target;
             }
 
