@@ -473,5 +473,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxBeamRange: 1000
   maxBeamFlex: 50
-  beamSnapSpeed: 30
+  beamSnapSpeed: 10
   currTarget: {fileID: 0}
