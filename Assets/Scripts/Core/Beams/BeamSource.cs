@@ -53,7 +53,7 @@ namespace Beam.Core.Beams
 
         public virtual void SwapBeam(Ray beamRay)
         {
-            BeamTarget target = currTarget != null ? currTarget : FindTarget(beamRay, BeamType.Swap);
+            BeamTarget target = FindTarget(beamRay, BeamType.Swap);
 
             if (target != null)
             {

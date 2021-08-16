@@ -39,7 +39,7 @@ namespace Beam.Core.Beams
 
         public override void SwapBeam(Ray beamRay)
         {
-            BeamTarget target = currTarget != null ? currTarget : FindTarget(beamRay, BeamType.Swap);
+            BeamTarget target = FindTarget(beamRay, BeamType.Swap);
             if (target != null)
             {
                 CharacterController controller = GetComponentInParent<CharacterController>();

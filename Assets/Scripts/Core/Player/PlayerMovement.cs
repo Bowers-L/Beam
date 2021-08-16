@@ -71,7 +71,7 @@ namespace Beam.Core.Player
             get
             {
                 //Multiple groundchecks around the player's capsule to cover the more complicated cases (such as ascending stairs)
-                float groundCheckPrecision = 0.5f;
+                float groundCheckPrecision = 0.1f;
                 bool center = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
                 bool xplus = Physics.CheckSphere(groundCheck.position + controller.radius * groundCheckPrecision * Vector3.right, groundDistance, groundMask);
                 bool xminus = Physics.CheckSphere(groundCheck.position + controller.radius * groundCheckPrecision * Vector3.right, groundDistance, groundMask);

@@ -32,16 +32,21 @@ namespace Beam.Triggers
             {
                 deactivate();
             }
+
+
         }
 
         public void Update()
         {
             //I want to put buttonTriggered here, but C# isn't C++ and doesn't support static local variables. Waaaah, waaaah.
-            if (this.transform.localPosition.y <= 0.51 && !buttonTriggered)
+            if (this.transform.localPosition.y <= 0.51)
             {
-                buttonTriggered = true;
-                anim.SetBool("ButtonTriggered", true);
-                activate();
+                if (!buttonTriggered)
+                {
+                    buttonTriggered = true;
+                    anim.SetBool("ButtonTriggered", true);
+                    activate();
+                }
             } else if (buttonTriggered)
             {
                 buttonTriggered = false;
@@ -52,7 +57,7 @@ namespace Beam.Triggers
 
         public void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("PressurePlateTarget"))
+            if (other.CompareTag("PressurePlateTarget") || other.CompareTag("Player"))
             {
                 anim.SetBool("BoxOn", true);
                 other.transform.parent = this.transform;
@@ -61,7 +66,7 @@ namespace Beam.Triggers
 
         public void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("PressurePlateTarget"))
+            if (other.CompareTag("PressurePlateTarget") || other.CompareTag("Player"))
             {
                 anim.SetBool("BoxOn", false);
                 other.transform.parent = null;
