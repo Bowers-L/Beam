@@ -859,7 +859,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bda89fd7bd13ee41b0a9db89ceb810c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
+  anim: {fileID: 514006944}
+  upPos: {fileID: 985355575}
+  downPos: {fileID: 1126835745}
 --- !u!114 &514006942 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2047779608738358460, guid: e53ba31605054804b91c97efe0669f8d, type: 3}
@@ -871,6 +873,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bda89fd7bd13ee41b0a9db89ceb810c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &514006944 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2466074760486097807, guid: e53ba31605054804b91c97efe0669f8d, type: 3}
+  m_PrefabInstance: {fileID: 8860321379447361506}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &609222137
 Mesh:
   m_ObjectHideFlags: 0
@@ -1753,6 +1760,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &985355575 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7494194867193940729, guid: e53ba31605054804b91c97efe0669f8d, type: 3}
+  m_PrefabInstance: {fileID: 8860321379447361506}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1034587851
 Mesh:
   m_ObjectHideFlags: 0
@@ -2081,6 +2093,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &1126835745 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7992748318862784060, guid: e53ba31605054804b91c97efe0669f8d, type: 3}
+  m_PrefabInstance: {fileID: 8860321379447361506}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1315236718
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ namespace Beam.Triggers
     public class PressurePlateTrigger : Trigger
     {
         public Animator anim;
+        public Transform upPos;
+        public Transform downPos;
         
         //First time? Thought so.
         private bool buttonTriggered;
@@ -52,7 +54,7 @@ namespace Beam.Triggers
         {
             if (other.CompareTag("PressurePlateTarget"))
             {
-                anim.SetTrigger("BoxOn");
+                anim.SetBool("BoxOn", true);
                 other.transform.parent = this.transform;
             }
         }
@@ -61,7 +63,7 @@ namespace Beam.Triggers
         {
             if (other.CompareTag("PressurePlateTarget"))
             {
-                anim.SetTrigger("BoxOff");
+                anim.SetBool("BoxOn", false);
                 other.transform.parent = null;
             }
         }
