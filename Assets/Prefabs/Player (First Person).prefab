@@ -115,7 +115,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2914195950158468213}
         m_TargetAssemblyTypeName: Beam.Core.Beams.PlayerBeamSource, Assembly-CSharp
-        m_MethodName: OnShoot
+        m_MethodName: OnShootGrab
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -187,7 +187,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2914195950158468213}
         m_TargetAssemblyTypeName: Beam.Core.Beams.PlayerBeamSource, Assembly-CSharp
-        m_MethodName: OnTravel
+        m_MethodName: OnShootSwap
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -218,12 +218,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 5373827355211569709}
   gravity: 30
-  jumpHeight: 3
+  jumpHeight: 2
   groundCheck: {fileID: 2722610955488524463}
   groundDistance: 0.1
   groundMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 4294967295
   forceMag: 3
   noClip: 0
   vel: {x: 0, y: 0, z: 0}
@@ -473,5 +473,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxBeamRange: 1000
   maxBeamFlex: 50
-  beamSnapSpeed: 30
+  beamSnapSpeed: 10
   currTarget: {fileID: 0}

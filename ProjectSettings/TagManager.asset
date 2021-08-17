@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PressurePlateTarget
+  - Glass
   layers:
   - Default
   - TransparentFX
@@ -13,8 +15,8 @@ TagManager:
   - UI
   - Ground
   - Interactables
-  - 
-  - 
+  - Allows Grab
+  - Allows Swap
   - 
   - 
   - 

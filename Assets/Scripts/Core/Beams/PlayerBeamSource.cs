@@ -15,11 +15,11 @@ namespace Beam.Core.Beams
             }
         }
 
-        public void OnShoot(InputAction.CallbackContext ctx)
+        public void OnShootGrab(InputAction.CallbackContext ctx)
         {
             if (ctx.performed)
             {
-                ActivateBeam(new Ray(transform.position, transform.forward));
+                GrabBeam(new Ray(transform.position, transform.forward));
             } 
             
             if (ctx.canceled)
@@ -28,18 +28,18 @@ namespace Beam.Core.Beams
             }
         }
 
-        public void OnTravel(InputAction.CallbackContext ctx)
+        public void OnShootSwap(InputAction.CallbackContext ctx)
         {
             if (ctx.performed)
             {
                 Debug.Log("Beam Traveled");
-                TravelBeam(new Ray(transform.position, transform.forward));
+                SwapBeam(new Ray(transform.position, transform.forward));
             }
         }
 
-        public override void TravelBeam(Ray beamRay)
+        public override void SwapBeam(Ray beamRay)
         {
-            BeamTarget target = currTarget != null ? currTarget : FindTarget(beamRay);
+            BeamTarget target = FindTarget(beamRay, BeamType.Swap);
             if (target != null)
             {
                 CharacterController controller = GetComponentInParent<CharacterController>();
