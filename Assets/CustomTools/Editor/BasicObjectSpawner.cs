@@ -34,10 +34,10 @@ public class BasicObjectSpawner : EditorWindow
         objectID = EditorGUILayout.IntField("Object ID", objectID);
         objectScale = EditorGUILayout.Slider("Object Scale", objectScale, 0.5f, 3f);
         spawnRadius = EditorGUILayout.FloatField("Spawn Radius", spawnRadius);
-        if (spawnerShape == Shape.DISK)
-        {
+        //if (spawnerShape == Shape.DISK)
+        //{
             spawnHeight = EditorGUILayout.FloatField("Spawn Height", spawnHeight);
-        }
+        //}
 
         
         if (GUILayout.Button("Spawn Object"))
@@ -68,7 +68,7 @@ public class BasicObjectSpawner : EditorWindow
                 break;
             case Shape.SPHERE:
                 Vector3 spawnSphere = Random.insideUnitSphere * spawnRadius;
-                spawnPos = new Vector3(spawnSphere.x, spawnSphere.y, spawnSphere.z);
+                spawnPos = new Vector3(spawnSphere.x, spawnSphere.y+spawnHeight, spawnSphere.z);
                 break;
         }
 
