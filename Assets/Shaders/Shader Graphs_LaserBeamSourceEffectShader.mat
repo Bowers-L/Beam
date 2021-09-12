@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_LaserBeamEffectShader
+  m_Name: Shader Graphs_LaserBeamSourceEffectShader
   m_Shader: {fileID: -6465566751694194690, guid: 7b62b6cecf2f6674391e441d9fbbf7d5, type: 3}
   m_ShaderKeywords: _ENABLE_FOG_ON_TRANSPARENT _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
@@ -26,11 +26,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_58ba2f381d1949a9a78c8387b109e79f:
-        m_Texture: {fileID: 2800000, guid: 05e069fd1db911d48bd49425630e1db2, type: 3}
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_8909d552e9e942d9b862b7bfcfa0cdcc:
-        m_Texture: {fileID: 2800000, guid: f5691430ec1cd6a46af72609e5bab59e, type: 3}
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -49,7 +49,7 @@ Material:
     - Vector1_09fc4b75bd6f4ac39631c94780b57831: 0
     - Vector1_137dc03bee6343fba56629c3d953bde2: 0
     - Vector1_7c77e1326a0544dcaf433856f9080482: 2
-    - Vector1_b3dda2472000478ba8abf1fcfc1e9388: 0.5
+    - Vector1_b3dda2472000478ba8abf1fcfc1e9388: 0
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 10
@@ -92,8 +92,8 @@ Material:
     - _ZTestTransparent: 0
     - _ZWrite: 0
     m_Colors:
-    - Color_3ef2e203398e4f56903a97172fcda117: {r: 1.1713423, g: 0.6991257, b: 0.03066341, a: 1}
-    - Vector2_c6b3f8d90aaf483aac157c5d5058d671: {r: -0.5, g: 0, b: 0, a: 0}
+    - Color_3ef2e203398e4f56903a97172fcda117: {r: 1.563834, g: 1.563834, b: 1.563834, a: 1}
+    - Vector2_c6b3f8d90aaf483aac157c5d5058d671: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_e7be6280eade48f288d8d0c168568331: {r: -0.7, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
