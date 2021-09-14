@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace Beam.Core.Player
 {
@@ -116,7 +117,7 @@ namespace Beam.Core.Player
 
             if (transform.position.y <= killPlaneY)
             {
-                transform.position = respawn.transform.position;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
 
