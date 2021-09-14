@@ -39,8 +39,8 @@ namespace Beam.Core.Beams
 
         public override void SwapBeam(Ray beamRay)
         {
-            BeamTarget target = FindTarget(beamRay, BeamType.Swap);
-            if (target != null)
+            currTarget = FindTarget(beamRay, BeamType.Swap);
+            if (currTarget != null)
             {
                 CharacterController controller = GetComponentInParent<CharacterController>();
                 PlayerMovement player = GetComponentInParent<PlayerMovement>();
@@ -48,10 +48,10 @@ namespace Beam.Core.Beams
 
                 //Teleport the player (probably want to start some kind of coroutine/animation here)
                 Vector3 tempPos = controller.transform.position;
-                controller.transform.position = target.transform.position;
-                target.transform.position = tempPos;
+                controller.transform.position = currTarget.transform.position;
+                currTarget.transform.position = tempPos;
 
-                Rigidbody targetRb = target.GetComponent<Rigidbody>();
+                Rigidbody targetRb = currTarget.GetComponent<Rigidbody>();
                 if (targetRb != null)
                 {
                     Vector3 tempVel = player.Velocity;
@@ -59,6 +59,7 @@ namespace Beam.Core.Beams
                     targetRb.velocity = tempVel;
                 }
 
+                currBeamType = BeamType.Grab;
                 DeactivateBeam();
                 controller.enabled = true;
             }

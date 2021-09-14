@@ -6,12 +6,14 @@ namespace Beam.Core.Beams
 {
     public class BeamTarget : MonoBehaviour
     {
+        //How long the beam is.
+        public float currBeamDist;
+
         //What beam this target is attached to. 
-        private BeamSource currSource;
+        protected BeamSource currSource;
         private Rigidbody rb;
 
-        //How long the beam is.
-        private float currBeamDist;
+
 
         public void Start()
         {
@@ -45,21 +47,7 @@ namespace Beam.Core.Beams
                     Vector3 targetPos = currSource.transform.position + currSource.transform.forward * currBeamDist;
                     Vector3 targetDir = targetPos - transform.position;
 
-                    rb.AddForce(targetDir * currSource.beamSnapSpeed, ForceMode.VelocityChange);
-                    /*
-                    RaycastHit hitInfo;
-                    bool hit = Physics.Raycast(transform.position, targetDir, out hitInfo, targetDir.magnitude);
-                    if (hit)
-                    {
-                        //TODO Snap the object to the edge of the collider.
-                    }
-                    else
-                    {
-                        //This will always snap the object, regardless of if there is a collision, which will cause it to go through objects.
-                        rb.MovePosition(targetPos);
-                        rb.AddForce()
-                    }
-                    */
+                    rb.AddForce(targetDir * currSource.beamSnapSpeed, ForceMode.VelocityChange);   
                 }
             }
         }
