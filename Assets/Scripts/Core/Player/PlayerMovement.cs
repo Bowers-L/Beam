@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace Beam.Core.Player
 {
@@ -42,6 +43,9 @@ namespace Beam.Core.Player
         public float forceMag = 10.0f;  //used for physics when the player collides with a rigidbody.
 
         public bool noClip; //for debugging purposes
+
+        public float killPlaneY;
+        public GameObject respawn;
 
         [SerializeField]
         private Vector3 vel;
@@ -87,6 +91,11 @@ namespace Beam.Core.Player
             {
                 Debug.LogError("Player should have a CharacterController component.");
             }
+
+            if (respawn == null)
+            {
+                respawn = GameObject.FindGameObjectWithTag("Respawn");
+            }
         }
 
         // Update is called once per frame
@@ -104,6 +113,11 @@ namespace Beam.Core.Player
             } else
             {
                 controller.Move(vel * Time.deltaTime);
+            }
+
+            if (transform.position.y <= killPlaneY)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
 

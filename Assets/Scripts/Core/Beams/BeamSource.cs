@@ -9,6 +9,7 @@ namespace Beam.Core.Beams
 {
     public enum BeamType
     {
+        None,
         Grab,
         Swap
     }
@@ -23,10 +24,25 @@ namespace Beam.Core.Beams
         public float maxBeamFlex;   //The maximum angle between an object and the player's cursor before the beam breaks.
         public float beamSnapSpeed;
 
-        public BeamTarget currTarget;
+        protected BeamTarget currTarget;
+        protected BeamType currBeamType;
 
-        public void Update()
+        public void FixedUpdate()
         {
+            if (currTarget != null)
+            {
+                Ray beamDir = new Ray(transform.position, currTarget.transform.position - transform.position);
+
+                RaycastHit hitInfo;
+                if (Physics.Raycast(beamDir, out hitInfo, currTarget.currBeamDist, GetLayerMask(currBeamType)))
+                {
+                    if (!hitInfo.transform.gameObject.Equals(currTarget.gameObject))
+                    {
+                        currTarget.detachBeam();
+                    }
+                }
+            }
+
         }
 
         public void GrabBeam(Ray beamRay)
@@ -37,8 +53,9 @@ namespace Beam.Core.Beams
             {
                 target.attachBeam(this, beamRay);
                 currTarget = target;
-            }
 
+                currBeamType = BeamType.Grab;
+            }
         }
 
         public void DeactivateBeam()
@@ -49,17 +66,24 @@ namespace Beam.Core.Beams
                 currTarget = null;
                 EventManager.InvokeEvent<BeamRelease, BeamSource>(this);
             }
+
+            currBeamType = BeamType.None;
         }
 
         public virtual void SwapBeam(Ray beamRay)
         {
-            BeamTarget target = FindTarget(beamRay, BeamType.Swap);
+            //Note: This function is overrided by the player in PlayerBeamSource.cs
+            //Also, it will eventually need to be modified/replaced to account for the time of the VFX.
 
-            if (target != null)
+            currTarget = FindTarget(beamRay, BeamType.Swap);
+
+
+            if (currTarget != null)
             {
                 Vector3 tempPos = transform.position;
                 transform.position = currTarget.transform.position;
                 currTarget.transform.position = tempPos;
+                currBeamType = BeamType.Grab;
                 DeactivateBeam();
             }
 
@@ -67,7 +91,18 @@ namespace Beam.Core.Beams
 
         protected BeamTarget FindTarget(Ray beamRay, BeamType type)
         {
+            RaycastHit hitInfo;
+            if (Physics.Raycast(beamRay, out hitInfo, maxBeamRange, GetLayerMask(type)))
+            {
+                BeamTarget target = hitInfo.collider.GetComponentInParent<BeamTarget>();
+                return target;
+            }
 
+            return null;
+        }
+
+        protected int GetLayerMask(BeamType type)
+        {
             int layerMask = UnityEngineExt.GetMaskWithout("Ignore Raycast");
             switch (type)
             {
@@ -80,14 +115,8 @@ namespace Beam.Core.Beams
                 default:
                     break;
             }
-            RaycastHit hitInfo;
-            if (Physics.Raycast(beamRay, out hitInfo, maxBeamRange, layerMask))
-            {
-                BeamTarget target = hitInfo.collider.GetComponentInParent<BeamTarget>();
-                return target;
-            }
 
-            return null;
+            return layerMask;
         }
     }
 
