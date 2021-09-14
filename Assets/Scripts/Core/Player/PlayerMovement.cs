@@ -43,6 +43,9 @@ namespace Beam.Core.Player
 
         public bool noClip; //for debugging purposes
 
+        public float killPlaneY;
+        public GameObject respawn;
+
         [SerializeField]
         private Vector3 vel;
         [SerializeField]
@@ -87,6 +90,11 @@ namespace Beam.Core.Player
             {
                 Debug.LogError("Player should have a CharacterController component.");
             }
+
+            if (respawn == null)
+            {
+                respawn = GameObject.FindGameObjectWithTag("Respawn");
+            }
         }
 
         // Update is called once per frame
@@ -104,6 +112,11 @@ namespace Beam.Core.Player
             } else
             {
                 controller.Move(vel * Time.deltaTime);
+            }
+
+            if (transform.position.y <= killPlaneY)
+            {
+                transform.position = respawn.transform.position;
             }
         }
 
