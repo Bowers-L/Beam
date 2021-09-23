@@ -227,7 +227,6 @@ MonoBehaviour:
   forceMag: 3
   noClip: 0
   killPlaneY: -20
-  respawn: {fileID: 0}
   vel: {x: 0, y: 0, z: 0}
   velAtLastJump: {x: 0, y: 0, z: 0}
   moveParams:
