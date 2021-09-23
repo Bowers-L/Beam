@@ -1,15 +1,125 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEditor;
+using Beam.Utility;
 
 namespace Beam.Core.Player
 {
+    #region Editor
+    public class ReadOnlyAttribute : PropertyAttribute
+    {
+
+    }
+
+    [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
+    public class ReadOnlyDrawer : PropertyDrawer
+    {
+        public override float GetPropertyHeight(SerializedProperty property,
+                                                GUIContent label)
+        {
+            return EditorGUI.GetPropertyHeight(property, label, true);
+        }
+
+        public override void OnGUI(Rect position,
+                                   SerializedProperty property,
+                                   GUIContent label)
+        {
+            GUI.enabled = false;
+            EditorGUI.PropertyField(position, property, label, true);
+            GUI.enabled = true;
+        }
+    }
+
+    public enum PlayerMovementEditorTypes
+    {
+
+    }
+
+    //https://blog.terresquall.com/2020/07/organising-your-unity-inspector-fields-with-a-dropdown-filter/
+    //This is extremely overkill for this script, but I thought it might be useful for future scripts.
+    [CustomEditor(typeof(PlayerMovement))]
+    public class PlayerMovementEditor : Editor
+    {
+        // The various categories the editor will display the variables in
+        public enum DisplayCategory
+        {
+                MovementParameters,
+                Jumping,
+                GroundCheck,
+                Misc
+        }
+        // The enum field that will determine what variables to display in the Inspector
+        public DisplayCategory categoryToDisplay;
+
+        //This is what actually makes the editor
+        public override void OnInspectorGUI()
+        {
+            // Display the enum popup in the inspector
+            categoryToDisplay = (DisplayCategory)EditorGUILayout.EnumPopup("Display", categoryToDisplay);
+
+            // Create a space to separate this enum popup from the other variables 
+            EditorGUILayout.Space();
+
+            // Check the value of the enum and display variables based on it
+            switch (categoryToDisplay)
+            {
+                case DisplayCategory.MovementParameters:
+                    DisplayMovementParametersInfo();
+                    break;
+
+                case DisplayCategory.Jumping:
+                    DisplayJumpingInfo();
+                    break;
+                case DisplayCategory.GroundCheck:
+                    DisplayGroundCheckInfo();
+                    break;
+                case DisplayCategory.Misc:
+                    DisplayMiscInfo();
+                    break;
+
+            }
+
+            // Save all changes made on the Inspector
+            serializedObject.ApplyModifiedProperties();
+        }
+
+        void DisplayMovementParametersInfo()
+        {
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("moveParams"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("vel"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("velAtLastJump"));
+        }
+
+        void DisplayJumpingInfo()
+        {
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("gravity"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("jumpHeight"));
+        }
+
+        void DisplayGroundCheckInfo()
+        {
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("groundCheck"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("groundDistance"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("groundMask"));
+        }
+
+        void DisplayMiscInfo()
+        {
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("forceMag"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("noClip"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("killPlaneY"));
+        }
+    }
+#endregion
 
     //https://www.youtube.com/watch?v=_QajrabyTJc
     public class PlayerMovement : MonoBehaviour
     {
+
         //Parameters used to calculate the velocity
         [System.Serializable]
+
         public struct MovementParameters
         {
             public float maxMoveSpeed;
@@ -18,6 +128,7 @@ namespace Beam.Core.Player
             public float accelAir;
 
             //Controls how fast the player slows down when exceeding the speed cap.
+            [Range(0f, 1f)]
             public float overCapSmoothing;
             //The speed cap while in the air as a percentage of the liftoff speed
             public float airCapWeight;
@@ -45,11 +156,12 @@ namespace Beam.Core.Player
         public bool noClip; //for debugging purposes
 
         public float killPlaneY;
-        public GameObject respawn;
 
         [SerializeField]
+        [ReadOnly]
         private Vector3 vel;
         [SerializeField]
+        [ReadOnly]
         private Vector3 velAtLastJump;
 
         [SerializeField]
@@ -90,11 +202,6 @@ namespace Beam.Core.Player
             if (GetComponent<CharacterController>() == null)
             {
                 Debug.LogError("Player should have a CharacterController component.");
-            }
-
-            if (respawn == null)
-            {
-                respawn = GameObject.FindGameObjectWithTag("Respawn");
             }
         }
 
