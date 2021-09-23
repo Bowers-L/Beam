@@ -1,9 +1,12 @@
+
+
 using UnityEngine;
 using UnityEngine.Events;
 
 using Beam.Events;
 using Beam.Utility;
 
+using System.Collections;
 
 namespace Beam.Core.Beams
 {
@@ -24,8 +27,14 @@ namespace Beam.Core.Beams
         public float maxBeamFlex;   //The maximum angle between an object and the player's cursor before the beam breaks.
         public float beamSnapSpeed;
 
+        public GameObject beamEffectPrefab;
+        public GameObject beamEffectPos;
+
         protected BeamTarget currTarget;
         protected BeamType currBeamType;
+
+        [HideInInspector]
+        public GameObject beamEffectInst;
 
         public void FixedUpdate()
         {
@@ -43,6 +52,10 @@ namespace Beam.Core.Beams
                 }
             }
 
+            if (beamEffectPrefab == null)
+            {
+                Debug.LogWarning("Beam source is missing effect prefab");
+            }
         }
 
         public void GrabBeam(Ray beamRay)
@@ -51,11 +64,23 @@ namespace Beam.Core.Beams
             BeamTarget target = FindTarget(beamRay, BeamType.Grab);
             if ( target != null)
             {
-                target.attachBeam(this, beamRay);
                 currTarget = target;
-
                 currBeamType = BeamType.Grab;
+                Debug.Log("GrabBeam");
+
+                StartCoroutine(GrabBeamEffect());
+
+                target.attachBeam(this, beamRay);
             }
+        }
+
+        IEnumerator GrabBeamEffect()
+        {
+            Debug.Log("grabBeamEffect");
+            beamEffectInst = Instantiate(beamEffectPrefab);
+
+            beamEffectInst.GetComponent<BeamSourceEffect>().SetPos(beamEffectPos.transform.position, currTarget.transform.position);
+            yield return new WaitForSeconds(1f);
         }
 
         public void DeactivateBeam()
@@ -65,6 +90,11 @@ namespace Beam.Core.Beams
                 currTarget.detachBeam();
                 currTarget = null;
                 EventManager.InvokeEvent<BeamRelease, BeamSource>(this);
+            }
+
+            if (beamEffectInst != null)
+            {
+                Destroy(beamEffectInst);
             }
 
             currBeamType = BeamType.None;

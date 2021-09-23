@@ -12,6 +12,7 @@ namespace Beam.Core.Beams
         //What beam this target is attached to. 
         protected BeamSource currSource;
         private Rigidbody rb;
+        private GameObject beamEffectInst;
 
 
 
@@ -47,7 +48,8 @@ namespace Beam.Core.Beams
                     Vector3 targetPos = currSource.transform.position + currSource.transform.forward * currBeamDist;
                     Vector3 targetDir = targetPos - transform.position;
 
-                    rb.AddForce(targetDir * currSource.beamSnapSpeed, ForceMode.VelocityChange);   
+                    rb.AddForce(targetDir * currSource.beamSnapSpeed, ForceMode.VelocityChange);
+                    currSource.beamEffectInst.GetComponent<BeamSourceEffect>().SetPos(currSource.beamEffectPos.transform.position, transform.position);
                 }
             }
         }

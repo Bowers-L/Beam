@@ -32,13 +32,13 @@ namespace Beam.Core.Beams
         {
             if (ctx.performed)
             {
-                Debug.Log("Beam Traveled");
                 SwapBeam(new Ray(transform.position, transform.forward));
             }
         }
 
         public override void SwapBeam(Ray beamRay)
         {
+            //Need overridden implementation for this since it involves the character controller.
             currTarget = FindTarget(beamRay, BeamType.Swap);
             if (currTarget != null)
             {
