@@ -107,10 +107,10 @@ namespace Beam.Core.Beams
             switch (type)
             {
                 case BeamType.Grab:
-                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Grab");
+                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Grab") & UnityEngineExt.GetMaskWithout("Allows Both");
                     break;
                 case BeamType.Swap:
-                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Swap");
+                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Swap") & UnityEngineExt.GetMaskWithout("Allows Both");
                     break;
                 default:
                     break;
