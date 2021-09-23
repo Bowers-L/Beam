@@ -50,7 +50,7 @@ namespace Beam.Core.Beams
                 Vector3 tempPos = controller.transform.position;
                 controller.transform.position = currTarget.transform.position;
                 currTarget.transform.position = tempPos;
-
+                print(tempPos);
                 Rigidbody targetRb = currTarget.GetComponent<Rigidbody>();
                 if (targetRb != null)
                 {
