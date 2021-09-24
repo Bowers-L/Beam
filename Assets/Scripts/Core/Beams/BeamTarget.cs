@@ -42,7 +42,7 @@ namespace Beam.Core.Beams
                 beamFlex = beamFlex < 0 ? -beamFlex : beamFlex; //Make sure beamFlex is positive
                 if (beamFlex > currSource.maxBeamFlex)
                 {
-                    detachBeam();
+                    currSource.DeactivateBeam();
                 } else
                 {
                     Vector3 targetPos = currSource.transform.position + currSource.transform.forward * currBeamDist;
