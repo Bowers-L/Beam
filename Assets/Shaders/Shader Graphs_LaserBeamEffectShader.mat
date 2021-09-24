@@ -49,7 +49,7 @@ Material:
     - Vector1_09fc4b75bd6f4ac39631c94780b57831: 0
     - Vector1_137dc03bee6343fba56629c3d953bde2: 0
     - Vector1_7c77e1326a0544dcaf433856f9080482: 2
-    - Vector1_b3dda2472000478ba8abf1fcfc1e9388: 0.5
+    - Vector1_b3dda2472000478ba8abf1fcfc1e9388: 0
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 10
