@@ -12,13 +12,14 @@ namespace Beam.Core.Beams
         //What beam this target is attached to. 
         protected BeamSource currSource;
         private Rigidbody rb;
-        private GameObject beamEffectInst;
+        private BeamSourceEffect beamEffectInst;
 
 
 
         public void Start()
         {
             currSource = null;
+            beamEffectInst = null;
             rb = GetComponent<Rigidbody>();
             if (rb == null)
             {
@@ -42,6 +43,7 @@ namespace Beam.Core.Beams
                 beamFlex = beamFlex < 0 ? -beamFlex : beamFlex; //Make sure beamFlex is positive
                 if (beamFlex > currSource.maxBeamFlex)
                 {
+                    StartCoroutine(currSource.beamEffectInst.BeamBreak());
                     currSource.DeactivateBeam();
                 } else
                 {
@@ -49,7 +51,7 @@ namespace Beam.Core.Beams
                     Vector3 targetDir = targetPos - transform.position;
 
                     rb.AddForce(targetDir * currSource.beamSnapSpeed, ForceMode.VelocityChange);
-                    currSource.beamEffectInst.GetComponent<BeamSourceEffect>().SetPos(currSource.beamEffectPos.transform.position, 
+                    currSource.beamEffectInst.SetPos(currSource.beamEffectPos.transform.position, 
                         transform.position, 
                         currSource.transform.forward);
                 }
@@ -59,6 +61,7 @@ namespace Beam.Core.Beams
         public void AttachBeam(BeamSource source, Ray beam)
         {
             currSource = source;
+            beamEffectInst = source.beamEffectInst;
 
             //snap object center to the cursor
             rb.MovePosition(UnityEngineExt.projectPointOntoLine(transform.position, beam));
