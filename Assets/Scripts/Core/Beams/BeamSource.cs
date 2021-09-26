@@ -34,7 +34,7 @@ namespace Beam.Core.Beams
         protected BeamType currBeamType;
 
         [HideInInspector]
-        public GameObject beamEffectInst;
+        public BeamSourceEffect beamEffectInst;
 
         public void FixedUpdate()
         {
@@ -67,19 +67,16 @@ namespace Beam.Core.Beams
                 currTarget = target;
                 currBeamType = BeamType.Grab;
 
-                StartCoroutine(GrabBeamEffect());
+                GrabBeamEffect();
 
                 target.AttachBeam(this, beamRay);
             }
         }
 
-        IEnumerator GrabBeamEffect()
+        void GrabBeamEffect()
         {
-            Debug.Log("grabBeamEffect");
-            beamEffectInst = Instantiate(beamEffectPrefab);
-
+            beamEffectInst = Instantiate(beamEffectPrefab).GetComponent<BeamSourceEffect>();
             beamEffectInst.GetComponent<BeamSourceEffect>().SetPos(beamEffectPos.transform.position, currTarget.transform.position, transform.forward);
-            yield return null;
         }
 
         public void DeactivateBeam()
@@ -93,7 +90,7 @@ namespace Beam.Core.Beams
 
             if (beamEffectInst != null)
             {
-                Destroy(beamEffectInst);
+                Destroy(beamEffectInst.gameObject);
             }
 
             currBeamType = BeamType.None;
