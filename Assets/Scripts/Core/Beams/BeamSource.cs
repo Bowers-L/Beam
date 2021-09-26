@@ -47,7 +47,7 @@ namespace Beam.Core.Beams
                 {
                     if (!hitInfo.transform.gameObject.Equals(currTarget.gameObject))
                     {
-                        currTarget.detachBeam();
+                        DeactivateBeam();
                     }
                 }
             }
@@ -66,11 +66,10 @@ namespace Beam.Core.Beams
             {
                 currTarget = target;
                 currBeamType = BeamType.Grab;
-                Debug.Log("GrabBeam");
 
                 StartCoroutine(GrabBeamEffect());
 
-                target.attachBeam(this, beamRay);
+                target.AttachBeam(this, beamRay);
             }
         }
 
@@ -79,15 +78,15 @@ namespace Beam.Core.Beams
             Debug.Log("grabBeamEffect");
             beamEffectInst = Instantiate(beamEffectPrefab);
 
-            beamEffectInst.GetComponent<BeamSourceEffect>().SetPos(beamEffectPos.transform.position, currTarget.transform.position);
-            yield return new WaitForSeconds(1f);
+            beamEffectInst.GetComponent<BeamSourceEffect>().SetPos(beamEffectPos.transform.position, currTarget.transform.position, transform.forward);
+            yield return null;
         }
 
         public void DeactivateBeam()
         {
             if (currTarget != null)
             {
-                currTarget.detachBeam();
+                currTarget.DetachBeam();
                 currTarget = null;
                 EventManager.InvokeEvent<BeamRelease, BeamSource>(this);
             }

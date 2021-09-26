@@ -49,12 +49,14 @@ namespace Beam.Core.Beams
                     Vector3 targetDir = targetPos - transform.position;
 
                     rb.AddForce(targetDir * currSource.beamSnapSpeed, ForceMode.VelocityChange);
-                    currSource.beamEffectInst.GetComponent<BeamSourceEffect>().SetPos(currSource.beamEffectPos.transform.position, transform.position);
+                    currSource.beamEffectInst.GetComponent<BeamSourceEffect>().SetPos(currSource.beamEffectPos.transform.position, 
+                        transform.position, 
+                        currSource.transform.forward);
                 }
             }
         }
 
-        public void attachBeam(BeamSource source, Ray beam)
+        public void AttachBeam(BeamSource source, Ray beam)
         {
             currSource = source;
 
@@ -67,7 +69,7 @@ namespace Beam.Core.Beams
             //Change sprite to highlight change.
         }
 
-        public void detachBeam()
+        public void DetachBeam()
         {
             currSource = null;
             rb.useGravity = true;
