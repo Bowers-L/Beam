@@ -77,17 +77,5 @@ namespace Beam.Core.Beams
             currSource = null;
             rb.useGravity = true;
         }
-
-        //The Callee is responsible for checking if the source is the same as currSource!
-        /*
-        public void handleBeamMoved(BeamSource source)
-        {
-            if (currSource == source)
-            {
-                Vector3 targetPos = source.transform.position + source.transform.forward * currBeamDist;
-                rb.MovePosition(targetPos);
-            }
-        }
-        */
     }
 }
