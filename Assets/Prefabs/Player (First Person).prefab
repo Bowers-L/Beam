@@ -236,7 +236,7 @@ MonoBehaviour:
   jumpHeight: 2
   crouchingHeight: 2
   standingHeight: 3
-  crouchSpeedFactor: 0.7
+  crouchSpeedFactor: 0.45
   isCrouching: 0
   groundCheck: {fileID: 2722610955488524463}
   groundDistance: 0.1

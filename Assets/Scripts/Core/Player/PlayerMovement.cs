@@ -353,7 +353,12 @@ namespace Beam.Core.Player
 
             //Cap the player's speed based on parameter weights/player input
             #region Speed Cap
-            float playerSpeedCap = isGrounded ? moveParams.maxMoveSpeed * moveParams.rawMoveInput.magnitude : velAtLastJump.magnitude * moveParams.airCapWeight;
+            float playerSpeedCap;
+            if (isGrounded) {
+                playerSpeedCap = (isCrouching ? crouchSpeedFactor : 1.0f) * moveParams.maxMoveSpeed * moveParams.rawMoveInput.magnitude;
+            } else {
+                playerSpeedCap = velAtLastJump.magnitude * moveParams.airCapWeight;
+            }
             Vector3 newVelDir = Vector3.Normalize(newXZVel);
             float newVelMagAdjusted;
             if (newXZVel.magnitude > playerSpeedCap)
