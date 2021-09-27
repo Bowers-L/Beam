@@ -90,7 +90,7 @@ namespace Beam.Core.Beams
 
             if (beamEffectInst != null)
             {
-                Destroy(beamEffectInst.gameObject);
+                Destroy(beamEffectInst);
             }
 
             currBeamType = BeamType.None;
