@@ -153,6 +153,7 @@ namespace Beam.Core.Player
         }
 
         private CharacterController controller;
+        private Animator anim;
         private Transform playerCameraTrans;
         
         //Jumping
@@ -220,6 +221,7 @@ namespace Beam.Core.Player
                 Debug.LogError("Player should have a CharacterController component.");
             }
             controller = GetComponent<CharacterController>();
+            anim = GetComponent<Animator>();
             playerCameraTrans = GetComponentInChildren<Camera>().GetComponent<Transform>();
         }
 
@@ -286,10 +288,8 @@ namespace Beam.Core.Player
 
         public void StartCrouching()
         {
-            controller.height = crouchingHeight;
-            controller.center -= crouchingHeight / 4 * Vector3.up;
-            playerCameraTrans.position -= (standingHeight - crouchingHeight) * Vector3.up;
             isCrouching = true;
+            anim.SetBool("IsCrouching", isCrouching);
         }
 
         //Returns true if the player actually stops crouching
@@ -299,11 +299,8 @@ namespace Beam.Core.Player
             int mask = UnityEngineExt.GetMaskWithout("Ignore Raycast", "Player");
             if (!Physics.Raycast(transform.position, transform.up, (standingHeight - crouchingHeight) / 2, mask))
             {
-                controller.height = standingHeight;
-                controller.center = Vector3.zero;
-                playerCameraTrans.position += (standingHeight - crouchingHeight) * Vector3.up;
                 isCrouching = false;
-                return true;
+                anim.SetBool("IsCrouching", isCrouching);
             }
             return false;
         }
