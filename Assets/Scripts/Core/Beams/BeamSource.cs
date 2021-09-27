@@ -129,14 +129,14 @@ namespace Beam.Core.Beams
 
         protected int GetLayerMask(BeamType type)
         {
-            int layerMask = UnityEngineExt.GetMaskWithout("Ignore Raycast");
+            int layerMask = UnityEngineExt.GetMaskWithout("Ignore Raycast", "Player");
             switch (type)
             {
                 case BeamType.Grab:
-                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Grab") & UnityEngineExt.GetMaskWithout("Allows Both");
+                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Grab", "Allows Both");
                     break;
                 case BeamType.Swap:
-                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Swap") & UnityEngineExt.GetMaskWithout("Allows Both");
+                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Swap", "Allows Both");
                     break;
                 default:
                     break;
