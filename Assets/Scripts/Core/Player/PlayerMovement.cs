@@ -152,7 +152,8 @@ namespace Beam.Core.Player
             }
         }
 
-        public CharacterController controller;
+        private CharacterController controller;
+        private Transform playerCameraTrans;
         
         //Jumping
         public float gravity = 1f;
@@ -218,6 +219,8 @@ namespace Beam.Core.Player
             {
                 Debug.LogError("Player should have a CharacterController component.");
             }
+            controller = GetComponent<CharacterController>();
+            playerCameraTrans = GetComponentInChildren<Camera>().GetComponent<Transform>();
         }
 
         // Update is called once per frame
@@ -240,6 +243,7 @@ namespace Beam.Core.Player
             }
         }
 
+        #region Input Callbacks
         public void OnMove(InputAction.CallbackContext ctx)
         {
             moveParams.rawMoveInput = ctx.ReadValue<Vector2>();
@@ -283,6 +287,8 @@ namespace Beam.Core.Player
         public void StartCrouching()
         {
             controller.height = crouchingHeight;
+            controller.center -= crouchingHeight / 4 * Vector3.up;
+            playerCameraTrans.position -= (standingHeight - crouchingHeight) * Vector3.up;
             isCrouching = true;
         }
 
@@ -290,14 +296,18 @@ namespace Beam.Core.Player
         public bool TryStopCrouching()
         {
             //Need to check that the player won't get stuck into the wall
-            if (Physics.Raycast(transform.position, transform.up, (standingHeight - crouchingHeight) / 2))
+            int mask = UnityEngineExt.GetMaskWithout("Ignore Raycast", "Player");
+            if (!Physics.Raycast(transform.position, transform.up, (standingHeight - crouchingHeight) / 2, mask))
             {
                 controller.height = standingHeight;
+                controller.center = Vector3.zero;
+                playerCameraTrans.position += (standingHeight - crouchingHeight) * Vector3.up;
                 isCrouching = false;
                 return true;
             }
             return false;
         }
+        #endregion
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {

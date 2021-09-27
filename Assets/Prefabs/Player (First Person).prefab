@@ -232,7 +232,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a64aad2170c3c4b9a5af0f377d2198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 5373827355211569709}
   gravity: 30
   jumpHeight: 2
   crouchingHeight: 2
