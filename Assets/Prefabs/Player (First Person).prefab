@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1130074878021942449}
   - component: {fileID: 5373827355211569709}
   - component: {fileID: 2785743722217414107}
+  - component: {fileID: 5582233482073701602}
   - component: {fileID: 2251184424026648098}
   m_Layer: 10
   m_Name: Player (First Person)
@@ -199,11 +200,46 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3ef85032-e748-4011-87fe-033bb963549a
     m_ActionName: Player/FireSecondary[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2251184424026648098}
+        m_TargetAssemblyTypeName: Beam.Core.Player.PlayerMovement, Assembly-CSharp
+        m_MethodName: OnCrouch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ce091c20-67a0-41a8-ab7e-481c6032c13a
+    m_ActionName: Player/Crouch[/Keyboard/ctrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!95 &5582233482073701602
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130074878021942453}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9a2820e6f1b81ab419cbe5f36b24ed63, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &2251184424026648098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,9 +252,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a64aad2170c3c4b9a5af0f377d2198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 5373827355211569709}
   gravity: 30
   jumpHeight: 2
+  crouchingHeight: 2
+  standingHeight: 3
+  crouchSpeedFactor: 0.45
+  isCrouching: 0
   groundCheck: {fileID: 2722610955488524463}
   groundDistance: 0.1
   groundMask:
@@ -490,7 +529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d594021e98700fd44a05324a63ac0c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 30
+  mouseSensitivity: 20
   playerTrans: {fileID: 1130074878021942449}
 --- !u!114 &2914195950158468213
 MonoBehaviour:
