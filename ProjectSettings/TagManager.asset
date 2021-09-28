@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PressurePlateTarget
   - Glass
+  - Mirror
   layers:
   - Default
   - TransparentFX

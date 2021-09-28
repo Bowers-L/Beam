@@ -120,6 +120,14 @@ namespace Beam.Core.Beams
             RaycastHit hitInfo;
             if (Physics.Raycast(beamRay, out hitInfo, maxBeamRange, GetLayerMask(type)))
             {
+                
+                if (hitInfo.collider.gameObject.tag == "Mirror")
+                {
+                    Vector3 pos = hitInfo.point;
+                    Vector3 dir = Vector3.Reflect(beamRay.direction, hitInfo.normal);
+
+                    return FindTarget(new Ray(pos, dir), type);
+                }
                 BeamTarget target = hitInfo.collider.GetComponentInParent<BeamTarget>();
                 return target;
             }
