@@ -7,6 +7,7 @@ using Beam.Events;
 using Beam.Utility;
 
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Beam.Core.Beams
 {
@@ -61,7 +62,8 @@ namespace Beam.Core.Beams
         public void GrabBeam(Ray beamRay)
         {
             EventManager.InvokeEvent<BeamShot, BeamSource, Ray>(this, beamRay);
-            BeamTarget target = FindTarget(beamRay, BeamType.Grab);
+            List<Ray> r1 = new List<Ray>();
+            BeamTarget target = FindTarget(beamRay, BeamType.Grab, r1);
             if ( target != null)
             {
                 currTarget = target;
@@ -69,7 +71,7 @@ namespace Beam.Core.Beams
 
                 GrabBeamEffect();
 
-                target.AttachBeam(this, beamRay);
+                target.AttachBeam(this, r1[r1.Count - 1]);
             }
         }
 
@@ -101,7 +103,8 @@ namespace Beam.Core.Beams
             //Note: This function is overrided by the player in PlayerBeamSource.cs
             //Also, it will eventually need to be modified/replaced to account for the time of the VFX.
 
-            currTarget = FindTarget(beamRay, BeamType.Swap);
+            List<Ray> r1 = new List<Ray>();
+            currTarget = FindTarget(beamRay, BeamType.Swap, r1);
 
 
             if (currTarget != null)
@@ -115,8 +118,13 @@ namespace Beam.Core.Beams
 
         }
 
-        protected BeamTarget FindTarget(Ray beamRay, BeamType type)
+        protected BeamTarget FindTarget(Ray beamRay, BeamType type, List<Ray> output)
         {
+            if (output == null || output.Count > 0)
+            { 
+               output = new List<Ray>();
+            }
+            output.Add(beamRay);
             RaycastHit hitInfo;
             if (Physics.Raycast(beamRay, out hitInfo, maxBeamRange, GetLayerMask(type)))
             {
@@ -125,9 +133,10 @@ namespace Beam.Core.Beams
                 {
                     Vector3 pos = hitInfo.point;
                     Vector3 dir = Vector3.Reflect(beamRay.direction, hitInfo.normal);
-
-                    return FindTarget(new Ray(pos, dir), type);
+                    Ray r1 = new Ray(pos, dir);
+                    return FindTarget(r1, type, output);
                 }
+                
                 BeamTarget target = hitInfo.collider.GetComponentInParent<BeamTarget>();
                 return target;
             }

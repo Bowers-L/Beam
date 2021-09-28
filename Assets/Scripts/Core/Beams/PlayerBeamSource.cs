@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using Beam.Core.Player;
+using System.Collections.Generic;
 
 namespace Beam.Core.Beams
 {
@@ -39,7 +40,8 @@ namespace Beam.Core.Beams
         public override void SwapBeam(Ray beamRay)
         {
             //Need overridden implementation for this since it involves the character controller.
-            currTarget = FindTarget(beamRay, BeamType.Swap);
+            List<Ray> r1 = new List<Ray>();
+            currTarget = FindTarget(beamRay, BeamType.Swap, r1);
             if (currTarget != null)
             {
                 CharacterController controller = GetComponentInParent<CharacterController>();
