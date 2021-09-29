@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2785743722217414107}
   - component: {fileID: 5582233482073701602}
   - component: {fileID: 2251184424026648098}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Player (First Person)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 3046557498089436620}
   - component: {fileID: 2852946451261586072}
   - component: {fileID: 1740289520952284356}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -379,7 +379,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2722610955488524463}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6379288975505934311}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: BeamPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 970953125165186033}
   - component: {fileID: 2914195950158468213}
   - component: {fileID: 1933688958195957996}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
