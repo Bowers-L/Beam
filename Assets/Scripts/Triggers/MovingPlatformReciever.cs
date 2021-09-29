@@ -7,7 +7,6 @@ namespace Beam.Triggers
 {
     public class MovingPlatformReciever : TriggerReceiver
     {
-
         public bool isPowered = false; 
 
         //moving platform variables
@@ -16,16 +15,19 @@ namespace Beam.Triggers
 
         public float movespeed = 5.0f; //speed at which platform moves between points
         public float waitTime = 1.0f; //how long to wait at each point
-        public int type = 0; //if 0, the platform will move through the set of points once, then stop. If 1, it will move through the points in a circle (1 -> 2 -> 3 -> 1 -> 2 -> 3), If 2, it will travel back and forth along the path (1 -> 2 -> 3 -> 2 -> 1)
 
-        bool isMoving = false;
-        float wait;
-        public int pointIndex = 0;
-        Vector3 nextVector;
-        public bool stopMoving = false;
+        /*Platform Type
+         * If 0, the platform will move through the set of points once, then stop. (1 -> 2 -> 3)
+         * If 1, it will move through the points in a circle (1 -> 2 -> 3 -> 1 -> 2 -> 3)
+         * If 2, it will travel back and forth along the path (1 -> 2 -> 3 -> 2 -> 1)
+         */
+        public int type = 0; 
 
-
-        // Start is called before the first frame update
+        private bool isMoving = false;
+        private float wait;
+        private int pointIndex = 0;
+        private Vector3 nextVector;
+        private bool stopMoving = false;
 
         void Start()
         {
@@ -35,13 +37,12 @@ namespace Beam.Triggers
             for (int i = 0; i < movementPointTransforms.Length - 1; i++)
             {
                 temp[i] = movementPointTransforms[i + 1];
-                Debug.Log(i);
             }
             movementPointTransforms = temp;
 
             for (int i = 0; i < path.transform.childCount; i++)
             {
-                var child = path.transform.GetChild(i).gameObject;
+                GameObject child = path.transform.GetChild(i).gameObject;
                 if (child != null)
                 {
                     child.SetActive(false);
@@ -50,7 +51,6 @@ namespace Beam.Triggers
             transform.position = movementPointTransforms[0].position;
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (Time.timeScale == 0) return;
@@ -62,9 +62,9 @@ namespace Beam.Triggers
                 }
             }
         }
+
         public override void HandleActivated()
         {
-            Debug.Log("Activate Method Running");
             if (!isPowered) //if not already powered, then become powered and power the system
             {
                 isPowered = true;
@@ -76,8 +76,7 @@ namespace Beam.Triggers
 
         public override void HandleDeactivated()
         {
-            Debug.Log("Deactivate Method Running");
-            if (!isPowered) //if not already powered, then become powered and power the system
+            if (!isPowered) 
             {
                 isPowered = false;
                 isMoving = false;
@@ -86,7 +85,6 @@ namespace Beam.Triggers
      
         public void MovePlatform()
         {
-            Debug.Log("Move");
             if (isMoving)
             {
                 transform.Translate(nextVector * Time.deltaTime * movespeed * 0.1f);
