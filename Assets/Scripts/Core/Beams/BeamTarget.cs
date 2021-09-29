@@ -12,12 +12,14 @@ namespace Beam.Core.Beams
         //What beam this target is attached to. 
         protected BeamSource currSource;
         private Rigidbody rb;
+        private BeamSourceEffect beamEffectInst;
 
 
 
         public void Start()
         {
             currSource = null;
+            beamEffectInst = null;
             rb = GetComponent<Rigidbody>();
             if (rb == null)
             {
@@ -41,20 +43,25 @@ namespace Beam.Core.Beams
                 beamFlex = beamFlex < 0 ? -beamFlex : beamFlex; //Make sure beamFlex is positive
                 if (beamFlex > currSource.maxBeamFlex)
                 {
-                    detachBeam();
+                    StartCoroutine(currSource.beamEffectInst.BeamBreak());
+                    currSource.DeactivateBeam();
                 } else
                 {
                     Vector3 targetPos = currSource.transform.position + currSource.transform.forward * currBeamDist;
                     Vector3 targetDir = targetPos - transform.position;
 
-                    rb.AddForce(targetDir * currSource.beamSnapSpeed, ForceMode.VelocityChange);   
+                    rb.AddForce(targetDir * currSource.beamSnapSpeed, ForceMode.VelocityChange);
+                    currSource.beamEffectInst.SetPos(currSource.beamEffectPos.transform.position, 
+                        transform.position, 
+                        currSource.transform.forward);
                 }
             }
         }
 
-        public void attachBeam(BeamSource source, Ray beam)
+        public void AttachBeam(BeamSource source, Ray beam)
         {
             currSource = source;
+            beamEffectInst = source.beamEffectInst;
 
             //snap object center to the cursor
             rb.MovePosition(UnityEngineExt.projectPointOntoLine(transform.position, beam));
@@ -65,22 +72,10 @@ namespace Beam.Core.Beams
             //Change sprite to highlight change.
         }
 
-        public void detachBeam()
+        public void DetachBeam()
         {
             currSource = null;
             rb.useGravity = true;
         }
-
-        //The Callee is responsible for checking if the source is the same as currSource!
-        /*
-        public void handleBeamMoved(BeamSource source)
-        {
-            if (currSource == source)
-            {
-                Vector3 targetPos = source.transform.position + source.transform.forward * currBeamDist;
-                rb.MovePosition(targetPos);
-            }
-        }
-        */
     }
 }

@@ -1,9 +1,12 @@
+
+
 using UnityEngine;
 using UnityEngine.Events;
 
 using Beam.Events;
 using Beam.Utility;
 
+using System.Collections;
 
 namespace Beam.Core.Beams
 {
@@ -24,8 +27,14 @@ namespace Beam.Core.Beams
         public float maxBeamFlex;   //The maximum angle between an object and the player's cursor before the beam breaks.
         public float beamSnapSpeed;
 
+        public GameObject beamEffectPrefab;
+        public GameObject beamEffectPos;
+
         protected BeamTarget currTarget;
         protected BeamType currBeamType;
+
+        [HideInInspector]
+        public BeamSourceEffect beamEffectInst;
 
         public void FixedUpdate()
         {
@@ -38,11 +47,15 @@ namespace Beam.Core.Beams
                 {
                     if (!hitInfo.transform.gameObject.Equals(currTarget.gameObject))
                     {
-                        currTarget.detachBeam();
+                        DeactivateBeam();
                     }
                 }
             }
 
+            if (beamEffectPrefab == null)
+            {
+                Debug.LogWarning("Beam source is missing effect prefab");
+            }
         }
 
         public void GrabBeam(Ray beamRay)
@@ -51,20 +64,33 @@ namespace Beam.Core.Beams
             BeamTarget target = FindTarget(beamRay, BeamType.Grab);
             if ( target != null)
             {
-                target.attachBeam(this, beamRay);
                 currTarget = target;
-
                 currBeamType = BeamType.Grab;
+
+                GrabBeamEffect();
+
+                target.AttachBeam(this, beamRay);
             }
+        }
+
+        void GrabBeamEffect()
+        {
+            beamEffectInst = Instantiate(beamEffectPrefab).GetComponent<BeamSourceEffect>();
+            beamEffectInst.GetComponent<BeamSourceEffect>().SetPos(beamEffectPos.transform.position, currTarget.transform.position, transform.forward);
         }
 
         public void DeactivateBeam()
         {
             if (currTarget != null)
             {
-                currTarget.detachBeam();
+                currTarget.DetachBeam();
                 currTarget = null;
                 EventManager.InvokeEvent<BeamRelease, BeamSource>(this);
+            }
+
+            if (beamEffectInst != null)
+            {
+                Destroy(beamEffectInst.gameObject);
             }
 
             currBeamType = BeamType.None;
@@ -103,14 +129,14 @@ namespace Beam.Core.Beams
 
         protected int GetLayerMask(BeamType type)
         {
-            int layerMask = UnityEngineExt.GetMaskWithout("Ignore Raycast");
+            int layerMask = UnityEngineExt.GetMaskWithout("Ignore Raycast", "Player");
             switch (type)
             {
                 case BeamType.Grab:
-                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Grab");
+                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Grab", "Allows Both");
                     break;
                 case BeamType.Swap:
-                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Swap");
+                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Swap", "Allows Both");
                     break;
                 default:
                     break;
