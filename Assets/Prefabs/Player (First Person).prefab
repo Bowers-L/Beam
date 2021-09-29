@@ -259,7 +259,7 @@ MonoBehaviour:
   crouchSpeedFactor: 0.45
   isCrouching: 0
   groundCheck: {fileID: 2722610955488524463}
-  groundDistance: 0.1
+  groundDistance: 0.2
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -271,8 +271,8 @@ MonoBehaviour:
   moveParams:
     maxMoveSpeed: 10
     accelGround: 100
-    accelAir: 20
-    overCapSmoothing: 0.08
+    accelAir: 5
+    overCapSmoothing: 0.5
     airCapWeight: 1
 --- !u!1 &1377156412551839548
 GameObject:

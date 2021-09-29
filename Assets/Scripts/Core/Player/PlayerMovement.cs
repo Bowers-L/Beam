@@ -31,11 +31,6 @@ namespace Beam.Core.Player
         }
     }
 
-    public enum PlayerMovementEditorTypes
-    {
-
-    }
-
     //https://blog.terresquall.com/2020/07/organising-your-unity-inspector-fields-with-a-dropdown-filter/
     //This is extremely overkill for this script, but I thought it might be useful for future scripts.
     [CustomEditor(typeof(PlayerMovement))]
@@ -210,6 +205,7 @@ namespace Beam.Core.Player
             get
             {
                 bool center = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+                Debug.Log(center);
                 return center;
             }
         }
@@ -354,7 +350,7 @@ namespace Beam.Core.Player
             if (isGrounded) {
                 playerSpeedCap = (isCrouching ? crouchSpeedFactor : 1.0f) * moveParams.maxMoveSpeed * moveParams.rawMoveInput.magnitude;
             } else {
-                playerSpeedCap = velAtLastJump.magnitude * moveParams.airCapWeight;
+                playerSpeedCap = Mathf.Infinity;
             }
             Vector3 newVelDir = Vector3.Normalize(newXZVel);
             float newVelMagAdjusted;

@@ -16,6 +16,7 @@ namespace Beam.Core.Beams
             lr = GetComponentInChildren<LineRenderer>();
             source = GetComponentInChildren<ParticleSystem>();
 
+            //Pseudocode
             positions = sampleBezier(start, getPointB(start, end, startForward), end, 11);
             lr.positionCount = positions.Count;
             lr.SetPositions(positions.ToArray());
@@ -86,7 +87,6 @@ namespace Beam.Core.Beams
             }
 
             Destroy(breakInst);
-            Destroy(this);
         }
 
         //Curve simulates a Bezier Curve: https://en.wikipedia.org/wiki/B%C3%A9zier_curve
