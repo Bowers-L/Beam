@@ -40,8 +40,8 @@ namespace Beam.Core.Beams
         public override void SwapBeam(Ray beamRay)
         {
             //Need overridden implementation for this since it involves the character controller.
-            List<Ray> r1 = new List<Ray>();
-            currTarget = FindTarget(beamRay, BeamType.Swap, r1);
+            List<Ray> r1;
+            currTarget = FindTarget(beamRay, BeamType.Swap, out r1);
             if (currTarget != null)
             {
                 CharacterController controller = GetComponentInParent<CharacterController>();

@@ -62,8 +62,8 @@ namespace Beam.Core.Beams
         public void GrabBeam(Ray beamRay)
         {
             EventManager.InvokeEvent<BeamShot, BeamSource, Ray>(this, beamRay);
-            List<Ray> r1 = new List<Ray>();
-            BeamTarget target = FindTarget(beamRay, BeamType.Grab, r1);
+            List<Ray> r1;
+            BeamTarget target = FindTarget(beamRay, BeamType.Grab, out r1);
             if ( target != null)
             {
                 currTarget = target;
@@ -103,8 +103,8 @@ namespace Beam.Core.Beams
             //Note: This function is overrided by the player in PlayerBeamSource.cs
             //Also, it will eventually need to be modified/replaced to account for the time of the VFX.
 
-            List<Ray> r1 = new List<Ray>();
-            currTarget = FindTarget(beamRay, BeamType.Swap, r1);
+            List<Ray> r1;
+            currTarget = FindTarget(beamRay, BeamType.Swap, out r1);
 
 
             if (currTarget != null)
@@ -118,9 +118,15 @@ namespace Beam.Core.Beams
 
         }
 
-        protected BeamTarget FindTarget(Ray beamRay, BeamType type, List<Ray> output)
+        protected BeamTarget FindTarget(Ray beamRay, BeamType type, out List<Ray> outputList)
         {
-            if (output == null || output.Count > 0)
+            outputList = new List<Ray>();
+            return FindTargetRecursive(beamRay, type, outputList);
+        }
+
+        private BeamTarget FindTargetRecursive(Ray beamRay, BeamType type, List<Ray> output)
+        {
+            if (output == null)
             { 
                output = new List<Ray>();
             }
@@ -134,7 +140,7 @@ namespace Beam.Core.Beams
                     Vector3 pos = hitInfo.point;
                     Vector3 dir = Vector3.Reflect(beamRay.direction, hitInfo.normal);
                     Ray r1 = new Ray(pos, dir);
-                    return FindTarget(r1, type, output);
+                    return FindTargetRecursive(r1, type, output);
                 }
                 
                 BeamTarget target = hitInfo.collider.GetComponentInParent<BeamTarget>();
