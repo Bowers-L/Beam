@@ -21,7 +21,13 @@ namespace Beam.Triggers
          * If 1, it will move through the points in a circle (1 -> 2 -> 3 -> 1 -> 2 -> 3)
          * If 2, it will travel back and forth along the path (1 -> 2 -> 3 -> 2 -> 1)
          */
-        public int type = 0; 
+        public enum Type
+        {
+            ONEWAY,
+            CYCLE,
+            DOWNBACK
+        }
+        public Type type;
 
         private bool isMoving = false;
         private float wait;
@@ -49,6 +55,11 @@ namespace Beam.Triggers
                 }
             }
             transform.position = movementPointTransforms[0].position;
+
+            if (movementPointTransforms.Length == 0)
+            {
+                Debug.LogError("Moving platform has no path.");
+            }
         }
 
         void Update()
@@ -96,11 +107,11 @@ namespace Beam.Triggers
                 wait = waitTime;
                 if (pointIndex > movementPointTransforms.Length - 1)
                 {
-                    if (type == 0)
+                    if (type == Type.ONEWAY)
                     {
                         stopMoving = true;
                     }
-                    else if (type == 2)
+                    else if (type == Type.DOWNBACK)
                     {
                         Array.Reverse(movementPointTransforms);
                     }
