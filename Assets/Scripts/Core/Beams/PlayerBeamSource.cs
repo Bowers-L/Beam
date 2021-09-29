@@ -32,13 +32,13 @@ namespace Beam.Core.Beams
         {
             if (ctx.performed)
             {
-                Debug.Log("Beam Traveled");
                 SwapBeam(new Ray(transform.position, transform.forward));
             }
         }
 
         public override void SwapBeam(Ray beamRay)
         {
+            //Need overridden implementation for this since it involves the character controller.
             currTarget = FindTarget(beamRay, BeamType.Swap);
             if (currTarget != null)
             {
@@ -50,7 +50,7 @@ namespace Beam.Core.Beams
                 Vector3 tempPos = controller.transform.position;
                 controller.transform.position = currTarget.transform.position;
                 currTarget.transform.position = tempPos;
-
+                print(tempPos);
                 Rigidbody targetRb = currTarget.GetComponent<Rigidbody>();
                 if (targetRb != null)
                 {

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor;
 
 namespace Beam.Utility
 {
@@ -23,6 +24,8 @@ namespace Beam.Utility
              * The line segment OP is the hypotenuse of right triangle OPS
              * By projecting OP onto line L, the result will be OS.
              * Writing OS in the form S-O, the point S = O + OS
+             * 
+             * This concludes the math.
              */
 
             Vector3 OP = point - line.origin;

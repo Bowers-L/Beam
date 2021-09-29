@@ -4,6 +4,9 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Logan/ConceptLevel.unity
+    guid: 9286bf038b043e64c92879c7c89018de
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1304b4cdcd3bf864390f9ea108e6ae18, type: 2}
