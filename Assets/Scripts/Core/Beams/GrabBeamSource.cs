@@ -49,15 +49,19 @@ namespace Beam.Core.Beams
             {
                 beamEffectInst = Instantiate(beamEffectPrefab);
             }
+            bool hit;
             RaycastHit hitInfo;
-            currTarget = FindTarget(sourceRay, BeamType.Grab, out hitInfo);
+            currTarget = FindTarget(sourceRay, BeamType.Grab, out hitInfo, out hit);
             if (currTarget != null)
             {
                 currTarget.AttachGrabBeam(this, sourceRay);
                 beamEffectInst.GetComponent<GrabBeamEffect>().SetPosBezier(beamPos.position, currTarget.transform.position, transform.forward);
-            } else
+            } else if (hit)
             {
                 beamEffectInst.GetComponent<GrabBeamEffect>().SetPosLinear(beamPos.position, hitInfo.point, transform.forward);
+            } else
+            {
+                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosLinear(beamPos.position, transform.position + transform.forward * maxBeamRange, transform.forward);
             }
 
             shootingBeam = true;
