@@ -34,11 +34,13 @@ namespace Beam.Triggers
         private int pointIndex = 0;
         private bool stopMoving = true;
         private Vector3 orignialPos;
+        private Rigidbody rBody;
         Coroutine move;
         void Start()
         {
             base.Start();
             wait = waitTime;
+            rBody = GetComponent<Rigidbody>();
 
             movementPointTransforms = path.GetComponentsInChildren<Transform>();
             Transform[] temp = new Transform[movementPointTransforms.Length - 1];
@@ -146,7 +148,7 @@ namespace Beam.Triggers
 
             while (transform.position != target)
             {
-                transform.position = Vector3.Lerp(start, target, (time / Vector3.Distance(start, target)) * movespeed);
+                rBody.MovePosition(Vector3.Lerp(start, target, (time / Vector3.Distance(start, target)) * movespeed));
                 time += Time.deltaTime;
                 yield return null;
             }
