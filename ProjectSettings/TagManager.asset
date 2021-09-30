@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PressurePlateTarget
   - Glass
+  - Platform
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Allows Swap
   - Allows Both
   - Player
-  - 
+  - Platform
   - 
   - 
   - 

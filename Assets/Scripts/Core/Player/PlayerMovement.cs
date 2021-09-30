@@ -145,6 +145,7 @@ namespace Beam.Core.Player
                 get;
                 internal set;
             }
+
         }
 
         private CharacterController controller;
@@ -342,7 +343,7 @@ namespace Beam.Core.Player
 
             Vector3 oldXZVel = new Vector3(vel.x, noClip ? vel.y : 0, vel.z);
             Vector3 newXZVel = moveAccel * Time.deltaTime + oldXZVel;
-
+            
             //Cap the player's speed based on parameter weights/player input
             #region Speed Cap
             float playerSpeedCap;

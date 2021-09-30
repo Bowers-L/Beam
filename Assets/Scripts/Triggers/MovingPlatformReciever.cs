@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-namespace Beam.Triggers
+namespace Beam.Tr
+
 {
     public class MovingPlatformReciever : TriggerReceiver
     {
@@ -34,11 +35,13 @@ namespace Beam.Triggers
         private int pointIndex = 0;
         private bool stopMoving = true;
         private Vector3 orignialPos;
+        private Rigidbody rBody;
         Coroutine move;
         void Start()
         {
             base.Start();
             wait = waitTime;
+            rBody = GetComponent<Rigidbody>();
 
             movementPointTransforms = path.GetComponentsInChildren<Transform>();
             Transform[] temp = new Transform[movementPointTransforms.Length - 1];
@@ -82,7 +85,7 @@ namespace Beam.Triggers
                             break;
                         case Type.DOOR:
                             stopMoving = true;
-                            if(transform.position == orignialPos)
+                            if (transform.position == orignialPos)
                             {
                                 Array.Reverse(movementPointTransforms);
                                 pointIndex = 0;
@@ -106,7 +109,7 @@ namespace Beam.Triggers
         public override void HandleActivated()
         {
             stopMoving = false;
-            if(move == null)
+            if (move == null)
             {
                 move = StartCoroutine(MovePlatformCoroutine(transform.position, movementPointTransforms[++pointIndex].position));
             }
@@ -121,7 +124,7 @@ namespace Beam.Triggers
             }
             if (type == Type.DOOR)
             {
-                if(pointIndex == movementPointTransforms.Length - 1 || !stopMoving)
+                if (pointIndex == movementPointTransforms.Length - 1 || !stopMoving)
                 {
                     Array.Reverse(movementPointTransforms);
                     pointIndex = movementPointTransforms.Length - 1 - pointIndex;
@@ -138,7 +141,7 @@ namespace Beam.Triggers
                 }
             }
         }
-     
+
 
         IEnumerator MovePlatformCoroutine(Vector3 start, Vector3 target)
         {
@@ -146,9 +149,17 @@ namespace Beam.Triggers
 
             while (transform.position != target)
             {
-                transform.position = Vector3.Lerp(start, target, (time / Vector3.Distance(start, target)) * movespeed);
+                rBody.MovePosition(Vector3.Lerp(start, target, (time / Vector3.Distance(start, target)) * movespeed));
                 time += Time.deltaTime;
                 yield return null;
+            }
+        }
+
+        public void OnTriggerEnter(Collider other)
+        {
+            if(other.gameObject.CompareTag("Player"))
+            {
+                PlayerMoveOnPlat = other.gameObject.Player
             }
         }
     }
