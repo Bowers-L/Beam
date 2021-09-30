@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-namespace Beam.Tr
+namespace Beam.Triggers
 
 {
     public class MovingPlatformReciever : TriggerReceiver
@@ -155,12 +155,12 @@ namespace Beam.Tr
             }
         }
 
-        public void OnTriggerEnter(Collider other)
+        /*public void OnTriggerEnter(Collider other)
         {
             if(other.gameObject.CompareTag("Player"))
             {
                 PlayerMoveOnPlat = other.gameObject.Player
             }
-        }
+        }*/
     }
 }
