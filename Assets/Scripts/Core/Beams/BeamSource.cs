@@ -58,25 +58,20 @@ namespace Beam.Core.Beams
             }
         }
 
-        public void GrabBeam(Ray beamRay)
+        public void GrabBeam(Ray sourceRay)
         {
-            EventManager.InvokeEvent<BeamShot, BeamSource, Ray>(this, beamRay);
-            BeamTarget target = FindTarget(beamRay, BeamType.Grab);
+            EventManager.InvokeEvent<BeamShot, BeamSource, Ray>(this, sourceRay);
+            BeamTarget target = FindTarget(sourceRay, BeamType.Grab);
             if ( target != null)
             {
                 currTarget = target;
                 currBeamType = BeamType.Grab;
 
-                GrabBeamEffect();
+                beamEffectInst = Instantiate(beamEffectPrefab).GetComponent<BeamSourceEffect>();
+                beamEffectInst.GetComponent<BeamSourceEffect>().SetPos(beamEffectPos.transform.position, currTarget.transform.position, transform.forward);
 
-                target.AttachBeam(this, beamRay);
+                target.AttachBeam(this, sourceRay);
             }
-        }
-
-        void GrabBeamEffect()
-        {
-            beamEffectInst = Instantiate(beamEffectPrefab).GetComponent<BeamSourceEffect>();
-            beamEffectInst.GetComponent<BeamSourceEffect>().SetPos(beamEffectPos.transform.position, currTarget.transform.position, transform.forward);
         }
 
         public void DeactivateBeam()
@@ -96,21 +91,22 @@ namespace Beam.Core.Beams
             currBeamType = BeamType.None;
         }
 
-        public virtual void SwapBeam(Ray beamRay)
+        public virtual void ExecuteSwap(Ray beamRay)
         {
             //Note: This function is overrided by the player in PlayerBeamSource.cs
             //Also, it will eventually need to be modified/replaced to account for the time of the VFX.
 
             currTarget = FindTarget(beamRay, BeamType.Swap);
-
-
             if (currTarget != null)
             {
                 Vector3 tempPos = transform.position;
                 transform.position = currTarget.transform.position;
                 currTarget.transform.position = tempPos;
-                currBeamType = BeamType.Grab;
+                currBeamType = BeamType.Swap;
                 DeactivateBeam();
+            } else
+            {
+
             }
 
         }

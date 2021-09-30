@@ -34,6 +34,11 @@ namespace Beam.Core.Beams
             {
                 SwapBeam(new Ray(transform.position, transform.forward));
             }
+
+            if (ctx.canceled)
+            {
+
+            }
         }
 
         public override void SwapBeam(Ray beamRay)
