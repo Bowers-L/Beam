@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Beam.Core.Beams
 {
@@ -9,12 +10,12 @@ namespace Beam.Core.Beams
         public GameObject beamBreakPrefab;
 
         private LineRenderer lr;
-        private ParticleSystem source;
+        private VisualEffect source;
         private List<Vector3> positions;
         public void SetPos(Vector3 start, Vector3 end, Vector3 startForward)
         {
             lr = GetComponentInChildren<LineRenderer>();
-            source = GetComponentInChildren<ParticleSystem>();
+            source = GetComponentInChildren<VisualEffect>();
 
             //Pseudocode
             positions = sampleBezier(start, getPointB(start, end, startForward), end, 11);
