@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using Beam.Core.Player;
 
 namespace Beam.Triggers
 
@@ -37,6 +38,7 @@ namespace Beam.Triggers
         private Vector3 orignialPos;
         private Rigidbody rBody;
         Coroutine move;
+        PlayerMoveOnPlat pmp;
         void Start()
         {
             base.Start();
@@ -155,12 +157,14 @@ namespace Beam.Triggers
             }
         }
 
-        /*public void OnTriggerEnter(Collider other)
+       public void OnTriggerEnter(Collider other)
         {
+            Debug.Log(other.gameObject.name);
             if(other.gameObject.CompareTag("Player"))
             {
-                PlayerMoveOnPlat = other.gameObject.Player
+                pmp = other.gameObject.GetComponent<PlayerMoveOnPlat>();
+                pmp.UpdatePlatform(this.transform);
             }
-        }*/
+        }
     }
 }

@@ -48,8 +48,8 @@ namespace Beam.Core.Player
                     rotationDiff = Quaternion.FromToRotation(rotationDiff * Vector3.up, Vector3.up) * rotationDiff;
                     transform.rotation = rotationDiff * transform.rotation;
                     transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-
-                    UpdateMovingPlatform();*/
+                    */
+                    UpdateMovingPlatform();
                 }
             }
             else
