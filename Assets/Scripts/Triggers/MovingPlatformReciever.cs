@@ -7,7 +7,6 @@ namespace Beam.Triggers
 {
     public class MovingPlatformReciever : TriggerReceiver
     {
-        public bool isPowered = false; 
 
         //moving platform variables
         public GameObject path; //the path for the moving platform to follow
@@ -20,6 +19,7 @@ namespace Beam.Triggers
          * If 0, the platform will move through the set of points once, then stop. (1 -> 2 -> 3)
          * If 1, it will move through the points in a circle (1 -> 2 -> 3 -> 1 -> 2 -> 3)
          * If 2, it will travel back and forth along the path (1 -> 2 -> 3 -> 2 -> 1)
+         * If 3, this platform will move through the points until deactivated, then it will move back
          */
         public enum Type
         {
@@ -28,12 +28,15 @@ namespace Beam.Triggers
             DOWNBACK
         }
         public Type type;
+        public enum type {LINE, CIRCLE, REVERSE, DOOR};
 
-        private bool isMoving = false;
+        //private bool isMoving = false;
         private float wait;
-        private int pointIndex = 0;
-        private Vector3 nextVector;
-        private bool stopMoving = false;
+        public int pointIndex = 0;
+        //public Vector3 nextVector;
+        private bool stopMoving = true;
+        Coroutine move;
+        public type t = (type) 1;
 
         void Start()
         {
@@ -65,32 +68,44 @@ namespace Beam.Triggers
         void Update()
         {
             if (Time.timeScale == 0) return;
-            if (isPowered)
+            if (transform.position == movementPointTransforms[pointIndex].position)
             {
-                if (!stopMoving)
+                if (pointIndex == movementPointTransforms.Length - 1)
                 {
-                    MovePlatform();
+                    if (t == (type)3 || t == (type)0)
+                    {
+                        stopMoving = true;
+                    }
+                    else if (t == (type) 2)
+                    {
+                        Array.Reverse(movementPointTransforms);
+                    }
+                    if (t != (type) 3)
+                    {
+                        pointIndex = 0;
+                    }
+                }
+                if(!stopMoving)
+                {
+                    move = StartCoroutine(MovePlatformCoroutine(transform.position, movementPointTransforms[++pointIndex].position));
                 }
             }
         }
 
         public override void HandleActivated()
         {
-            if (!isPowered) //if not already powered, then become powered and power the system
-            {
-                isPowered = true;
-                isMoving = true;
-                nextVector = movementPointTransforms[pointIndex].position - transform.position;
-
-            }
+            stopMoving = false;
         }
 
         public override void HandleDeactivated()
         {
-            if (!isPowered) 
+            StopCoroutine(move);
+            stopMoving = true;
+            if(t == (type) 3)
             {
-                isPowered = false;
-                isMoving = false;
+                Array.Reverse(movementPointTransforms);
+                pointIndex = movementPointTransforms.Length - 1 - pointIndex;
+                move = StartCoroutine(MovePlatformCoroutine(transform.position, movementPointTransforms[++pointIndex].position));
             }
         }
      
@@ -126,10 +141,16 @@ namespace Beam.Triggers
                     isMoving = true;
                     nextVector = movementPointTransforms[pointIndex].position - transform.position;
 
-                }
+        IEnumerator MovePlatformCoroutine(Vector3 start, Vector3 target)
+        {
+            float time = 0f;
 
+            while (transform.position != target)
+            {
+                transform.position = Vector3.Lerp(start, target, (time / Vector3.Distance(start, target)) * movespeed);
+                time += Time.deltaTime;
+                yield return null;
             }
-
         }
     }
 }
