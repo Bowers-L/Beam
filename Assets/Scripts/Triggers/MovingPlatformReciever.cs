@@ -29,6 +29,7 @@ namespace Beam.Triggers
         }
         public Type type;
 
+
         private float wait;
         private int pointIndex = 0;
         private bool stopMoving = true;
@@ -138,6 +139,7 @@ namespace Beam.Triggers
             }
         }
      
+
         IEnumerator MovePlatformCoroutine(Vector3 start, Vector3 target)
         {
             float time = 0f;
