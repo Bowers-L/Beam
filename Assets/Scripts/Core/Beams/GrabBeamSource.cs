@@ -20,13 +20,23 @@ namespace Beam.Core.Beams
             {
                 ReleaseBeam();
             }
+
+            if (currTarget != null)
+            {
+                currTarget.UpdateGrabBeam(this);
+                beamEffectInst.GetComponent<GrabBeamEffect>().SetPos(beamPos.position,
+                currTarget.transform.position,
+                transform.forward);
+            }
+
+
         }
 
         public override void ReleaseBeam()
         {
             if (currTarget != null)
             {
-                currTarget.DetachBeam();
+                currTarget.DetachGrabBeam();
                 currTarget = null;
             }
 
@@ -46,7 +56,7 @@ namespace Beam.Core.Beams
                 beamEffectInst = Instantiate(beamEffectPrefab);
                 beamEffectInst.GetComponent<GrabBeamEffect>().SetPos(beamPos.position, currTarget.transform.position, transform.forward);
 
-                target.AttachBeam(this, sourceRay);
+                target.AttachGrabBeam(this, sourceRay);
             }
         }
     }
