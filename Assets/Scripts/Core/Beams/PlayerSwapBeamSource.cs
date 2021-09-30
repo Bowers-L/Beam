@@ -60,6 +60,8 @@ namespace Beam.Core.Beams
             {
                 Destroy(beamEffectInst);
             }
+
+            shootingBeam = false;
         }
     }
 }

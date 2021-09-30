@@ -16,20 +16,15 @@ namespace Beam.Core.Beams
         public void FixedUpdate()
         {
             
-            if (checkTargetBlocked(BeamType.Grab))
+            if (CheckTargetBlocked(BeamType.Grab))
             {
                 ReleaseBeam();
             }
 
-            if (currTarget != null)
+            if (shootingBeam)
             {
-                currTarget.UpdateGrabBeam(this);
-                beamEffectInst.GetComponent<GrabBeamEffect>().SetPos(beamPos.position,
-                currTarget.transform.position,
-                transform.forward);
+                UpdateBeam(new Ray(this.transform.position, this.transform.forward));
             }
-
-
         }
 
         public override void ReleaseBeam()
@@ -44,19 +39,41 @@ namespace Beam.Core.Beams
             {
                 Destroy(beamEffectInst);
             }
+
+            shootingBeam = false;
         }
 
         public override void ShootBeam(Ray sourceRay)
         {
-            BeamTarget target = FindTarget(sourceRay, BeamType.Grab);
-            if (target != null)
+            if (beamEffectInst == null)
             {
-                currTarget = target;
-
                 beamEffectInst = Instantiate(beamEffectPrefab);
-                beamEffectInst.GetComponent<GrabBeamEffect>().SetPos(beamPos.position, currTarget.transform.position, transform.forward);
+            }
+            RaycastHit hitInfo;
+            currTarget = FindTarget(sourceRay, BeamType.Grab, out hitInfo);
+            if (currTarget != null)
+            {
+                currTarget.AttachGrabBeam(this, sourceRay);
+                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosBezier(beamPos.position, currTarget.transform.position, transform.forward);
+            } else
+            {
+                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosLinear(beamPos.position, hitInfo.point, transform.forward);
+            }
 
-                target.AttachGrabBeam(this, sourceRay);
+            shootingBeam = true;
+        }
+
+        public override void UpdateBeam(Ray sourceRay)
+        {
+            if (currTarget != null)
+            {
+                currTarget.UpdateGrabBeam(this);
+                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosBezier(beamPos.position,
+                currTarget.transform.position,
+                transform.forward);
+            } else
+            {
+                ShootBeam(sourceRay);
             }
         }
     }

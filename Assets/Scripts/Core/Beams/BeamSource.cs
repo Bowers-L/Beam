@@ -30,12 +30,15 @@ namespace Beam.Core.Beams
         public Transform beamPos;
 
         protected BeamTarget currTarget;
+        protected bool shootingBeam;
 
         [HideInInspector]
         public GameObject beamEffectInst;
 
         public void Start()
         {
+            currTarget = null;
+            shootingBeam = false;
             if (beamEffectPrefab == null)
             {
                 Debug.LogWarning("Beam source has no effect attached.");
@@ -43,21 +46,24 @@ namespace Beam.Core.Beams
         }
 
         public abstract void ShootBeam(Ray sourceRay);
+
+        public abstract void UpdateBeam(Ray sourceRay);
         public abstract void ReleaseBeam();
 
-        protected BeamTarget FindTarget(Ray sourceRay, BeamType type)
+        protected BeamTarget FindTarget(Ray sourceRay, BeamType type, out RaycastHit raycastHitInfo)
         {
             RaycastHit hitInfo;
-            if (Physics.Raycast(sourceRay, out hitInfo, maxBeamRange, GetLayerMask(type)))
+            bool raycast = Physics.Raycast(sourceRay, out hitInfo, maxBeamRange, GetLayerMask(type));
+            raycastHitInfo = hitInfo;
+            if (raycast)
             {
                 BeamTarget target = hitInfo.collider.GetComponentInParent<BeamTarget>();
                 return target;
             }
-
             return null;
         }
 
-        protected bool checkTargetBlocked(BeamType type) 
+        protected bool CheckTargetBlocked(BeamType type) 
         {
             if (currTarget != null)
             {
