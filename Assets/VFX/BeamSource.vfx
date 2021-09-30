@@ -130,46 +130,13 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614799}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614801}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661614803}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614814}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614840}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614825}
       id: 0
       isStickyNote: 0
     - model: {fileID: 8926484042661614828}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614959}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614880}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661614830}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614834}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614836}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614858}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614838}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614853}
       id: 0
       isStickyNote: 0
     - model: {fileID: 8926484042661614851}
@@ -204,9 +171,9 @@ MonoBehaviour:
   uiBounds:
     serializedVersion: 2
     x: 1234
-    y: 215
-    width: 4705
-    height: 2474
+    y: 190
+    width: 4730
+    height: 2524
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -217,7 +184,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d4c867f6b72b714dbb5fd1780afe208, type: 3}
-  m_Name: SwapBeam
+  m_Name: BeamSource
   m_EditorClassIdentifier: 
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 0}
@@ -386,7 +353,7 @@ VisualEffectResource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SwapBeam
+  m_Name: BeamSource
   m_Graph: {fileID: 114350483966674976}
   m_Infos:
     m_RendererSettings:
@@ -5348,7 +5315,7 @@ MonoBehaviour:
       inputSlot: {fileID: 8926484042661614787}
     position: {x: 3415, y: 1680}
     expandedSlots: []
-    expanded: 0
+    expanded: 1
   - m_Id: 2
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614712}
