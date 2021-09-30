@@ -50,12 +50,12 @@ namespace Beam.Core.Beams
         public abstract void UpdateBeam(Ray sourceRay);
         public abstract void ReleaseBeam();
 
-        protected BeamTarget FindTarget(Ray sourceRay, BeamType type, out RaycastHit raycastHitInfo)
+        protected BeamTarget FindTarget(Ray sourceRay, BeamType type, out RaycastHit raycastHitInfo, out bool hit)
         {
             RaycastHit hitInfo;
-            bool raycast = Physics.Raycast(sourceRay, out hitInfo, maxBeamRange, GetLayerMask(type));
+            hit = Physics.Raycast(sourceRay, out hitInfo, maxBeamRange, GetLayerMask(type));
             raycastHitInfo = hitInfo;
-            if (raycast)
+            if (hit)
             {
                 BeamTarget target = hitInfo.collider.GetComponentInParent<BeamTarget>();
                 return target;

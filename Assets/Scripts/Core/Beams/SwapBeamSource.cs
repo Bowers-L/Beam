@@ -50,16 +50,21 @@ namespace Beam.Core.Beams
             {
                 beamEffectInst = Instantiate(beamEffectPrefab);
             }
+            bool hit;
             RaycastHit hitInfo;
-            currTarget = FindTarget(sourceRay, BeamType.Swap, out hitInfo);
+            currTarget = FindTarget(sourceRay, BeamType.Swap, out hitInfo, out hit);
 
             if (currTarget != null)
             {
                 beamEffectInst.GetComponent<SwapBeamEffect>().SetPos(beamPos.position, currTarget.transform.position, transform.forward);
                 beamEffectInst.GetComponent<SwapBeamEffect>().SetHasTarget(true);
-            } else
+            } else if (hit)
             {
                 beamEffectInst.GetComponent<SwapBeamEffect>().SetPos(beamPos.position, hitInfo.point, transform.forward);
+                beamEffectInst.GetComponent<SwapBeamEffect>().SetHasTarget(false);
+            } else
+            {
+                beamEffectInst.GetComponent<SwapBeamEffect>().SetPos(beamPos.position, transform.position + transform.forward * maxBeamRange, transform.forward);
                 beamEffectInst.GetComponent<SwapBeamEffect>().SetHasTarget(false);
             }
 
