@@ -5,7 +5,7 @@ using UnityEngine.VFX;
 
 namespace Beam.Core.Beams
 {
-    public class BeamSourceEffect : MonoBehaviour
+    public class GrabBeamEffect : MonoBehaviour
     {
         public GameObject beamBreakPrefab;
 

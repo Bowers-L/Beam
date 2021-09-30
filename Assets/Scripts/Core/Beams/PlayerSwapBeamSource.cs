@@ -4,27 +4,15 @@ using Beam.Core.Player;
 
 namespace Beam.Core.Beams
 {
-    public class PlayerBeamSource : BeamSource
+    public class PlayerSwapBeamSource : SwapBeamSource
     {
 
-        private void Start()
+        new private void Start()
         {
+            base.Start();
             if (!GetComponent<Camera>())
             {
                 Debug.LogWarning("Attached a player beam source to an object that is not a camera. Was this intentional?");
-            }
-        }
-
-        public void OnShootGrab(InputAction.CallbackContext ctx)
-        {
-            if (ctx.performed)
-            {
-                GrabBeam(new Ray(transform.position, transform.forward));
-            } 
-            
-            if (ctx.canceled)
-            {
-                DeactivateBeam();
             }
         }
 
@@ -32,19 +20,19 @@ namespace Beam.Core.Beams
         {
             if (ctx.performed)
             {
-                SwapBeam(new Ray(transform.position, transform.forward));
+                ShootBeam(new Ray(transform.position, transform.forward));
             }
 
             if (ctx.canceled)
             {
-
+                ReleaseBeam();
             }
         }
 
-        public override void SwapBeam(Ray beamRay)
+        public override void ReleaseBeam()
         {
             //Need overridden implementation for this since it involves the character controller.
-            currTarget = FindTarget(beamRay, BeamType.Swap);
+           
             if (currTarget != null)
             {
                 CharacterController controller = GetComponentInParent<CharacterController>();
@@ -55,7 +43,6 @@ namespace Beam.Core.Beams
                 Vector3 tempPos = controller.transform.position;
                 controller.transform.position = currTarget.transform.position;
                 currTarget.transform.position = tempPos;
-                print(tempPos);
                 Rigidbody targetRb = currTarget.GetComponent<Rigidbody>();
                 if (targetRb != null)
                 {
@@ -64,9 +51,14 @@ namespace Beam.Core.Beams
                     targetRb.velocity = tempVel;
                 }
 
-                currBeamType = BeamType.Grab;
-                DeactivateBeam();
                 controller.enabled = true;
+            }
+
+            currTarget = null;
+
+            if (beamEffectInst != null)
+            {
+                Destroy(beamEffectInst);
             }
         }
     }

@@ -10,9 +10,9 @@ namespace Beam.Core.Beams
         public float currBeamDist;
 
         //What beam this target is attached to. 
-        protected BeamSource currSource;
+        protected GrabBeamSource currSource;
         private Rigidbody rb;
-        private BeamSourceEffect beamEffectInst;
+        private GameObject beamEffectInst;
 
 
 
@@ -43,22 +43,22 @@ namespace Beam.Core.Beams
                 beamFlex = beamFlex < 0 ? -beamFlex : beamFlex; //Make sure beamFlex is positive
                 if (beamFlex > currSource.maxBeamFlex)
                 {
-                    StartCoroutine(currSource.beamEffectInst.BeamBreak());
-                    currSource.DeactivateBeam();
+                    StartCoroutine(currSource.beamEffectInst.GetComponent<GrabBeamEffect>().BeamBreak());
+                    currSource.ReleaseBeam();
                 } else
                 {
                     Vector3 targetPos = currSource.transform.position + currSource.transform.forward * currBeamDist;
                     Vector3 targetDir = targetPos - transform.position;
 
                     rb.AddForce(targetDir * currSource.beamSnapSpeed, ForceMode.VelocityChange);
-                    currSource.beamEffectInst.SetPos(currSource.beamEffectPos.transform.position, 
+                    currSource.beamEffectInst.GetComponent<GrabBeamEffect>().SetPos(currSource.beamPos.transform.position, 
                         transform.position, 
                         currSource.transform.forward);
                 }
             }
         }
 
-        public void AttachBeam(BeamSource source, Ray beam)
+        public void AttachBeam(GrabBeamSource source, Ray beam)
         {
             currSource = source;
             beamEffectInst = source.beamEffectInst;
