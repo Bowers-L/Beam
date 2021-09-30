@@ -32,7 +32,7 @@ namespace Beam.Core.Beams
         {
             if (ctx.performed)
             {
-                SwapBeam(new Ray(transform.position, transform.forward));
+                ExecuteSwap(new Ray(transform.position, transform.forward));
             }
 
             if (ctx.canceled)
@@ -41,7 +41,7 @@ namespace Beam.Core.Beams
             }
         }
 
-        public override void SwapBeam(Ray beamRay)
+        public override void ExecuteSwap(Ray beamRay)
         {
             //Need overridden implementation for this since it involves the character controller.
             currTarget = FindTarget(beamRay, BeamType.Swap);
