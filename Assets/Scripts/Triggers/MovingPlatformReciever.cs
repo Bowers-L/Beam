@@ -21,13 +21,6 @@ namespace Beam.Triggers
          * If 2, it will travel back and forth along the path (1 -> 2 -> 3 -> 2 -> 1)
          * If 3, this platform will move through the points until deactivated, then it will move back
          */
-        public enum Type
-        {
-            ONEWAY,
-            CYCLE,
-            DOWNBACK
-        }
-        public Type type;
         public enum type {LINE, CIRCLE, REVERSE, DOOR};
 
         //private bool isMoving = false;
@@ -108,38 +101,6 @@ namespace Beam.Triggers
                 move = StartCoroutine(MovePlatformCoroutine(transform.position, movementPointTransforms[++pointIndex].position));
             }
         }
-     
-        public void MovePlatform()
-        {
-            if (isMoving)
-            {
-                transform.Translate(nextVector * Time.deltaTime * movespeed * 0.1f);
-            }
-            if (Vector3.Distance(movementPointTransforms[pointIndex].position, transform.position) < 0.1f)
-            {
-                isMoving = false;
-                pointIndex++;
-                wait = waitTime;
-                if (pointIndex > movementPointTransforms.Length - 1)
-                {
-                    if (type == Type.ONEWAY)
-                    {
-                        stopMoving = true;
-                    }
-                    else if (type == Type.DOWNBACK)
-                    {
-                        Array.Reverse(movementPointTransforms);
-                    }
-                    pointIndex = 0;
-                }
-            }
-            if (!isMoving)
-            {
-                wait -= Time.deltaTime;
-                if (wait < 0)
-                {
-                    isMoving = true;
-                    nextVector = movementPointTransforms[pointIndex].position - transform.position;
 
         IEnumerator MovePlatformCoroutine(Vector3 start, Vector3 target)
         {
