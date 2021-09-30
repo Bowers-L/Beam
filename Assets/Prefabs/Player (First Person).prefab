@@ -114,8 +114,8 @@ MonoBehaviour:
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2914195950158468213}
-        m_TargetAssemblyTypeName: Beam.Core.Beams.PlayerBeamSource, Assembly-CSharp
+      - m_Target: {fileID: 6173174421164476309}
+        m_TargetAssemblyTypeName: Beam.Core.Beams.PlayerGrabBeamSource, Assembly-CSharp
         m_MethodName: OnShootGrab
         m_Mode: 0
         m_Arguments:
@@ -187,7 +187,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2914195950158468213}
-        m_TargetAssemblyTypeName: Beam.Core.Beams.PlayerBeamSource, Assembly-CSharp
+        m_TargetAssemblyTypeName: Beam.Core.Beams.PlayerSwapBeamSource, Assembly-CSharp
         m_MethodName: OnShootSwap
         m_Mode: 0
         m_Arguments:
@@ -442,6 +442,7 @@ GameObject:
   - component: {fileID: 3627940316773768363}
   - component: {fileID: 2466471339985402330}
   - component: {fileID: 970953125165186033}
+  - component: {fileID: 6173174421164476309}
   - component: {fileID: 2914195950158468213}
   - component: {fileID: 1933688958195957996}
   m_Layer: 11
@@ -531,6 +532,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 20
   playerTrans: {fileID: 1130074878021942449}
+--- !u!114 &6173174421164476309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8464820739674196015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1484d1bf4a1157243aadb985fadec61b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxBeamRange: 1000
+  beamEffectPrefab: {fileID: 614448475660390605, guid: d7b9bedd87c510e44b9eed4c007e1a99, type: 3}
+  beamPos: {fileID: 6379288975505934311}
+  beamEffectInst: {fileID: 0}
+  maxBeamFlex: 50
+  beamSnapSpeed: 10
 --- !u!114 &2914195950158468213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,10 +563,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxBeamRange: 1000
-  maxBeamFlex: 50
-  beamSnapSpeed: 10
-  beamEffectPrefab: {fileID: 614448475660390605, guid: d7b9bedd87c510e44b9eed4c007e1a99, type: 3}
-  beamEffectPos: {fileID: 6441127187171231908}
+  beamEffectPrefab: {fileID: 1164910583789745692, guid: 00a84bb8241ea5f4b9e8e69704ea2d2f, type: 3}
+  beamPos: {fileID: 6379288975505934311}
   beamEffectInst: {fileID: 0}
 --- !u!114 &1933688958195957996
 MonoBehaviour:
