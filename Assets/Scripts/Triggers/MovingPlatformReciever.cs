@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-namespace Beam.Triggers
+namespace Beam.Tr
+
 {
     public class MovingPlatformReciever : TriggerReceiver
     {
@@ -84,7 +85,7 @@ namespace Beam.Triggers
                             break;
                         case Type.DOOR:
                             stopMoving = true;
-                            if(transform.position == orignialPos)
+                            if (transform.position == orignialPos)
                             {
                                 Array.Reverse(movementPointTransforms);
                                 pointIndex = 0;
@@ -108,7 +109,7 @@ namespace Beam.Triggers
         public override void HandleActivated()
         {
             stopMoving = false;
-            if(move == null)
+            if (move == null)
             {
                 move = StartCoroutine(MovePlatformCoroutine(transform.position, movementPointTransforms[++pointIndex].position));
             }
@@ -123,7 +124,7 @@ namespace Beam.Triggers
             }
             if (type == Type.DOOR)
             {
-                if(pointIndex == movementPointTransforms.Length - 1 || !stopMoving)
+                if (pointIndex == movementPointTransforms.Length - 1 || !stopMoving)
                 {
                     Array.Reverse(movementPointTransforms);
                     pointIndex = movementPointTransforms.Length - 1 - pointIndex;
@@ -140,7 +141,7 @@ namespace Beam.Triggers
                 }
             }
         }
-     
+
 
         IEnumerator MovePlatformCoroutine(Vector3 start, Vector3 target)
         {
@@ -151,6 +152,14 @@ namespace Beam.Triggers
                 rBody.MovePosition(Vector3.Lerp(start, target, (time / Vector3.Distance(start, target)) * movespeed));
                 time += Time.deltaTime;
                 yield return null;
+            }
+        }
+
+        public void OnTriggerEnter(Collider other)
+        {
+            if(other.gameObject.CompareTag("Player"))
+            {
+                PlayerMoveOnPlat = other.gameObject.Player
             }
         }
     }
