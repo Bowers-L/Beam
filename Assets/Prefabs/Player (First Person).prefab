@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2785743722217414107}
   - component: {fileID: 5582233482073701602}
   - component: {fileID: 2251184424026648098}
+  - component: {fileID: 7569927201755050337}
   m_Layer: 11
   m_Name: Player (First Person)
   m_TagString: Player
@@ -274,6 +275,22 @@ MonoBehaviour:
     accelAir: 5
     overCapSmoothing: 0.5
     airCapWeight: 1
+--- !u!114 &7569927201755050337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130074878021942453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd9fb3696aeaf7a44b7cb0451de52fd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activePlatform: {fileID: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1377156412551839548
 GameObject:
   m_ObjectHideFlags: 0
