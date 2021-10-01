@@ -6,6 +6,7 @@ using Beam.Utility;
 
 namespace Beam.Core.Player
 {
+    /*
     #region Editor
     public class ReadOnlyAttribute : PropertyAttribute
     {
@@ -119,7 +120,7 @@ namespace Beam.Core.Player
         }
     }
 #endregion
-
+*/
     //https://www.youtube.com/watch?v=_QajrabyTJc
     public class PlayerMovement : MonoBehaviour
     {
@@ -162,7 +163,7 @@ namespace Beam.Core.Player
         [Range(0.0f, 1.0f)]
         public float crouchSpeedFactor;
         [SerializeField]
-        [ReadOnly]
+        //[ReadOnly]
         private bool isCrouching;
 
         //Ground Check
@@ -177,10 +178,10 @@ namespace Beam.Core.Player
         public float killPlaneY;
 
         [SerializeField]
-        [ReadOnly]
+        //[ReadOnly]
         private Vector3 vel;
         [SerializeField]
-        [ReadOnly]
+        //[ReadOnly]
         private Vector3 velAtLastJump;
 
         [SerializeField]
