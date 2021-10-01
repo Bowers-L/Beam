@@ -290,7 +290,7 @@ MonoBehaviour:
   activePlatform: {fileID: 0}
   groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4087
 --- !u!1 &1377156412551839548
 GameObject:
   m_ObjectHideFlags: 0

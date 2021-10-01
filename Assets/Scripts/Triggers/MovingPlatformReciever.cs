@@ -39,9 +39,9 @@ namespace Beam.Triggers
         private Rigidbody rBody;
         Coroutine move;
         PlayerMoveOnPlat pmp;
-        void Start()
+
+        void Awake()
         {
-            base.Start();
             wait = waitTime;
             rBody = GetComponent<Rigidbody>();
 
