@@ -159,11 +159,21 @@ namespace Beam.Triggers
 
        public void OnTriggerEnter(Collider other)
         {
-            Debug.Log(other.gameObject.name);
+            Debug.Log("enter "+other.gameObject.name);
             if(other.gameObject.CompareTag("Player"))
             {
                 pmp = other.gameObject.GetComponent<PlayerMoveOnPlat>();
                 pmp.UpdatePlatform(this.transform);
+            }
+        }
+
+        public void OnTriggerExit(Collider other)
+        {
+            Debug.Log("Exit "+other.gameObject.name);
+            if (other.gameObject.CompareTag("Player"))
+            {
+                pmp = other.gameObject.GetComponent<PlayerMoveOnPlat>();
+                pmp.UpdatePlatform(null);
             }
         }
     }
