@@ -52,7 +52,7 @@ namespace Beam.Core.Beams
             }
             bool hit;
             RaycastHit hitInfo;
-            currTarget = FindTarget(sourceRay, BeamType.Swap, out hitInfo, out hit);
+            currTarget = FindTarget<SwapBeamTarget>(sourceRay, BeamType.Swap, out hitInfo, out hit);
 
             if (currTarget != null)
             {
