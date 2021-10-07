@@ -46,18 +46,17 @@ namespace Beam.Core.Beams
         }
 
         public abstract void ShootBeam(Ray sourceRay);
-
         public abstract void UpdateBeam(Ray sourceRay);
         public abstract void ReleaseBeam();
 
-        protected BeamTarget FindTarget(Ray sourceRay, BeamType type, out RaycastHit raycastHitInfo, out bool hit)
+        protected T FindTarget<T>(Ray sourceRay, BeamType type, out RaycastHit raycastHitInfo, out bool hit) where T : BeamTarget
         {
             RaycastHit hitInfo;
             hit = Physics.Raycast(sourceRay, out hitInfo, maxBeamRange, GetLayerMask(type));
             raycastHitInfo = hitInfo;
             if (hit)
             {
-                BeamTarget target = hitInfo.collider.GetComponentInParent<BeamTarget>();
+                T target = hitInfo.collider.GetComponentInParent<T>();
                 return target;
             }
             return null;
@@ -80,14 +79,14 @@ namespace Beam.Core.Beams
 
         protected int GetLayerMask(BeamType type)
         {
-            int layerMask = UnityEngineExt.GetMaskWithout("Ignore Raycast", "Player");
+            int layerMask = UnityEngineExt.GetMaskWithout("Ignore Raycast", "Player", "Allows Both");
             switch (type)
             {
                 case BeamType.Grab:
-                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Grab", "Allows Both");
+                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Grab");
                     break;
                 case BeamType.Swap:
-                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Swap", "Allows Both");
+                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Swap");
                     break;
                 default:
                     break;

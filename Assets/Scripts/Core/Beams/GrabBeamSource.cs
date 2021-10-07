@@ -13,6 +13,7 @@ namespace Beam.Core.Beams
 
         public float maxBeamFlex;   //The maximum angle between an object and the player's cursor before the beam breaks.
         public float beamSnapSpeed;
+
         public void FixedUpdate()
         {
             
@@ -29,9 +30,11 @@ namespace Beam.Core.Beams
 
         public override void ReleaseBeam()
         {
+
             if (currTarget != null)
             {
-                currTarget.DetachGrabBeam();
+                GrabBeamTarget target = currTarget as GrabBeamTarget;
+                target.DetachBeam();
                 currTarget = null;
             }
 
@@ -51,10 +54,12 @@ namespace Beam.Core.Beams
             }
             bool hit;
             RaycastHit hitInfo;
-            currTarget = FindTarget(sourceRay, BeamType.Grab, out hitInfo, out hit);
+            currTarget = FindTarget<GrabBeamTarget>(sourceRay, BeamType.Grab, out hitInfo, out hit);
+
             if (currTarget != null)
             {
-                currTarget.AttachGrabBeam(this, sourceRay);
+                GrabBeamTarget target = currTarget as GrabBeamTarget;
+                target.AttachBeam(this, sourceRay);
                 beamEffectInst.GetComponent<GrabBeamEffect>().SetPosBezier(beamPos.position, currTarget.transform.position, transform.forward);
             } else if (hit)
             {
@@ -69,9 +74,11 @@ namespace Beam.Core.Beams
 
         public override void UpdateBeam(Ray sourceRay)
         {
+
             if (currTarget != null)
             {
-                currTarget.UpdateGrabBeam(this);
+                GrabBeamTarget target = currTarget as GrabBeamTarget;
+                target.UpdateBeam(this);
                 beamEffectInst.GetComponent<GrabBeamEffect>().SetPosBezier(beamPos.position,
                 currTarget.transform.position,
                 transform.forward);
