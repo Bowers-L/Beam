@@ -7,6 +7,7 @@ TagManager:
   - PressurePlateTarget
   - Glass
   - Mirror
+  - Platform
   layers:
   - Default
   - TransparentFX
@@ -19,8 +20,8 @@ TagManager:
   - Allows Grab
   - Allows Swap
   - Allows Both
-  - 
-  - 
+  - Player
+  - Platform
   - 
   - 
   - 

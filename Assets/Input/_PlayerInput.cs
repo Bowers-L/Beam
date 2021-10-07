@@ -57,6 +57,14 @@ public class @_PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""ce091c20-67a0-41a8-ab7e-481c6032c13a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -321,6 +329,28 @@ public class @_PlayerInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""FireSecondary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3f044947-e107-4e51-ae3f-ef38805f81c9"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f0cdc687-2b51-4dca-90e9-b2900213766b"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -903,6 +933,7 @@ public class @_PlayerInput : IInputActionCollection, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_FirePrimary = m_Player.FindAction("FirePrimary", throwIfNotFound: true);
         m_Player_FireSecondary = m_Player.FindAction("FireSecondary", throwIfNotFound: true);
+        m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -969,6 +1000,7 @@ public class @_PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_FirePrimary;
     private readonly InputAction m_Player_FireSecondary;
+    private readonly InputAction m_Player_Crouch;
     public struct PlayerActions
     {
         private @_PlayerInput m_Wrapper;
@@ -978,6 +1010,7 @@ public class @_PlayerInput : IInputActionCollection, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @FirePrimary => m_Wrapper.m_Player_FirePrimary;
         public InputAction @FireSecondary => m_Wrapper.m_Player_FireSecondary;
+        public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1002,6 +1035,9 @@ public class @_PlayerInput : IInputActionCollection, IDisposable
                 @FireSecondary.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFireSecondary;
                 @FireSecondary.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFireSecondary;
                 @FireSecondary.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFireSecondary;
+                @Crouch.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
+                @Crouch.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
+                @Crouch.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1021,6 +1057,9 @@ public class @_PlayerInput : IInputActionCollection, IDisposable
                 @FireSecondary.started += instance.OnFireSecondary;
                 @FireSecondary.performed += instance.OnFireSecondary;
                 @FireSecondary.canceled += instance.OnFireSecondary;
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
             }
         }
     }
@@ -1182,6 +1221,7 @@ public class @_PlayerInput : IInputActionCollection, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnFirePrimary(InputAction.CallbackContext context);
         void OnFireSecondary(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

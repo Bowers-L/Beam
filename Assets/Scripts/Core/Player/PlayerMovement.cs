@@ -6,6 +6,7 @@ using Beam.Utility;
 
 namespace Beam.Core.Player
 {
+    
     #region Editor
     public class ReadOnlyAttribute : PropertyAttribute
     {
@@ -31,11 +32,6 @@ namespace Beam.Core.Player
         }
     }
 
-    public enum PlayerMovementEditorTypes
-    {
-
-    }
-
     //https://blog.terresquall.com/2020/07/organising-your-unity-inspector-fields-with-a-dropdown-filter/
     //This is extremely overkill for this script, but I thought it might be useful for future scripts.
     [CustomEditor(typeof(PlayerMovement))]
@@ -46,6 +42,7 @@ namespace Beam.Core.Player
         {
                 MovementParameters,
                 Jumping,
+                Crouching,
                 GroundCheck,
                 Misc
         }
@@ -71,6 +68,9 @@ namespace Beam.Core.Player
                 case DisplayCategory.Jumping:
                     DisplayJumpingInfo();
                     break;
+                case DisplayCategory.Crouching:
+                    DisplayCrouchingInfo();
+                    break;
                 case DisplayCategory.GroundCheck:
                     DisplayGroundCheckInfo();
                     break;
@@ -88,13 +88,21 @@ namespace Beam.Core.Player
         {
             EditorGUILayout.PropertyField(serializedObject.FindProperty("moveParams"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("vel"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("velAtLastJump"));
         }
 
         void DisplayJumpingInfo()
         {
             EditorGUILayout.PropertyField(serializedObject.FindProperty("gravity"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("jumpHeight"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("velAtLastJump"));
+        }
+
+        void DisplayCrouchingInfo()
+        {
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("crouchingHeight"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("standingHeight"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("crouchSpeedFactor"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("isCrouching"));
         }
 
         void DisplayGroundCheckInfo()
@@ -117,9 +125,8 @@ namespace Beam.Core.Player
     public class PlayerMovement : MonoBehaviour
     {
 
-        //Parameters used to calculate the velocity
+        //Parameters used to calculate the velocity of the player in UpdateVelocity
         [System.Serializable]
-
         public struct MovementParameters
         {
             public float maxMoveSpeed;
@@ -139,14 +146,27 @@ namespace Beam.Core.Player
                 get;
                 internal set;
             }
+
         }
 
-        public CharacterController controller;
+        private CharacterController controller;
+        private Animator anim;
+        private Transform playerCameraTrans;
         
-        //might need to put gravity in an external game manager if other things use it.
+        //Jumping
         public float gravity = 1f;
         public float jumpHeight = 3f;
 
+        //Crouching
+        public float crouchingHeight;
+        public float standingHeight = 3f;
+        [Range(0.0f, 1.0f)]
+        public float crouchSpeedFactor;
+        [SerializeField]
+        //[ReadOnly]
+        private bool isCrouching;
+
+        //Ground Check
         public Transform groundCheck;
         public float groundDistance = 0.1f;
         public LayerMask groundMask;
@@ -158,10 +178,10 @@ namespace Beam.Core.Player
         public float killPlaneY;
 
         [SerializeField]
-        [ReadOnly]
+        //[ReadOnly]
         private Vector3 vel;
         [SerializeField]
-        [ReadOnly]
+        //[ReadOnly]
         private Vector3 velAtLastJump;
 
         [SerializeField]
@@ -186,13 +206,7 @@ namespace Beam.Core.Player
         {
             get
             {
-                //Multiple groundchecks around the player's capsule to cover the more complicated cases (such as ascending stairs)
-                float groundCheckPrecision = 0.1f;
                 bool center = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-                //bool xplus = Physics.CheckSphere(groundCheck.position + controller.radius * groundCheckPrecision * Vector3.right, groundDistance, groundMask);
-                //bool xminus = Physics.CheckSphere(groundCheck.position + controller.radius * groundCheckPrecision * Vector3.right, groundDistance, groundMask);
-                //bool zplus = Physics.CheckSphere(groundCheck.position + controller.radius * groundCheckPrecision * Vector3.forward, groundDistance, groundMask);
-                //bool zminus = Physics.CheckSphere(groundCheck.position + controller.radius * groundCheckPrecision * Vector3.back, groundDistance, groundMask);
                 return center;
             }
         }
@@ -203,15 +217,15 @@ namespace Beam.Core.Player
             {
                 Debug.LogError("Player should have a CharacterController component.");
             }
+            controller = GetComponent<CharacterController>();
+            anim = GetComponent<Animator>();
+            playerCameraTrans = GetComponentInChildren<Camera>().GetComponent<Transform>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            //float deltaX = Input.GetAxis("Horizontal");
-            //float deltaZ = Input.GetAxis("Vertical");
-
-            updateVelocity();
+            UpdateVelocity();
 
             GetComponent<CharacterController>().enabled = !noClip;
             if (noClip)
@@ -228,6 +242,7 @@ namespace Beam.Core.Player
             }
         }
 
+        #region Input Callbacks
         public void OnMove(InputAction.CallbackContext ctx)
         {
             moveParams.rawMoveInput = ctx.ReadValue<Vector2>();
@@ -239,10 +254,13 @@ namespace Beam.Core.Player
             {
                 velAtLastJump = vel;
                 vel.y = isGrounded ? Mathf.Sqrt(2f * jumpHeight * gravity) : vel.y;
-                
+                if (isCrouching)
+                {
+                    TryStopCrouching();
+                }
             }
 
-            /* Don't know if this should be kept since there's problems with external forces.
+            /*Don't know if this should be kept since there's problems with external forces.
             if (ctx.canceled && vel.y > 0f)
             {
                 //release jump button and player is still moving upwards.
@@ -250,6 +268,40 @@ namespace Beam.Core.Player
             }
             */
         }
+
+        public void OnCrouch(InputAction.CallbackContext ctx)
+        {
+
+            if (ctx.performed)
+            {
+                StartCrouching();
+            }
+
+            if (ctx.canceled)
+            {
+                TryStopCrouching();
+            }
+        }
+
+        public void StartCrouching()
+        {
+            isCrouching = true;
+            anim.SetBool("IsCrouching", isCrouching);
+        }
+
+        //Returns true if the player actually stops crouching
+        public bool TryStopCrouching()
+        {
+            //Need to check that the player won't get stuck into the wall
+            int mask = UnityEngineExt.GetMaskWithout("Ignore Raycast", "Player");
+            if (!Physics.Raycast(transform.position, transform.up, (standingHeight - crouchingHeight) / 2, mask))
+            {
+                isCrouching = false;
+                anim.SetBool("IsCrouching", isCrouching);
+            }
+            return false;
+        }
+        #endregion
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
@@ -260,7 +312,7 @@ namespace Beam.Core.Player
         }
 
         //Updates the player's velocity, taking into account smoothing, player rotation, input, etc.
-        private void updateVelocity()
+        private void UpdateVelocity()
         {
             #region Ground Check
             //update player's y velocity based on gravity
@@ -292,10 +344,15 @@ namespace Beam.Core.Player
 
             Vector3 oldXZVel = new Vector3(vel.x, noClip ? vel.y : 0, vel.z);
             Vector3 newXZVel = moveAccel * Time.deltaTime + oldXZVel;
-
+            
             //Cap the player's speed based on parameter weights/player input
             #region Speed Cap
-            float playerSpeedCap = isGrounded ? moveParams.maxMoveSpeed * moveParams.rawMoveInput.magnitude : velAtLastJump.magnitude * moveParams.airCapWeight;
+            float playerSpeedCap;
+            if (isGrounded) {
+                playerSpeedCap = (isCrouching ? crouchSpeedFactor : 1.0f) * moveParams.maxMoveSpeed * moveParams.rawMoveInput.magnitude;
+            } else {
+                playerSpeedCap = Mathf.Infinity;
+            }
             Vector3 newVelDir = Vector3.Normalize(newXZVel);
             float newVelMagAdjusted;
             if (newXZVel.magnitude > playerSpeedCap)

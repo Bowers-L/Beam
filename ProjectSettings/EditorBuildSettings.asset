@@ -6,7 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Logan/ConceptLevel.unity
-    guid: 9286bf038b043e64c92879c7c89018de
+    path: Assets/Scenes/Demo/Tutorial.unity
+    guid: 7010a4bcfc7a07647a67b414148c9d99
+  - enabled: 1
+    path: Assets/Scenes/Demo/Level 2.unity
+    guid: e746394b98b2c4642b0bb9dd564878c0
+  - enabled: 1
+    path: Assets/Scenes/Demo/Green Intro.unity
+    guid: 6848c53d3db12a9468c568d0c488c7ae
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1304b4cdcd3bf864390f9ea108e6ae18, type: 2}

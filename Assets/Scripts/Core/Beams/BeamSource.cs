@@ -25,141 +25,96 @@ namespace Beam.Core.Beams
     public abstract class BeamSource : MonoBehaviour
     {
         public float maxBeamRange;  //The maximum distance the beam can travel to latch onto an object
-        public float maxBeamFlex;   //The maximum angle between an object and the player's cursor before the beam breaks.
-        public float beamSnapSpeed;
+
 
         public GameObject beamEffectPrefab;
-        public GameObject beamEffectPos;
+        public Transform beamPos;
 
         protected BeamTarget currTarget;
-        protected BeamType currBeamType;
+        protected bool shootingBeam;
 
         [HideInInspector]
-        public BeamSourceEffect beamEffectInst;
+        public GameObject beamEffectInst;
 
-        public void FixedUpdate()
+        public void Start()
+        {
+            currTarget = null;
+            shootingBeam = false;
+            if (beamEffectPrefab == null)
+            {
+                Debug.LogWarning("Beam source has no effect attached.");
+            }
+        }
+
+        public abstract void ShootBeam(Ray sourceRay);
+        public abstract void UpdateBeam(Ray sourceRay);
+        public abstract void ReleaseBeam();
+
+        protected bool CheckTargetBlocked(BeamType type)
         {
             if (currTarget != null)
             {
                 Ray beamDir = new Ray(transform.position, currTarget.transform.position - transform.position);
 
                 RaycastHit hitInfo;
-                if (Physics.Raycast(beamDir, out hitInfo, currTarget.currBeamDist, GetLayerMask(currBeamType)))
+                if (Physics.Raycast(beamDir, out hitInfo, currTarget.currBeamDist, GetLayerMask(type)))
                 {
-                    if (!hitInfo.transform.gameObject.Equals(currTarget.gameObject))
-                    {
-                        DeactivateBeam();
-                    }
+                    return !hitInfo.transform.gameObject.Equals(currTarget.gameObject);
                 }
             }
-
-            if (beamEffectPrefab == null)
-            {
-                Debug.LogWarning("Beam source is missing effect prefab");
-            }
+            return false;
         }
 
-        public void GrabBeam(Ray beamRay)
-        {
-            EventManager.InvokeEvent<BeamShot, BeamSource, Ray>(this, beamRay);
-            List<Ray> r1;
-            BeamTarget target = FindTarget(beamRay, BeamType.Grab, out r1);
-            if ( target != null)
-            {
-                currTarget = target;
-                currBeamType = BeamType.Grab;
-
-                GrabBeamEffect();
-
-                target.AttachBeam(this, r1[r1.Count - 1]);
-            }
-        }
-
-        void GrabBeamEffect()
-        {
-            beamEffectInst = Instantiate(beamEffectPrefab).GetComponent<BeamSourceEffect>();
-            beamEffectInst.GetComponent<BeamSourceEffect>().SetPos(beamEffectPos.transform.position, currTarget.transform.position, transform.forward);
-        }
-
-        public void DeactivateBeam()
-        {
-            if (currTarget != null)
-            {
-                currTarget.DetachBeam();
-                currTarget = null;
-                EventManager.InvokeEvent<BeamRelease, BeamSource>(this);
-            }
-
-            if (beamEffectInst != null)
-            {
-                Destroy(beamEffectInst.gameObject);
-            }
-
-            currBeamType = BeamType.None;
-        }
-
-        public virtual void SwapBeam(Ray beamRay)
-        {
-            //Note: This function is overrided by the player in PlayerBeamSource.cs
-            //Also, it will eventually need to be modified/replaced to account for the time of the VFX.
-
-            List<Ray> r1;
-            currTarget = FindTarget(beamRay, BeamType.Swap, out r1);
-
-
-            if (currTarget != null)
-            {
-                Vector3 tempPos = transform.position;
-                transform.position = currTarget.transform.position;
-                currTarget.transform.position = tempPos;
-                currBeamType = BeamType.Grab;
-                DeactivateBeam();
-            }
-
-        }
-
-        protected BeamTarget FindTarget(Ray beamRay, BeamType type, out List<Ray> outputList)
+        protected T FindTarget<T>(Ray beamRay, BeamType type, out RaycastHit lastHitInfo, out List<Ray> outputList) where T : BeamTarget
         {
             outputList = new List<Ray>();
-            return FindTargetRecursive(beamRay, type, outputList);
+            return FindTargetRecursive<T>(beamRay, type, out lastHitInfo, outputList, 17, 1);
         }
 
-        private BeamTarget FindTargetRecursive(Ray beamRay, BeamType type, List<Ray> output)
+        private T FindTargetRecursive<T>(Ray beamRay, BeamType type, out RaycastHit lastHitInfo, List<Ray> outputList, int maxDepth, int currDepth) where T : BeamTarget
         {
-            if (output == null)
-            { 
-               output = new List<Ray>();
+            if (outputList == null)
+            {
+                outputList = new List<Ray>();
             }
-            output.Add(beamRay);
+            outputList.Add(beamRay);
             RaycastHit hitInfo;
             if (Physics.Raycast(beamRay, out hitInfo, maxBeamRange, GetLayerMask(type)))
             {
                 
                 if (hitInfo.collider.gameObject.tag == "Mirror")
                 {
+                    if (currDepth > maxDepth)
+                    {
+                        //safety case for infinite recursion
+                        lastHitInfo = hitInfo;
+                        return null;
+                    }
                     Vector3 pos = hitInfo.point;
                     Vector3 dir = Vector3.Reflect(beamRay.direction, hitInfo.normal);
                     Ray r1 = new Ray(pos, dir);
-                    return FindTargetRecursive(r1, type, output);
+                    return FindTargetRecursive<T>(r1, type, out lastHitInfo, outputList, maxDepth, currDepth+1);
                 }
                 
-                BeamTarget target = hitInfo.collider.GetComponentInParent<BeamTarget>();
+                T target = hitInfo.collider.GetComponentInParent<T>();
+                lastHitInfo = hitInfo;
                 return target;
             }
 
+            lastHitInfo = hitInfo;
             return null;
         }
 
         protected int GetLayerMask(BeamType type)
         {
-            int layerMask = UnityEngineExt.GetMaskWithout("Ignore Raycast");
+            int layerMask = UnityEngineExt.GetMaskWithout("Ignore Raycast", "Player", "Allows Both");
             switch (type)
             {
                 case BeamType.Grab:
-                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Grab") & UnityEngineExt.GetMaskWithout("Allows Both");
+                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Grab");
                     break;
                 case BeamType.Swap:
-                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Swap") & UnityEngineExt.GetMaskWithout("Allows Both");
+                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Swap");
                     break;
                 default:
                     break;

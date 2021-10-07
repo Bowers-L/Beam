@@ -11,8 +11,10 @@ GameObject:
   - component: {fileID: 1130074878021942449}
   - component: {fileID: 5373827355211569709}
   - component: {fileID: 2785743722217414107}
+  - component: {fileID: 5582233482073701602}
   - component: {fileID: 2251184424026648098}
-  m_Layer: 10
+  - component: {fileID: 7569927201755050337}
+  m_Layer: 11
   m_Name: Player (First Person)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -113,8 +115,8 @@ MonoBehaviour:
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2914195950158468213}
-        m_TargetAssemblyTypeName: Beam.Core.Beams.PlayerBeamSource, Assembly-CSharp
+      - m_Target: {fileID: 6173174421164476309}
+        m_TargetAssemblyTypeName: Beam.Core.Beams.PlayerGrabBeamSource, Assembly-CSharp
         m_MethodName: OnShootGrab
         m_Mode: 0
         m_Arguments:
@@ -186,7 +188,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2914195950158468213}
-        m_TargetAssemblyTypeName: Beam.Core.Beams.PlayerBeamSource, Assembly-CSharp
+        m_TargetAssemblyTypeName: Beam.Core.Beams.PlayerSwapBeamSource, Assembly-CSharp
         m_MethodName: OnShootSwap
         m_Mode: 0
         m_Arguments:
@@ -199,11 +201,46 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3ef85032-e748-4011-87fe-033bb963549a
     m_ActionName: Player/FireSecondary[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2251184424026648098}
+        m_TargetAssemblyTypeName: Beam.Core.Player.PlayerMovement, Assembly-CSharp
+        m_MethodName: OnCrouch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ce091c20-67a0-41a8-ab7e-481c6032c13a
+    m_ActionName: Player/Crouch[/Keyboard/ctrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!95 &5582233482073701602
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130074878021942453}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9a2820e6f1b81ab419cbe5f36b24ed63, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &2251184424026648098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,11 +253,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a64aad2170c3c4b9a5af0f377d2198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 5373827355211569709}
   gravity: 30
   jumpHeight: 2
+  crouchingHeight: 2
+  standingHeight: 3
+  crouchSpeedFactor: 0.45
+  isCrouching: 0
   groundCheck: {fileID: 2722610955488524463}
-  groundDistance: 0.1
+  groundDistance: 0.2
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -232,9 +272,25 @@ MonoBehaviour:
   moveParams:
     maxMoveSpeed: 10
     accelGround: 100
-    accelAir: 20
-    overCapSmoothing: 0.08
+    accelAir: 5
+    overCapSmoothing: 0.5
     airCapWeight: 1
+--- !u!114 &7569927201755050337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130074878021942453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd9fb3696aeaf7a44b7cb0451de52fd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activePlatform: {fileID: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4087
 --- !u!1 &1377156412551839548
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +303,7 @@ GameObject:
   - component: {fileID: 3046557498089436620}
   - component: {fileID: 2852946451261586072}
   - component: {fileID: 1740289520952284356}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,7 +396,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2722610955488524463}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +426,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6379288975505934311}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: BeamPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,7 +441,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6441127187171231908}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -1, z: 0.5}
+  m_LocalPosition: {x: 0.5, y: -1, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8230580247023661561}
@@ -403,9 +459,10 @@ GameObject:
   - component: {fileID: 3627940316773768363}
   - component: {fileID: 2466471339985402330}
   - component: {fileID: 970953125165186033}
+  - component: {fileID: 6173174421164476309}
   - component: {fileID: 2914195950158468213}
   - component: {fileID: 1933688958195957996}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -490,8 +547,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d594021e98700fd44a05324a63ac0c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 30
+  mouseSensitivity: 20
   playerTrans: {fileID: 1130074878021942449}
+--- !u!114 &6173174421164476309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8464820739674196015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1484d1bf4a1157243aadb985fadec61b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxBeamRange: 1000
+  beamEffectPrefab: {fileID: 614448475660390605, guid: d7b9bedd87c510e44b9eed4c007e1a99, type: 3}
+  beamPos: {fileID: 6379288975505934311}
+  beamEffectInst: {fileID: 0}
+  maxBeamFlex: 50
+  beamSnapSpeed: 10
 --- !u!114 &2914195950158468213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,10 +580,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxBeamRange: 1000
-  maxBeamFlex: 50
-  beamSnapSpeed: 10
-  beamEffectPrefab: {fileID: 614448475660390605, guid: d7b9bedd87c510e44b9eed4c007e1a99, type: 3}
-  beamEffectPos: {fileID: 6441127187171231908}
+  beamEffectPrefab: {fileID: 1164910583789745692, guid: 00a84bb8241ea5f4b9e8e69704ea2d2f, type: 3}
+  beamPos: {fileID: 6379288975505934311}
   beamEffectInst: {fileID: 0}
 --- !u!114 &1933688958195957996
 MonoBehaviour:

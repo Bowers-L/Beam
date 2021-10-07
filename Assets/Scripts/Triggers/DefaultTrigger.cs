@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Beam.Core.Beams
+namespace Beam.Triggers
 {
-    public class GlassMedium : BeamMedium
+    class DefaultTrigger : Trigger
     {
-        
+        void Start()
+        {
+            activate();
+        }
     }
 }

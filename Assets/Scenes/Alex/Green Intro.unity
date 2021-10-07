@@ -44929,10 +44929,13 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 7883948612238939824, guid: 0b7fe1467edb72142afe3de574398f45, type: 3}
       propertyPath: moveParams.overCapSmoothing
       value: 0.5
       objectReference: {fileID: 0}
+=======
+>>>>>>> Logan
     - target: {fileID: 8238413249479073860, guid: 0b7fe1467edb72142afe3de574398f45, type: 3}
       propertyPath: m_Name
       value: BaseLevelAssets
@@ -44999,7 +45002,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9164048482148352867, guid: 0b7fe1467edb72142afe3de574398f45, type: 3}
       propertyPath: mouseSensitivity
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b7fe1467edb72142afe3de574398f45, type: 3}

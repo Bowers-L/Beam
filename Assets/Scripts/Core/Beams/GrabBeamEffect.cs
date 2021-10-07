@@ -1,25 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Beam.Core.Beams
 {
-    public class BeamSourceEffect : MonoBehaviour
+    public class GrabBeamEffect : MonoBehaviour
     {
         public GameObject beamBreakPrefab;
 
         private LineRenderer lr;
-        private ParticleSystem source;
+        private VisualEffect source;
         private List<Vector3> positions;
-        public void SetPos(Vector3 start, Vector3 end, Vector3 startForward)
+
+        //Set a straight line from start to end.
+        public void SetPosLinear(Vector3 start, Vector3 end, Vector3 startForward)
         {
             lr = GetComponentInChildren<LineRenderer>();
-            source = GetComponentInChildren<ParticleSystem>();
+            source = GetComponentInChildren<VisualEffect>();
+
+            positions = new List<Vector3>();
+            positions.Add(start);
+            positions.Add(end);
+            lr.positionCount = 2;
+            lr.SetPositions(positions.ToArray());
+            source.transform.position = start;
+            source.transform.forward = startForward;
+        }
+
+        //Set a curved line from start to end starting in the direction of startForward.
+        public void SetPosBezier(Vector3 start, Vector3 end, Vector3 startForward)
+        {
+            lr = GetComponentInChildren<LineRenderer>();
+            source = GetComponentInChildren<VisualEffect>();
 
             positions = sampleBezier(start, getPointB(start, end, startForward), end, 11);
             lr.positionCount = positions.Count;
             lr.SetPositions(positions.ToArray());
             source.transform.position = start;
+            source.transform.forward = startForward;
         }
 
         //The idea is to create a dissolve effect where the beam breaks in the middle and then dissolves towards the ends.
@@ -86,7 +105,6 @@ namespace Beam.Core.Beams
             }
 
             Destroy(breakInst);
-            Destroy(this);
         }
 
         //Curve simulates a Bezier Curve: https://en.wikipedia.org/wiki/B%C3%A9zier_curve
