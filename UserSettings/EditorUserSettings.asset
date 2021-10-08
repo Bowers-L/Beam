@@ -6,44 +6,13 @@ EditorUserSettings:
   serializedVersion: 4
   m_ConfigSettings:
     RecentlyUsedScenePath-0:
-      value: 22424703114646680e0b0227036c7e1c130f5706293e233c6d7b5326ece92021
+      value: 22424703114646680e0b0227036c731f11161665182d35241e2a183de7f37b1bede935ecf72e13392f07e3721130082beb
       flags: 0
     RecentlyUsedScenePath-1:
-      value: 22424703114646680e0b0227036c7e1c130f571e393c29222428117df7ee3d2cfb
-      flags: 0
-    RecentlyUsedScenePath-2:
-      value: 22424703114646680e0b0227036c7c1817041d650f20272328692936f1f4740be1e238eca92f31352d1b
-      flags: 0
-    RecentlyUsedScenePath-3:
       value: 22424703114646680e0b0227036c731f11161665182d35241e2a183de7f37b15edf13fe7e00a333d2d04e02e092d4f2afc031d12
       flags: 0
-    RecentlyUsedScenePath-4:
-      value: 22424703114646680e0b0227036c7b151b185706293e233c6d7b5326ece92021
-      flags: 0
-    RecentlyUsedScenePath-5:
-<<<<<<< HEAD
-      value: 22424703114646680e0b0227036c7e1c130f570d3e2d233e6d001327f0ef7a2decee22f0
-      flags: 0
-    RecentlyUsedScenePath-6:
-      value: 22424703114646680e0b0227036c731f111616650f2728332839091fe7f63134acf238e0f323
-      flags: 0
-    RecentlyUsedScenePath-7:
+    RecentlyUsedScenePath-2:
       value: 22424703114646680e0b0227036c731f11161665002d3035213a521ff4df1120f2e638edee34380e360de2721130082beb
-      flags: 0
-    UnityEditor.ShaderGraph.Blackboard:
-      value: 18135939215a0a5004000b0e15254b524c030a3f2964643d120d1230e9e93a3fd6e826abbd3c3e302a07a37e0901373ae01e0008f707250d171df81a53a543415f95548717f73713d91006c1c309d0effad0d2f9ddffa5828c89eea2b8b2e3c7c6f8bffee8f2e782b2eda4e3ff9289948d88ae8696929997f482ccce
-      flags: 0
-    UnityEditor.ShaderGraph.FloatingWindowsLayout2:
-      value: 181344140043005e1a220d3b1f364b524c0c5a27130c293326201334cee5322ca0bd30e8eb293a707b0fd0180b3d0a36fc0d3d04e649500d1002ee0b5dbd1d2c27c00ad113cb1e10e41f1addc80993b98d9884a69ae6d8f0d1cda9e8fbfefaf9f9dea3fdb9ade882f0f7b0e1e380cafbf2c3adc18e9cd285a2908b82ec869c8395949c9483d68a8e97ddbd90bf
-=======
-      value: 22424703114646680e0b0227036c7b151b18571e393c29222428117df7ee3d2cfb
-      flags: 0
-    RecentlyUsedScenePath-6:
-      value: 22424703114646680e0b0227036c7b151b18570d3e2d233e6d001327f0ef7a2decee22f0
->>>>>>> Logan
-      flags: 0
-    RecentlyUsedScenePath-7:
-      value: 22424703114646680e0b0227036c731f11161665182d35241e2a183de7f37b1bede935ecf72e13392f07e3721130082beb
       flags: 0
     vcSharedLogLevel:
       value: 0d5e400f0650

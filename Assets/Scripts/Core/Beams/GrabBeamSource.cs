@@ -18,7 +18,7 @@ namespace Beam.Core.Beams
         public void FixedUpdate()
         {
             
-            if (CheckTargetBlocked(BeamType.Grab))
+            if (currTarget != null && )
             {
                 ReleaseBeam();
             }
@@ -61,7 +61,7 @@ namespace Beam.Core.Beams
             if (currTarget != null)
             {
                 GrabBeamTarget target = currTarget as GrabBeamTarget;
-                target.AttachBeam(this, sourceRay);
+                target.AttachBeam(this, rayList[rayList.Count-1]);
                 beamEffectInst.GetComponent<GrabBeamEffect>().SetPosBezier(beamPos.position, currTarget.transform.position, transform.forward);
             } else if (hitInfo.collider != null)
             {

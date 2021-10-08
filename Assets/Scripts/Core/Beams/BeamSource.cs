@@ -65,6 +65,13 @@ namespace Beam.Core.Beams
             return false;
         }
 
+        protected T FindTarget<T>(Ray beamRay, BeamType type) where T : BeamTarget
+        {
+            //This is disgusting
+            RaycastHit lastHitInfo;
+            List<Ray> outputList = new List<Ray>();
+            return FindTargetRecursive<T>(beamRay, type, out lastHitInfo, outputList, 17, 1);
+        }
         protected T FindTarget<T>(Ray beamRay, BeamType type, out RaycastHit lastHitInfo, out List<Ray> outputList) where T : BeamTarget
         {
             outputList = new List<Ray>();
