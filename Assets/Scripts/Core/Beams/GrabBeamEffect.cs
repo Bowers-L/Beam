@@ -14,31 +14,42 @@ namespace Beam.Core.Beams
         private List<Vector3> positions;
 
         //Set a straight line from start to end.
-        public void SetPosLinear(Vector3 start, Vector3 end, Vector3 startForward)
+        public void SetPosLinear(List<Ray> rays, Vector3 end)
         {
             lr = GetComponentInChildren<LineRenderer>();
             source = GetComponentInChildren<VisualEffect>();
 
             positions = new List<Vector3>();
-            positions.Add(start);
+            foreach (Ray ray in rays)
+            {
+                positions.Add(ray.origin);
+            }
             positions.Add(end);
-            lr.positionCount = 2;
+
+            lr.positionCount = positions.Count;
             lr.SetPositions(positions.ToArray());
-            source.transform.position = start;
-            source.transform.forward = startForward;
+            source.transform.position = rays[0].origin;
+            source.transform.forward = rays[0].direction;
         }
 
         //Set a curved line from start to end starting in the direction of startForward.
-        public void SetPosBezier(Vector3 start, Vector3 end, Vector3 startForward)
+        public void SetPosBezier(List<Ray> rays, Vector3 end)
         {
             lr = GetComponentInChildren<LineRenderer>();
             source = GetComponentInChildren<VisualEffect>();
 
-            positions = sampleBezier(start, getPointB(start, end, startForward), end, 11);
+            positions = new List<Vector3>();
+            foreach (Ray ray in rays)
+            {
+                positions.Add(ray.origin);
+            }
+            Ray lastRay = rays[rays.Count - 1];
+            positions.AddRange(sampleBezier(lastRay.origin, getPointB(lastRay.origin, end, lastRay.direction), end, 11));
+
             lr.positionCount = positions.Count;
             lr.SetPositions(positions.ToArray());
-            source.transform.position = start;
-            source.transform.forward = startForward;
+            source.transform.position = rays[0].origin;
+            source.transform.forward = rays[0].direction;
         }
 
         //The idea is to create a dissolve effect where the beam breaks in the middle and then dissolves towards the ends.

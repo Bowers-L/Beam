@@ -62,13 +62,13 @@ namespace Beam.Core.Beams
             {
                 GrabBeamTarget target = currTarget as GrabBeamTarget;
                 target.AttachBeam(this, rayList[rayList.Count-1]);
-                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosBezier(beamPos.position, currTarget.transform.position, transform.forward);
+                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosBezier(rayList, currTarget.transform.position);
             } else if (hitInfo.collider != null)
             {
-                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosLinear(beamPos.position, hitInfo.point, transform.forward);
+                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosLinear(rayList, hitInfo.point);
             } else
             {
-                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosLinear(beamPos.position, transform.position + transform.forward * maxBeamRange, transform.forward);
+                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosLinear(rayList, rayList[rayList.Count-1].origin + rayList[rayList.Count-1].direction * maxBeamRange);
             }
 
             shootingBeam = true;
@@ -80,10 +80,15 @@ namespace Beam.Core.Beams
             if (currTarget != null)
             {
                 GrabBeamTarget target = currTarget as GrabBeamTarget;
-                target.UpdateBeam(this);
-                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosBezier(beamPos.position,
-                currTarget.transform.position,
-                transform.forward);
+
+                List<Ray> rayList;
+                RaycastHit hitInfo;
+                FindTarget<GrabBeamTarget>(sourceRay, BeamType.Grab, out hitInfo, out rayList);
+                Debug.Log(sourceRay);
+                Debug.Log(rayList[0]);
+                Debug.Log(target.transform.position);
+                target.UpdateBeam(this, rayList);
+                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosBezier(rayList, currTarget.transform.position);
             } else
             {
                 ShootBeam(sourceRay);

@@ -88,7 +88,7 @@ namespace Beam.Core.Beams
             RaycastHit hitInfo;
             if (Physics.Raycast(beamRay, out hitInfo, maxBeamRange, GetLayerMask(type)))
             {
-                
+
                 if (hitInfo.collider.gameObject.tag == "Mirror")
                 {
                     if (currDepth > maxDepth)
@@ -100,11 +100,17 @@ namespace Beam.Core.Beams
                     Vector3 pos = hitInfo.point;
                     Vector3 dir = Vector3.Reflect(beamRay.direction, hitInfo.normal);
                     Ray r1 = new Ray(pos, dir);
-                    return FindTargetRecursive<T>(r1, type, out lastHitInfo, outputList, maxDepth, currDepth+1);
+                    return FindTargetRecursive<T>(r1, type, out lastHitInfo, outputList, maxDepth, currDepth + 1);
                 }
-                
+
                 T target = hitInfo.collider.GetComponentInParent<T>();
                 lastHitInfo = hitInfo;
+                if (outputList.Count >= 2) {
+                    outputList[0] = new Ray(beamPos.position, outputList[1].origin - beamPos.position);
+                } else
+                {
+                    outputList[0] = new Ray(beamPos.position, beamRay.direction);
+                }
                 return target;
             }
 
