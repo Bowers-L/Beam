@@ -18,7 +18,7 @@ namespace Beam.Core.Beams
         public void FixedUpdate()
         {
             
-            if (currTarget != null && )
+            if (CheckTargetBlocked(BeamType.Grab))
             {
                 ReleaseBeam();
             }
