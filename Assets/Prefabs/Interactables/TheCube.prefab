@@ -77,6 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currBeamDist: 0
+  beamReleaseVelocityCap: 3
 --- !u!114 &7592821253133480499
 MonoBehaviour:
   m_ObjectHideFlags: 0

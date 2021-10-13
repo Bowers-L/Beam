@@ -8,6 +8,8 @@ namespace Beam.Core.Beams
 {
     public class GrabBeamTarget : BeamTarget
     {
+        public float beamReleaseVelocityCap;
+
         public void AttachBeam(GrabBeamSource source, Ray beam)
         {
 
@@ -46,6 +48,8 @@ namespace Beam.Core.Beams
         public void DetachBeam()
         {
             rb.useGravity = true;
+            float velMag = Mathf.Min(rb.velocity.magnitude, beamReleaseVelocityCap);
+            rb.velocity = rb.velocity.normalized * velMag;
         }
     }
 }
