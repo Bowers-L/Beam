@@ -66,10 +66,10 @@ namespace Beam.Core.Player
         {
             // Make sure we are really standing on a straight platform *NEW*
             // Not on the underside of one and not falling down from it either!
-            Debug.Log("hit");
+            //Debug.Log("hit");
             if (hit.gameObject.CompareTag("Platform"))
             {
-                Debug.Log("hit platform");
+                //Debug.Log("hit platform");
                 if (hit.moveDirection.y < -0.9 && hit.normal.y > 0.41)
                 {
                     if (activePlatform != hit.collider.transform)

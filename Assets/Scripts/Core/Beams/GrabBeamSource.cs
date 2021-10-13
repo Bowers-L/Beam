@@ -84,9 +84,6 @@ namespace Beam.Core.Beams
                 List<Ray> rayList;
                 RaycastHit hitInfo;
                 FindTarget<GrabBeamTarget>(sourceRay, BeamType.Grab, out hitInfo, out rayList);
-                Debug.Log(sourceRay);
-                Debug.Log(rayList[0]);
-                Debug.Log(target.transform.position);
                 target.UpdateBeam(this, rayList);
                 beamEffectInst.GetComponent<GrabBeamEffect>().SetPosBezier(rayList, currTarget.transform.position);
             } else

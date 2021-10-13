@@ -85,7 +85,6 @@ namespace Beam.Core.Beams
             LineRenderer targetLine = sourceLine == lines[0] ? lines[1] : lines[0];
             while (t > 0f)
             {
-                Debug.Log(t);
                 if (sourcePositions.Count > 0)
                 {
                     sourcePositions[sourcePositions.Count - 1] = QuadraticBezierCurve(a, b, c, t);
