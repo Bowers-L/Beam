@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
+using System.Collections.Generic;
+
 namespace Beam.Utility
 {
     //Namespace for various utilities extending the Unity API.
@@ -13,7 +15,7 @@ namespace Beam.Utility
         }
 
         //Outputs the closest point on the given line to the given point.
-        public static Vector3 projectPointOntoLine(Vector3 point, Ray line)
+        public static Vector3 ProjectPointOntoLine(Vector3 point, Ray line)
         {
             /*
              * Math:

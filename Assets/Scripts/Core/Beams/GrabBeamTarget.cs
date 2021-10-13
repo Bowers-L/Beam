@@ -12,7 +12,7 @@ namespace Beam.Core.Beams
         {
 
             //snap object center to the cursor
-            rb.MovePosition(UnityEngineExt.projectPointOntoLine(transform.position, beam));
+            rb.MovePosition(UnityEngineExt.ProjectPointOntoLine(transform.position, beam));
             currBeamDist = (transform.position - beam.origin).magnitude;
 
             rb.useGravity = false;
