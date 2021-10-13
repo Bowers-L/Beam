@@ -105,12 +105,15 @@ namespace Beam.Core.Beams
 
                 T target = hitInfo.collider.GetComponentInParent<T>();
                 lastHitInfo = hitInfo;
+                /*
+                 * Don't want to do this here since otherwise the beam snapping gets messed up.
                 if (outputList.Count >= 2) {
                     outputList[0] = new Ray(beamPos.position, outputList[1].origin - beamPos.position);
                 } else
                 {
                     outputList[0] = new Ray(beamPos.position, beamRay.direction);
                 }
+                */
                 return target;
             }
 

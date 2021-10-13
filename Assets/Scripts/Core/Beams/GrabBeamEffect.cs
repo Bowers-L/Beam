@@ -14,47 +14,39 @@ namespace Beam.Core.Beams
         private VisualEffect source;
         private List<Vector3> positions;
 
-        //Set a straight line from start to end.
-        public void SetPosLinear(List<Ray> rays, Vector3 end)
+        //Set straight lines through each of the rays ending at end.
+        public void SetPosLinear(Vector3[] inPositions)
         {
             lr = GetComponentInChildren<LineRenderer>();
             source = GetComponentInChildren<VisualEffect>();
 
-            positions = new List<Vector3>();
-            foreach (Ray ray in rays)
-            {
-                positions.Add(ray.origin);
-            }
-            positions.Add(end);
-
-            lr.positionCount = positions.Count;
-            lr.SetPositions(positions.ToArray());
-            source.transform.position = rays[0].origin;
-            source.transform.forward = rays[0].direction;
+            positions = new List<Vector3>(inPositions);
+            lr.positionCount = inPositions.Length;
+            lr.SetPositions(inPositions);
+            source.transform.position = inPositions[0];
+            source.transform.forward = inPositions[1] - inPositions[0];
         }
 
-        //Set a curved line from start to end starting in the direction of startForward.
-        public void SetPosBezier(List<Ray> rays, Vector3 end)
+        //Sets a straight line through rays to the last ray, then curves towards end.
+        public void SetPosBezier(Vector3[] inPositions, Vector3 lastRayDir)
         {
             lr = GetComponentInChildren<LineRenderer>();
             source = GetComponentInChildren<VisualEffect>();
 
-            positions = new List<Vector3>();
-            foreach (Ray ray in rays)
-            {
-                positions.Add(ray.origin);
-            }
-            Ray lastRay = rays[rays.Count - 1];
-            positions.AddRange(Bezier.QuadraticSample(lastRay.origin, Bezier.QuadraticApproximateB(lastRay.origin, end, lastRay.direction), end, 11));
+            List<Vector3> positions = new List<Vector3>(inPositions);
+            Vector3 bezierStart = inPositions[inPositions.Length - 2];
+            Vector3 bezierEnd = inPositions[inPositions.Length - 1];
+            positions.AddRange(Bezier.QuadraticSample(bezierStart, Bezier.QuadraticApproximateB(bezierStart, bezierEnd, lastRayDir), bezierEnd, 11));
 
             lr.positionCount = positions.Count;
             lr.SetPositions(positions.ToArray());
-            source.transform.position = rays[0].origin;
-            source.transform.forward = rays[0].direction;
+            source.transform.position = inPositions[0];
+            source.transform.forward = inPositions[1] - inPositions[0];
         }
 
         //The idea is to create a dissolve effect where the beam breaks in the middle and then dissolves towards the ends.
         //To do this, the beam is split up into two separate line renderers and points are deleted until the lines are completely gone.
+        /*
         public IEnumerator BeamBreak()
         {
 
@@ -117,5 +109,6 @@ namespace Beam.Core.Beams
 
             Destroy(breakInst);
         }
+        */
     }
 }

@@ -25,25 +25,6 @@ namespace Beam.Core.Beams
             }
         }
 
-        public override void ReleaseBeam()
-        {
-            if (currTarget != null)
-            {
-                Vector3 tempPos = transform.position;
-                transform.position = currTarget.transform.position;
-                currTarget.transform.position = tempPos;
-            }
-
-            currTarget = null;
-
-            if (beamEffectInst != null)
-            {
-                Destroy(beamEffectInst);
-            }
-
-            shootingBeam = false;
-        }
-
         public override void ShootBeam(Ray sourceRay)
         {
             if (beamEffectInst == null)
@@ -74,7 +55,27 @@ namespace Beam.Core.Beams
 
         public override void UpdateBeam(Ray sourceRay)
         {
+            //This is really lazy ik.
             ShootBeam(sourceRay);
+        }
+
+        public override void ReleaseBeam()
+        {
+            if (currTarget != null)
+            {
+                Vector3 tempPos = transform.position;
+                transform.position = currTarget.transform.position;
+                currTarget.transform.position = tempPos;
+            }
+
+            currTarget = null;
+
+            if (beamEffectInst != null)
+            {
+                Destroy(beamEffectInst);
+            }
+
+            shootingBeam = false;
         }
     }
 }

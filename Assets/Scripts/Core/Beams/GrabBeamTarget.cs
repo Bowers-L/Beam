@@ -31,7 +31,7 @@ namespace Beam.Core.Beams
             beamFlex = beamFlex < 0 ? -beamFlex : beamFlex; //Make sure beamFlex is positive
             if (beamFlex > source.maxBeamFlex)
             {
-                StartCoroutine(source.beamEffectInst.GetComponent<GrabBeamEffect>().BeamBreak());
+                //StartCoroutine(source.beamEffectInst.GetComponent<GrabBeamEffect>().BeamBreak());
                 source.ReleaseBeam();
             }
             else
