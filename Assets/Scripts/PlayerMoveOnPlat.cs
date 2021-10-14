@@ -31,6 +31,20 @@ namespace Beam.Core.Player
             {
                 activePlatform = null;
             }
+            //RaycastHit hit;
+
+           /* if (Physics.Raycast(pm.groundCheck.position, -Vector3.up, out hit, pm.groundDistance, groundMask, QueryTriggerInteraction.Ignore))
+            {
+                if (hit.transform.gameObject.CompareTag("Platform"))
+                {
+                   // UpdatePlatform(hit.transform);
+                }
+                else
+                {
+                    UpdatePlatform(null);
+                }
+            }*/
+
             if (activePlatform != null)
             {
                 Vector3 newGlobalPlatformPoint = activePlatform.TransformPoint(activeLocalPlatformPoint);
@@ -61,6 +75,12 @@ namespace Beam.Core.Player
                 }
             }
         }
+
+        public void FixedUpdate()
+        {
+            
+        }
+
 
         void OnControllerColliderHit(ControllerColliderHit hit)
         {
