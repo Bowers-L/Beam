@@ -4,7 +4,8 @@ using UnityEngine.Events;
 using Beam.Events;
 using Beam.Utility;
 
-using System.Collections;
+using System.Collections.Generic;
+
 
 namespace Beam.Core.Beams
 {
@@ -13,6 +14,7 @@ namespace Beam.Core.Beams
 
         public float maxBeamFlex;   //The maximum angle between an object and the player's cursor before the beam breaks.
         public float beamSnapSpeed;
+
         public void FixedUpdate()
         {
             
@@ -27,11 +29,81 @@ namespace Beam.Core.Beams
             }
         }
 
-        public override void ReleaseBeam()
+        public override void ShootBeam(Ray sourceRay)
         {
+            if (beamEffectInst == null)
+            {
+                beamEffectInst = Instantiate(beamEffectPrefab);
+            }
+
+            List<Ray> rayList;
+            RaycastHit hitInfo;
+            currTarget = FindTarget<GrabBeamTarget>(sourceRay, BeamType.Grab, out hitInfo, out rayList);
+
+            shootingBeam = true;
+
             if (currTarget != null)
             {
-                currTarget.DetachGrabBeam();
+                GrabBeamTarget target = currTarget as GrabBeamTarget;
+                target.AttachBeam(this, rayList[rayList.Count-1]);
+                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosBezier(GetBeamRendererPositions(rayList, hitInfo).ToArray(), rayList[rayList.Count-1].direction);
+            } else {
+                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosLinear(GetBeamRendererPositions(rayList, hitInfo).ToArray());
+            }
+        }
+
+        public override void UpdateBeam(Ray sourceRay)
+        {
+
+            if (currTarget != null)
+            {
+                GrabBeamTarget target = currTarget as GrabBeamTarget;
+
+                List<Ray> rayList;
+                RaycastHit hitInfo;
+                FindTarget<GrabBeamTarget>(sourceRay, BeamType.Grab, out hitInfo, out rayList);
+                target.UpdateBeam(this, rayList);
+                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosBezier(GetBeamRendererPositions(rayList, hitInfo).ToArray(), rayList[rayList.Count - 1].direction);
+            } else
+            {
+                //Again, this is lazy lol. Sorry.
+                ShootBeam(sourceRay);
+            }
+        }
+
+        //These need to be separated out because visually the beam starts from the player's gun rather than directly in front of the camera.
+        private List<Vector3> GetBeamRendererPositions(List<Ray> beamRayList, RaycastHit hitInfo)
+        {
+            List<Vector3> positionsForEffect = new List<Vector3>();
+            positionsForEffect.Add(beamPos.position);
+            for (int i = 1; i < beamRayList.Count; i++)
+            {
+                positionsForEffect.Add(beamRayList[i].origin);
+            }
+
+            if (currTarget != null)
+            {
+                positionsForEffect.Add(currTarget.transform.position);
+            } else
+            {
+                //Either go in a straight line until the beam hits something or it runs out of range.
+                Vector3 finalPoint = hitInfo.collider != null ?
+                    hitInfo.point :
+                    beamRayList[beamRayList.Count - 1].origin + beamRayList[beamRayList.Count - 1].direction * maxBeamRange;
+
+                positionsForEffect.Add(finalPoint);
+            }
+
+            return positionsForEffect;
+        }
+
+        public override void ReleaseBeam()
+        {
+
+            if (currTarget != null)
+            {
+                GrabBeamTarget target = currTarget as GrabBeamTarget;
+                target.DetachBeam();
                 currTarget = null;
             }
 
@@ -41,44 +113,6 @@ namespace Beam.Core.Beams
             }
 
             shootingBeam = false;
-        }
-
-        public override void ShootBeam(Ray sourceRay)
-        {
-            if (beamEffectInst == null)
-            {
-                beamEffectInst = Instantiate(beamEffectPrefab);
-            }
-            bool hit;
-            RaycastHit hitInfo;
-            currTarget = FindTarget(sourceRay, BeamType.Grab, out hitInfo, out hit);
-            if (currTarget != null)
-            {
-                currTarget.AttachGrabBeam(this, sourceRay);
-                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosBezier(beamPos.position, currTarget.transform.position, transform.forward);
-            } else if (hit)
-            {
-                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosLinear(beamPos.position, hitInfo.point, transform.forward);
-            } else
-            {
-                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosLinear(beamPos.position, transform.position + transform.forward * maxBeamRange, transform.forward);
-            }
-
-            shootingBeam = true;
-        }
-
-        public override void UpdateBeam(Ray sourceRay)
-        {
-            if (currTarget != null)
-            {
-                currTarget.UpdateGrabBeam(this);
-                beamEffectInst.GetComponent<GrabBeamEffect>().SetPosBezier(beamPos.position,
-                currTarget.transform.position,
-                transform.forward);
-            } else
-            {
-                ShootBeam(sourceRay);
-            }
         }
     }
 }

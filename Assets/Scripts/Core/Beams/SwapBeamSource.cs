@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using Beam.Events;
 using Beam.Utility;
 
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Beam.Core.Beams
 {
@@ -25,6 +25,40 @@ namespace Beam.Core.Beams
             }
         }
 
+        public override void ShootBeam(Ray sourceRay)
+        {
+            if (beamEffectInst == null)
+            {
+                beamEffectInst = Instantiate(beamEffectPrefab);
+            }
+
+            RaycastHit hitInfo;
+            List<Ray> rayList = new List<Ray>();
+            currTarget = FindTarget<SwapBeamTarget>(sourceRay, BeamType.Swap, out hitInfo, out rayList);
+
+            if (currTarget != null)
+            {
+                beamEffectInst.GetComponent<SwapBeamEffect>().SetPos(beamPos.position, currTarget.transform.position, transform.forward);
+                beamEffectInst.GetComponent<SwapBeamEffect>().SetHasTarget(true);
+            } else if (hitInfo.collider != null)
+            {
+                beamEffectInst.GetComponent<SwapBeamEffect>().SetPos(beamPos.position, hitInfo.point, transform.forward);
+                beamEffectInst.GetComponent<SwapBeamEffect>().SetHasTarget(false);
+            } else
+            {
+                beamEffectInst.GetComponent<SwapBeamEffect>().SetPos(beamPos.position, transform.position + transform.forward * maxBeamRange, transform.forward);
+                beamEffectInst.GetComponent<SwapBeamEffect>().SetHasTarget(false);
+            }
+
+            shootingBeam = true;
+        }
+
+        public override void UpdateBeam(Ray sourceRay)
+        {
+            //This is really lazy ik.
+            ShootBeam(sourceRay);
+        }
+
         public override void ReleaseBeam()
         {
             if (currTarget != null)
@@ -42,38 +76,6 @@ namespace Beam.Core.Beams
             }
 
             shootingBeam = false;
-        }
-
-        public override void ShootBeam(Ray sourceRay)
-        {
-            if (beamEffectInst == null)
-            {
-                beamEffectInst = Instantiate(beamEffectPrefab);
-            }
-            bool hit;
-            RaycastHit hitInfo;
-            currTarget = FindTarget(sourceRay, BeamType.Swap, out hitInfo, out hit);
-
-            if (currTarget != null)
-            {
-                beamEffectInst.GetComponent<SwapBeamEffect>().SetPos(beamPos.position, currTarget.transform.position, transform.forward);
-                beamEffectInst.GetComponent<SwapBeamEffect>().SetHasTarget(true);
-            } else if (hit)
-            {
-                beamEffectInst.GetComponent<SwapBeamEffect>().SetPos(beamPos.position, hitInfo.point, transform.forward);
-                beamEffectInst.GetComponent<SwapBeamEffect>().SetHasTarget(false);
-            } else
-            {
-                beamEffectInst.GetComponent<SwapBeamEffect>().SetPos(beamPos.position, transform.position + transform.forward * maxBeamRange, transform.forward);
-                beamEffectInst.GetComponent<SwapBeamEffect>().SetHasTarget(false);
-            }
-
-            shootingBeam = true;
-        }
-
-        public override void UpdateBeam(Ray sourceRay)
-        {
-            ShootBeam(sourceRay);
         }
     }
 }

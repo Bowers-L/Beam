@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3392384508866454206}
   - component: {fileID: 275416339478696599}
-  - component: {fileID: 7189570978710959008}
   - component: {fileID: 3992899009236468744}
+  - component: {fileID: 5837263411976702112}
+  - component: {fileID: 7592821253133480499}
   m_Layer: 0
   m_Name: TheCube
   m_TagString: PressurePlateTarget
@@ -50,18 +51,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &7189570978710959008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410124081240307783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59dbe1de2ccbf9e48bd738e174270171, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &3992899009236468744
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -75,6 +64,33 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5837263411976702112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410124081240307783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f35bfc03504a9804c8676d8fb60acf2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currBeamDist: 0
+  beamReleaseVelocityCap: 3
+--- !u!114 &7592821253133480499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410124081240307783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a07c810de5a57a45ae12ee8d3a30875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currBeamDist: 0
 --- !u!1 &8288114455118331267
 GameObject:
   m_ObjectHideFlags: 0

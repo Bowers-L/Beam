@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using Beam.Core.Player;
+using System.Collections.Generic;
 
 namespace Beam.Core.Beams
 {
@@ -32,7 +33,6 @@ namespace Beam.Core.Beams
         public override void ReleaseBeam()
         {
             //Need overridden implementation for this since it involves the character controller.
-           
             if (currTarget != null)
             {
                 CharacterController controller = GetComponentInParent<CharacterController>();

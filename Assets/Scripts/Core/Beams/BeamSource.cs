@@ -7,6 +7,7 @@ using Beam.Events;
 using Beam.Utility;
 
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Beam.Core.Beams
 {
@@ -46,24 +47,10 @@ namespace Beam.Core.Beams
         }
 
         public abstract void ShootBeam(Ray sourceRay);
-
         public abstract void UpdateBeam(Ray sourceRay);
         public abstract void ReleaseBeam();
 
-        protected BeamTarget FindTarget(Ray sourceRay, BeamType type, out RaycastHit raycastHitInfo, out bool hit)
-        {
-            RaycastHit hitInfo;
-            hit = Physics.Raycast(sourceRay, out hitInfo, maxBeamRange, GetLayerMask(type));
-            raycastHitInfo = hitInfo;
-            if (hit)
-            {
-                BeamTarget target = hitInfo.collider.GetComponentInParent<BeamTarget>();
-                return target;
-            }
-            return null;
-        }
-
-        protected bool CheckTargetBlocked(BeamType type) 
+        protected bool CheckTargetBlocked(BeamType type)
         {
             if (currTarget != null)
             {
@@ -78,16 +65,72 @@ namespace Beam.Core.Beams
             return false;
         }
 
+        protected T FindTarget<T>(Ray beamRay, BeamType type) where T : BeamTarget
+        {
+            //This is disgusting
+            RaycastHit lastHitInfo;
+            List<Ray> outputList = new List<Ray>();
+            return FindTargetRecursive<T>(beamRay, type, out lastHitInfo, outputList, 17, 1);
+        }
+        protected T FindTarget<T>(Ray beamRay, BeamType type, out RaycastHit lastHitInfo, out List<Ray> outputList) where T : BeamTarget
+        {
+            outputList = new List<Ray>();
+            return FindTargetRecursive<T>(beamRay, type, out lastHitInfo, outputList, 17, 1);
+        }
+
+        private T FindTargetRecursive<T>(Ray beamRay, BeamType type, out RaycastHit lastHitInfo, List<Ray> outputList, int maxDepth, int currDepth) where T : BeamTarget
+        {
+            if (outputList == null)
+            {
+                outputList = new List<Ray>();
+            }
+            outputList.Add(beamRay);
+            RaycastHit hitInfo;
+            if (Physics.Raycast(beamRay, out hitInfo, maxBeamRange, GetLayerMask(type)))
+            {
+
+                if (hitInfo.collider.gameObject.tag == "Mirror")
+                {
+                    if (currDepth > maxDepth)
+                    {
+                        //safety case for infinite recursion
+                        lastHitInfo = hitInfo;
+                        return null;
+                    }
+                    Vector3 pos = hitInfo.point;
+                    Vector3 dir = Vector3.Reflect(beamRay.direction, hitInfo.normal);
+                    Ray r1 = new Ray(pos, dir);
+                    return FindTargetRecursive<T>(r1, type, out lastHitInfo, outputList, maxDepth, currDepth + 1);
+                }
+
+                T target = hitInfo.collider.GetComponentInParent<T>();
+                lastHitInfo = hitInfo;
+                /*
+                 * Don't want to do this here since otherwise the beam snapping gets messed up.
+                if (outputList.Count >= 2) {
+                    outputList[0] = new Ray(beamPos.position, outputList[1].origin - beamPos.position);
+                } else
+                {
+                    outputList[0] = new Ray(beamPos.position, beamRay.direction);
+                }
+                */
+                return target;
+            }
+
+            lastHitInfo = hitInfo;
+            return null;
+        }
+
         protected int GetLayerMask(BeamType type)
         {
-            int layerMask = UnityEngineExt.GetMaskWithout("Ignore Raycast", "Player");
+            int layerMask = UnityEngineExt.GetMaskWithout("Ignore Raycast", "Player", "Allows Both");
             switch (type)
             {
                 case BeamType.Grab:
-                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Grab", "Allows Both");
+                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Grab");
                     break;
                 case BeamType.Swap:
-                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Swap", "Allows Both");
+                    layerMask &= UnityEngineExt.GetMaskWithout("Allows Swap");
                     break;
                 default:
                     break;
