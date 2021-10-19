@@ -124,6 +124,7 @@ namespace Beam.Core.Player
     //https://www.youtube.com/watch?v=_QajrabyTJc
     public class PlayerMovement : MonoBehaviour
     {
+        PlayerSettings playerPrefs;
 
         //Parameters used to calculate the velocity of the player in UpdateVelocity
         [System.Serializable]
@@ -206,13 +207,17 @@ namespace Beam.Core.Player
         {
             get
             {
-                bool center = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+                bool center = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask, QueryTriggerInteraction.Ignore);
                 return center;
             }
         }
 
         private void Start()
         {
+            if (GetComponentInChildren<MouseCameraControl>() != null)
+            {
+                playerPrefs = GetComponentInChildren<MouseCameraControl>().playerPrefs;
+            }
             if (GetComponent<CharacterController>() == null)
             {
                 Debug.LogError("Player should have a CharacterController component.");
@@ -274,10 +279,16 @@ namespace Beam.Core.Player
 
             if (ctx.performed)
             {
-                StartCrouching();
+                if (playerPrefs.triggeredCrouch && isCrouching == true)
+                {
+                    TryStopCrouching();
+                } else
+                {
+                    StartCrouching();
+                }
             }
 
-            if (ctx.canceled)
+            if (ctx.canceled && !playerPrefs.triggeredCrouch)
             {
                 TryStopCrouching();
             }
@@ -294,7 +305,7 @@ namespace Beam.Core.Player
         {
             //Need to check that the player won't get stuck into the wall
             int mask = UnityEngineExt.GetMaskWithout("Ignore Raycast", "Player");
-            if (!Physics.Raycast(transform.position, transform.up, (standingHeight - crouchingHeight) / 2, mask))
+            if (!Physics.Raycast(transform.position, transform.up, standingHeight - crouchingHeight, mask))
             {
                 isCrouching = false;
                 anim.SetBool("IsCrouching", isCrouching);
