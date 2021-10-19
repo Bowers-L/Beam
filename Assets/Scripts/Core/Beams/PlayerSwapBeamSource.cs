@@ -43,6 +43,8 @@ namespace Beam.Core.Beams
                 Vector3 tempPos = controller.transform.position;
                 controller.transform.position = currTarget.transform.position;
                 currTarget.transform.position = tempPos;
+                controller.transform.forward = currTarget.transform.position - controller.transform.position;
+                controller.transform.rotation = Quaternion.Euler(0, controller.transform.rotation.eulerAngles.y, 0);
                 Rigidbody targetRb = currTarget.GetComponent<Rigidbody>();
                 if (targetRb != null)
                 {
