@@ -124,6 +124,7 @@ namespace Beam.Core.Player
     //https://www.youtube.com/watch?v=_QajrabyTJc
     public class PlayerMovement : MonoBehaviour
     {
+        PlayerSettings playerPrefs;
 
         //Parameters used to calculate the velocity of the player in UpdateVelocity
         [System.Serializable]

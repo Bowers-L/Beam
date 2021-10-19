@@ -6,7 +6,7 @@ namespace Beam.Core.Player
     //https://www.youtube.com/watch?v=_QajrabyTJc
     public class MouseCameraControl : MonoBehaviour
     {
-        public float mouseSensitivity = 100.0f;
+        public PlayerSettings playerPrefs;
 
         public Transform playerTrans;
 
@@ -22,8 +22,8 @@ namespace Beam.Core.Player
         // Update is called once per frame
         void Update()
         {
-            float deltaX = mouseX * mouseSensitivity * Time.deltaTime;
-            float deltaY = mouseY * mouseSensitivity * Time.deltaTime;
+            float deltaX = mouseX * playerPrefs.mouseSensitivity * Time.deltaTime;
+            float deltaY = mouseY * playerPrefs.mouseSensitivity * Time.deltaTime;
 
             xRot -= deltaY;
 
