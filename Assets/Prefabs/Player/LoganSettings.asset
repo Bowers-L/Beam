@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: LoganSettings
   m_EditorClassIdentifier: 
   mouseSensitivity: 10
-  triggeredCrouch: 0
+  triggeredCrouch: 1

@@ -8,6 +8,7 @@ namespace Beam.Core.Player
      * This object should be persistent between scenes.
      */
     [CreateAssetMenu(fileName = "PlayerSettings", menuName = "ScriptableObjects/PlayerSettings", order = 1)]
+    [SerializeField]
     public class PlayerSettings : ScriptableObject
     {
         public float mouseSensitivity;
