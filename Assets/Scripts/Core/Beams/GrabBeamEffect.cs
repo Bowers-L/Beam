@@ -34,6 +34,7 @@ namespace Beam.Core.Beams
             source = GetComponentInChildren<VisualEffect>();
 
             List<Vector3> positions = new List<Vector3>(inPositions);
+            positions.RemoveAt(inPositions.Length - 1); //Remove last position and add bezier curve to it.
             Vector3 bezierStart = inPositions[inPositions.Length - 2];
             Vector3 bezierEnd = inPositions[inPositions.Length - 1];
             positions.AddRange(Bezier.QuadraticSample(bezierStart, Bezier.QuadraticApproximateB(bezierStart, bezierEnd, lastRayDir), bezierEnd, 11));
