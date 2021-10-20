@@ -318,7 +318,7 @@ namespace Beam.Core.Player
         {
             //Implement collision physics manually because character controller doesn't come with rigidbody.
             if (hit.rigidbody != null) {
-                hit.rigidbody.AddForceAtPosition(vel * forceMag, hit.point);
+                hit.rigidbody.AddForceAtPosition(hit.rigidbody.velocity * forceMag, hit.point);
             }
         }
 

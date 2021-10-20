@@ -17,8 +17,8 @@ namespace Beam.Core.Player
       //  Quaternion activeGlobalPlatformRotation;
       //  Quaternion activeLocalPlatformRotation;
         PlayerMovement pm;
-    // Start is called before the first frame update
-    void Start()
+        // Start is called before the first frame update
+        void Start()
         {
             controller = GetComponent<CharacterController>();
             pm = GetComponent<PlayerMovement>();
@@ -27,7 +27,7 @@ namespace Beam.Core.Player
         // Update is called once per frame
         void Update()
         {
-            if (Physics.CheckSphere(pm.groundCheck.position, pm.groundDistance, groundMask))
+            if (!pm.isGrounded)
             {
                 activePlatform = null;
             }
