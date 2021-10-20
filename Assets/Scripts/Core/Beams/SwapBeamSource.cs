@@ -38,17 +38,13 @@ namespace Beam.Core.Beams
 
             if (currTarget != null)
             {
-                beamEffectInst.GetComponent<SwapBeamEffect>().SetPos(beamPos.position, currTarget.transform.position, transform.forward);
-                beamEffectInst.GetComponent<SwapBeamEffect>().SetHasTarget(true);
-            } else if (hitInfo.collider != null)
-            {
-                beamEffectInst.GetComponent<SwapBeamEffect>().SetPos(beamPos.position, hitInfo.point, transform.forward);
-                beamEffectInst.GetComponent<SwapBeamEffect>().SetHasTarget(false);
-            } else
-            {
-                beamEffectInst.GetComponent<SwapBeamEffect>().SetPos(beamPos.position, transform.position + transform.forward * maxBeamRange, transform.forward);
-                beamEffectInst.GetComponent<SwapBeamEffect>().SetHasTarget(false);
+                beamEffectInst.GetComponent<SwapBeamEffect>().SetPosBezier(GetBeamRendererPositions(rayList, hitInfo).ToArray(), rayList[rayList.Count - 1].direction);
             }
+            else
+            {
+                beamEffectInst.GetComponent<SwapBeamEffect>().SetPosLinear(GetBeamRendererPositions(rayList, hitInfo).ToArray());
+            }
+            beamEffectInst.GetComponent<SwapBeamEffect>().SetHasTarget(currTarget != null);
 
             shootingBeam = true;
         }

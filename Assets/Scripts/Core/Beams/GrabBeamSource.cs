@@ -50,7 +50,7 @@ namespace Beam.Core.Beams
             } else {
                 beamEffectInst.GetComponent<GrabBeamEffect>().SetPosLinear(GetBeamRendererPositions(rayList, hitInfo).ToArray());
             }
-            beamEffectInst.GetComponent<GrabBeamEffect>().SetAttached(currTarget != null);
+            beamEffectInst.GetComponent<GrabBeamEffect>().SetHasTarget(currTarget != null);
         }
 
         public override void UpdateBeam(Ray sourceRay)
@@ -70,32 +70,6 @@ namespace Beam.Core.Beams
                 //Again, this is lazy lol. Sorry.
                 ShootBeam(sourceRay);
             }
-        }
-
-        //These need to be separated out because visually the beam starts from the player's gun rather than directly in front of the camera.
-        private List<Vector3> GetBeamRendererPositions(List<Ray> beamRayList, RaycastHit hitInfo)
-        {
-            List<Vector3> positionsForEffect = new List<Vector3>();
-            positionsForEffect.Add(beamPos.position);
-            for (int i = 1; i < beamRayList.Count; i++)
-            {
-                positionsForEffect.Add(beamRayList[i].origin);
-            }
-
-            if (currTarget != null)
-            {
-                positionsForEffect.Add(currTarget.transform.position);
-            } else
-            {
-                //Either go in a straight line until the beam hits something or it runs out of range.
-                Vector3 finalPoint = hitInfo.collider != null ?
-                    hitInfo.point :
-                    beamRayList[beamRayList.Count - 1].origin + beamRayList[beamRayList.Count - 1].direction * maxBeamRange;
-
-                positionsForEffect.Add(finalPoint);
-            }
-
-            return positionsForEffect;
         }
 
         public override void ReleaseBeam()

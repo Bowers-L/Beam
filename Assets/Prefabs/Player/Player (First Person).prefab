@@ -563,7 +563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxBeamRange: 1000
-  beamEffectPrefab: {fileID: 1164910583789745692, guid: 00a84bb8241ea5f4b9e8e69704ea2d2f, type: 3}
+  beamEffectPrefab: {fileID: 1164910583789745692, guid: 467f047a1fd95ba409fd3035774246f7, type: 3}
   beamPos: {fileID: 6379288975505934311}
   beamEffectInst: {fileID: 0}
 --- !u!114 &1933688958195957996
