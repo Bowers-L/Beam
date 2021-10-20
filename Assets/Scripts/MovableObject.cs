@@ -15,10 +15,12 @@ public class MovableObject : MonoBehaviour
 
     void FixedUpdate()
     {
+        /*
         if (isOnPlatform)
         {
             rbody.velocity = platformRBody.velocity;
         }
+        */
     }
 
     void OnCollisionEnter(Collision col)
@@ -26,16 +28,21 @@ public class MovableObject : MonoBehaviour
         if (col.gameObject.tag == "Platform")
         {
             platformRBody = col.gameObject.GetComponent<Rigidbody>();
+            col.transform.parent = platformRBody.transform;
             isOnPlatform = true;
         }
+ 
     }
 
     void OnCollisionExit(Collision col)
     {
+        
         if (col.gameObject.tag == "Platform")
         {
-            isOnPlatform = false;
             platformRBody = null;
+            col.transform.parent = platformRBody.transform;
+            isOnPlatform = false;
         }
+        
     }
 }
