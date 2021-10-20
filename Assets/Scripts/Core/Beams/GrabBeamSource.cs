@@ -50,6 +50,7 @@ namespace Beam.Core.Beams
             } else {
                 beamEffectInst.GetComponent<GrabBeamEffect>().SetPosLinear(GetBeamRendererPositions(rayList, hitInfo).ToArray());
             }
+            beamEffectInst.GetComponent<GrabBeamEffect>().SetAttached(currTarget != null);
         }
 
         public override void UpdateBeam(Ray sourceRay)

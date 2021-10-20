@@ -10,6 +10,9 @@ namespace Beam.Core.Beams
     {
         public GameObject beamBreakPrefab;
 
+        public Gradient attachedGradient;
+        public Gradient detachedGradient;
+
         private LineRenderer lr;
         private VisualEffect source;
         private List<Vector3> positions;
@@ -43,6 +46,11 @@ namespace Beam.Core.Beams
             lr.SetPositions(positions.ToArray());
             source.transform.position = inPositions[0];
             source.transform.forward = inPositions[1] - inPositions[0];
+        }
+
+        public void SetAttached(bool attached)
+        {
+            lr.colorGradient = attached ? attachedGradient : detachedGradient;
         }
 
         //The idea is to create a dissolve effect where the beam breaks in the middle and then dissolves towards the ends.
