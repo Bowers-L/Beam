@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc95f35a8e9ec3044a76e12bbfaaa295, type: 3}
   m_Name: LoganSettings
   m_EditorClassIdentifier: 
-  mouseSensitivity: 10
+  mouseSensitivity: 8
   triggeredCrouch: 0
