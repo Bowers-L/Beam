@@ -14,9 +14,11 @@ namespace Beam.Triggers
         //float bufferTimer;
         int cubeCount;
 
+
         // Start is called before the first frame update
         new public void Start()
         {
+
             base.Start();
             cubeCount = 0;
             //bufferTimer = 0;

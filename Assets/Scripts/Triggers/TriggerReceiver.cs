@@ -17,8 +17,8 @@ namespace Beam.Triggers
 
         public void OnDestroy()
         {
-            EventManager.StartListening<TriggerActivatedEvent, Trigger>(OnActivated);
-            EventManager.StopListening<TriggerActivatedEvent, Trigger>(OnDeactivated);
+            EventManager.StopListening<TriggerActivatedEvent, Trigger>(OnActivated);
+            EventManager.StopListening<TriggerDeactivatedEvent, Trigger>(OnDeactivated);
         }
 
         public void OnActivated(Trigger trigger)
