@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3992899009236468744}
   - component: {fileID: 5837263411976702112}
   - component: {fileID: 7592821253133480499}
+  - component: {fileID: 1593287661333112389}
   m_Layer: 0
   m_Name: TheCube
   m_TagString: PressurePlateTarget
@@ -91,6 +92,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currBeamDist: 0
+--- !u!114 &1593287661333112389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410124081240307783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11e82a1b31a69714b90f402bd6795404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  killPlaneY: -20
 --- !u!1 &8288114455118331267
 GameObject:
   m_ObjectHideFlags: 0
