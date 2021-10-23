@@ -2307,7 +2307,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1004244227}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 96f4cb431c96e6440b413a81f24dd8c4, type: 3}
@@ -3472,6 +3472,10 @@ PrefabInstance:
     - target: {fileID: 8238413249479073867, guid: 0b7fe1467edb72142afe3de574398f45, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9077686946963686435, guid: 0b7fe1467edb72142afe3de574398f45, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 21.5
       objectReference: {fileID: 0}
     - target: {fileID: 9077686946963686439, guid: 0b7fe1467edb72142afe3de574398f45, type: 3}
       propertyPath: m_Layer

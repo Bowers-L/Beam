@@ -470,6 +470,10 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 0.02352941
       objectReference: {fileID: 0}
+    - target: {fileID: 6173174421164476309, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
+      propertyPath: maxBeamRange
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 8230580247023661561, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.26
