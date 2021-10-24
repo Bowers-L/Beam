@@ -178,11 +178,11 @@ namespace Beam.Triggers
             }
         }
 
-        public IEnumerator removePlayer(Collider other)
+        /*public IEnumerator removePlayer(Collider other)
         {
             yield return new WaitForSeconds(0.1f);
             pmp = other.gameObject.GetComponent<PlayerMoveOnPlat>();
             pmp.UpdatePlatform(null);
-        }
+        }*/
     }
 }
