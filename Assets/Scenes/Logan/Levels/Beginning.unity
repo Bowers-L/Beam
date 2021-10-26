@@ -2871,17 +2871,9 @@ MonoBehaviour:
   assetGuid: 
   m_Mesh: {fileID: 126568330}
   m_IsSelectable: 1
-  m_SelectedFaces: 00000000
-  m_SelectedEdges:
-  - a: 0
-    b: 1
-  - a: 2
-    b: 0
-  - a: 1
-    b: 3
-  - a: 3
-    b: 2
-  m_SelectedVertices: 00000000010000000200000003000000
+  m_SelectedFaces: 
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!4 &244682612
 Transform:
   m_ObjectHideFlags: 0
@@ -23135,7 +23127,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-37306
+  m_Name: pb_Mesh-63690
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -28882,15 +28874,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1023948468401399028, guid: 723884a8abc079a428cbc0f70e2035f8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1023948468401399028, guid: 723884a8abc079a428cbc0f70e2035f8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 21.5
+      value: 22.5
       objectReference: {fileID: 0}
     - target: {fileID: 1023948468401399028, guid: 723884a8abc079a428cbc0f70e2035f8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 20.5
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1023948468401399028, guid: 723884a8abc079a428cbc0f70e2035f8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -37722,15 +37714,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2874989990629581270, guid: 723884a8abc079a428cbc0f70e2035f8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 2874989990629581270, guid: 723884a8abc079a428cbc0f70e2035f8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 2874989990629581270, guid: 723884a8abc079a428cbc0f70e2035f8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -20.5
+      value: -13
       objectReference: {fileID: 0}
     - target: {fileID: 4292563495453995097, guid: 723884a8abc079a428cbc0f70e2035f8, type: 3}
       propertyPath: m_Mesh
