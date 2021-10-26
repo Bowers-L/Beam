@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-using Beam.Events;
+using Beam.Core.Player;
+
+using System.Collections.Generic;
 
 namespace Beam.Triggers
 {
@@ -11,6 +13,8 @@ namespace Beam.Triggers
         public Animator anim;
         public Transform upPos;
         public Transform downPos;
+
+        public List<string> tags;
         
         //First time? Thought so.
         private bool buttonTriggered;
@@ -57,19 +61,39 @@ namespace Beam.Triggers
 
         public void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("PressurePlateTarget") || other.CompareTag("Player"))
-            {
-                anim.SetBool("BoxOn", true);
-                other.transform.parent = this.transform;
+            foreach (string tag in tags) {
+                if (other.CompareTag(tag))
+                {
+                    anim.SetBool("BoxOn", true);
+                    if (tag.CompareTo("Player") == 0)
+                    {
+                        PlayerMoveOnPlat pmp = other.GetComponent<PlayerMoveOnPlat>();
+                        pmp.UpdatePlatform(this.transform);
+                    }
+                    else
+                    {
+                        other.transform.parent = this.transform;
+                    }
+                }
             }
         }
 
         public void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("PressurePlateTarget") || other.CompareTag("Player"))
-            {
-                anim.SetBool("BoxOn", false);
-                other.transform.parent = null;
+            foreach (string tag in tags) {
+                if (other.CompareTag(tag))
+                {
+                    anim.SetBool("BoxOn", false);
+                    if (tag.CompareTo("Player") == 0)
+                    {
+                        PlayerMoveOnPlat pmp = other.GetComponent<PlayerMoveOnPlat>();
+                        pmp.UpdatePlatform(null);
+                    }
+                    else
+                    {
+                        other.transform.parent = null;
+                    }
+                }
             }
         }
     }

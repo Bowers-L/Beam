@@ -178,6 +178,7 @@ namespace Beam.Triggers
             }
         }
 
+        //UNUSED
         public IEnumerator removePlayer(Collider other)
         {
             yield return new WaitForSeconds(0.1f);
