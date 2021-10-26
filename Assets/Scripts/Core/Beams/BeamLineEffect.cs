@@ -16,12 +16,17 @@ namespace Beam.Core.Beams
         private VisualEffect source;
         private List<Vector3> positions;
 
+        public void Awake()
+        {
+            lr = GetComponentInChildren<LineRenderer>();
+            source = GetComponentInChildren<VisualEffect>();
+        }
+
         //Set straight lines through each of the rays ending at end.
         public void SetPosLinear(Vector3[] inPositions)
         {
             lr = GetComponentInChildren<LineRenderer>();
             source = GetComponentInChildren<VisualEffect>();
-
             positions = new List<Vector3>(inPositions);
             lr.positionCount = inPositions.Length;
             lr.SetPositions(inPositions);
@@ -34,7 +39,6 @@ namespace Beam.Core.Beams
         {
             lr = GetComponentInChildren<LineRenderer>();
             source = GetComponentInChildren<VisualEffect>();
-
             List<Vector3> positions = new List<Vector3>(inPositions);
             positions.RemoveAt(inPositions.Length - 1); //Remove last position and add bezier curve to it.
             Vector3 bezierStart = inPositions[inPositions.Length - 2];

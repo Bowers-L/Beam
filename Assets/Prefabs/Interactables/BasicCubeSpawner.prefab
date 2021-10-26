@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1023948468401399028}
-  - component: {fileID: 1023948468401399025}
   m_Layer: 0
   m_Name: BasicCubeSpawner
   m_TagString: Untagged
@@ -30,26 +29,10 @@ Transform:
   m_Children:
   - {fileID: 6710957348997906008}
   - {fileID: 2874989990629581270}
+  - {fileID: 6275110149104370711}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1023948468401399025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1023948468401399038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b737d031c1e5ea459fe3028a9bbdc03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  listenee: {fileID: 0}
-  cubePrefab: {fileID: 410124081240307783, guid: cca87f39ae304814aaaf8817cea9be7e, type: 3}
-  bufferTime: 0.5
-  infiniteCubes: 1
-  maxCubes: 10
 --- !u!1 &1273104829959132252
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,6 +143,57 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags:
   - Player
+--- !u!1 &2059397122613181459
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6275110149104370711}
+  - component: {fileID: 2031937301354078554}
+  m_Layer: 0
+  m_Name: CubeSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6275110149104370711
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059397122613181459}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1023948468401399028}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2031937301354078554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059397122613181459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b737d031c1e5ea459fe3028a9bbdc03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listenee: {fileID: 9188015001897151332}
+  cubePrefab: {fileID: 410124081240307783, guid: cca87f39ae304814aaaf8817cea9be7e, type: 3}
+  beamEffectPrefab: {fileID: 1164910583789745692, guid: 467f047a1fd95ba409fd3035774246f7, type: 3}
+  smallCubeScale: 0.1
+  bufferTime: 0
+  effectDuration: 0.5
+  infiniteCubes: 1
+  maxCubes: 0
 --- !u!1 &5931821374066168800
 GameObject:
   m_ObjectHideFlags: 0
