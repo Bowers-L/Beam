@@ -15,7 +15,7 @@ namespace Beam.Triggers
             {
                 if(other.CompareTag(tag))
                 {
-                    activate();
+                    Activate();
                 }
             }
         }
@@ -26,7 +26,7 @@ namespace Beam.Triggers
             {
                 if (other.CompareTag(tag))
                 {
-                    deactivate();
+                    Deactivate();
                 }
             }
         }
