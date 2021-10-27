@@ -2,17 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+namespace Beam.Triggers
 {
-    // Start is called before the first frame update
-    void Start()
+    public class AudioPlayerReciever : TriggerReceiver
     {
-        
-    }
+        public AudioSource audioSource;
+        public bool stopOnDeactivate;
+ 
+        public override void HandleActivated()
+        {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            }
+        }
+
+        public override void HandleDeactivated()
+        {
+            if (stopOnDeactivate)
+            {
+                audioSource.Stop();
+            }
+        }
     }
 }
+
