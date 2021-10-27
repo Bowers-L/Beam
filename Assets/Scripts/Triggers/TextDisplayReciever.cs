@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Beam.Triggers
-
 {
     public class TextDisplayReciever : TriggerReceiver
     {
@@ -28,7 +27,8 @@ namespace Beam.Triggers
                 textBox.SetActive(true);
                 if(timer > 0)
                 {
-                    removeText();
+                    Debug.Log(timer);
+                     StartCoroutine(removeText());
                 }
             }
         }
@@ -48,12 +48,14 @@ namespace Beam.Triggers
 
         private IEnumerator removeText() 
         {
+            Debug.Log(timer);
             yield return new WaitForSeconds(timer);
+            Debug.Log(timer);
             textBox.SetActive(false);
-                if(displayOnce)
-                {
-                    display = false;
-                }
+            if(displayOnce)
+            {
+                display = false;
+            }
         }
     
     }
