@@ -82,6 +82,7 @@ namespace Beam.Core.Player
         }
 
 
+        /*
         void OnControllerColliderHit(ControllerColliderHit hit)
         {
             // Make sure we are really standing on a straight platform *NEW*
@@ -95,18 +96,17 @@ namespace Beam.Core.Player
                     if (activePlatform != hit.collider.transform)
                     {
                         UpdatePlatform(hit.collider.transform);
-                        /*activePlatform = hit.collider.transform;
-                        UpdateMovingPlatform();*/
+                        //activePlatform = hit.collider.transform;
+                        //UpdateMovingPlatform();
                     }
                 }
-
             }
             else
             {
                 activePlatform = null;
             }
-
         }
+        */
 
         public void UpdatePlatform(Transform t)
         {

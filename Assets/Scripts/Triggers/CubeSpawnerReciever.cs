@@ -1,19 +1,24 @@
 using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
+
+using Beam.Core.Beams;
 
 namespace Beam.Triggers
 {
     public class CubeSpawnerReciever : TriggerReceiver
     {
         public GameObject cubePrefab;
+        public GameObject beamEffectPrefab;
+        public float smallCubeScale;
+
         public float bufferTime;
+        private float minSmallCubeTimeWait;
+        public float effectDuration;
         public bool infiniteCubes;
         public int maxCubes;
 
-        //float bufferTimer;
         int cubeCount;
-
 
         // Start is called before the first frame update
         new public void Start()
@@ -21,12 +26,11 @@ namespace Beam.Triggers
 
             base.Start();
             cubeCount = 0;
-            //bufferTimer = 0;
         }
 
         public override void HandleActivated()
         {
-            StartCoroutine(countdown());
+            StartCoroutine(SpawnCube());
         }
 
         public override void HandleDeactivated()
@@ -34,14 +38,31 @@ namespace Beam.Triggers
             //Don't do anything because cube spawners only respond to being activated.
         }
 
-        IEnumerator countdown()
+        IEnumerator SpawnCube()
         {
             yield return new WaitForSeconds(bufferTime);
 
             if (infiniteCubes || cubeCount < maxCubes)
             {
-                //bufferTimer = 0f;
                 GameObject newCube = Instantiate(cubePrefab, gameObject.transform.position, cubePrefab.transform.rotation);
+                newCube.transform.localScale = cubePrefab.transform.localScale.normalized * smallCubeScale;
+
+                yield return new WaitForSeconds(minSmallCubeTimeWait);
+                yield return new WaitUntil(() => newCube.GetComponent<Rigidbody>().velocity.magnitude < 0.1f);  //Wait until the cube has landed.
+
+                //Do the effect.
+                float overExtendFactor = 0.1f;
+                GameObject effect = Instantiate(beamEffectPrefab);
+                Vector3[] positions = { 
+                    this.transform.position, 
+                    (1+overExtendFactor) * newCube.transform.position - overExtendFactor * this.transform.position};
+                effect.GetComponent<BeamLineEffect>().SetHasTarget(true);
+                effect.GetComponent<BeamLineEffect>().SetPosLinear(positions);
+                yield return new WaitForSeconds(effectDuration);
+
+                Destroy(effect);
+                newCube.transform.localScale = cubePrefab.transform.localScale;
+
                 listenee = newCube.GetComponent<PlaneTrigger>(); //Change the listenee to be the cube that just spawned
                 cubeCount++;
             }
