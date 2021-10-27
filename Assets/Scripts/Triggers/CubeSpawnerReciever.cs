@@ -23,9 +23,10 @@ namespace Beam.Triggers
         // Start is called before the first frame update
         new public void Start()
         {
-
+            
             base.Start();
             cubeCount = 0;
+            minSmallCubeTimeWait = 1.0f;
         }
 
         public override void HandleActivated()
