@@ -1778,19 +1778,7 @@ MonoBehaviour:
     m_ActionId: 6ae0b855-e4f1-409b-bd4a-5498b16994c6
     m_ActionName: UI/Submit[/Keyboard/enter]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1000624994}
-        m_TargetAssemblyTypeName: PauseScript, Assembly-CSharp
-        m_MethodName: TogglePause
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: a13be0f9-6d4e-4622-908e-369ae2225525
     m_ActionName: UI/Cancel[/Keyboard/escape,/Keyboard/escape]
   - m_PersistentCalls:
@@ -1821,11 +1809,27 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 886be045-a584-4741-907c-617527fb6cae
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1000624994}
+        m_TargetAssemblyTypeName: PauseScript, Assembly-CSharp
+        m_MethodName: TogglePause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 69eb7f11-fb67-4424-a244-df738fda19f3
+    m_ActionName: Player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: UI
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 1095327856}
+  m_Camera: {fileID: 0}
 --- !u!43 &1073685175
 Mesh:
   m_ObjectHideFlags: 0
@@ -2063,11 +2067,6 @@ PrefabInstance:
       objectReference: {fileID: 1555034680}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48ff6944da2f41a44b58368fc7419634, type: 3}
---- !u!20 &1095327856 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 4615540135557194809, guid: 0b7fe1467edb72142afe3de574398f45, type: 3}
-  m_PrefabInstance: {fileID: 1702548227}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1123233212
 GameObject:
   m_ObjectHideFlags: 0
