@@ -208,6 +208,7 @@ namespace Beam.Core.Player
             get
             {
                 bool center = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask, QueryTriggerInteraction.Ignore);
+                Debug.Log(center);
                 return center;
             }
         }
@@ -318,7 +319,13 @@ namespace Beam.Core.Player
         {
             //Implement collision physics manually because character controller doesn't come with rigidbody.
             if (hit.rigidbody != null) {
-                hit.rigidbody.AddForceAtPosition(hit.rigidbody.velocity * forceMag, hit.point);
+                hit.rigidbody.AddForceAtPosition(vel * forceMag, hit.point); 
+            }
+
+            if (vel.y > 0 && hit.point.y > transform.position.y + controller.height / 2) 
+            {
+                //Reset y velocity to 0 if the thing is above the player
+                vel.y = 0;
             }
         }
 
