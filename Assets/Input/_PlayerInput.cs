@@ -382,7 +382,7 @@ public class @_PlayerInput : IInputActionCollection, IDisposable
                     ""id"": ""a13be0f9-6d4e-4622-908e-369ae2225525"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Point"",
@@ -721,6 +721,17 @@ public class @_PlayerInput : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""82627dcc-3b13-4ba9-841d-e4b746d6553e"",
                     ""path"": ""*/{Cancel}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eee6cd01-45fe-4c13-b6dc-c6569ac01e5d"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
