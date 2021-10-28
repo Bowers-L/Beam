@@ -12,13 +12,21 @@ namespace Beam.Triggers
 
     public abstract class Trigger : MonoBehaviour
     {
-        public virtual void activate()
+        public bool activated
         {
+            get;
+            private set;
+        }
+
+        public virtual void Activate()
+        {
+            activated = true;
             EventManager.InvokeEvent<TriggerActivatedEvent, Trigger>(this);
         }
 
-        public virtual void deactivate()
+        public virtual void Deactivate()
         {
+            activated = false;
             EventManager.InvokeEvent<TriggerDeactivatedEvent, Trigger>(this);
         }
     }

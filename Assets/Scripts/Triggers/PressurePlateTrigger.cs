@@ -31,10 +31,10 @@ namespace Beam.Triggers
             anim.SetBool("ButtonTriggered", buttonTriggered);
             if (buttonTriggered)
             {
-                activate();
+                Activate();
             } else
             {
-                deactivate();
+                Deactivate();
             }
 
 
@@ -49,13 +49,13 @@ namespace Beam.Triggers
                 {
                     buttonTriggered = true;
                     anim.SetBool("ButtonTriggered", true);
-                    activate();
+                    Activate();
                 }
             } else if (buttonTriggered)
             {
                 buttonTriggered = false;
                 anim.SetBool("ButtonTriggered", false);
-                deactivate();
+                Deactivate();
             }
         }
 

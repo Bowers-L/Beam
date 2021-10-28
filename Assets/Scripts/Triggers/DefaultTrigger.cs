@@ -6,7 +6,7 @@ namespace Beam.Triggers
     {
         void Start()
         {
-            activate();
+            Activate();
         }
     }
 }

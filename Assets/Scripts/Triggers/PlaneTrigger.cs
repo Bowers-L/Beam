@@ -21,7 +21,7 @@ namespace Beam.Triggers
         {
             if (transform.position.y < killPlaneY)
             {
-                activate();
+                Activate();
                 Destroy(this.gameObject);
             }
         }
