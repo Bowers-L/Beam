@@ -29,6 +29,8 @@ namespace Beam.Triggers
 
             buttonTriggered = this.transform.localPosition.y <= 0.51;
             anim.SetBool("ButtonTriggered", buttonTriggered);
+
+            /* Messes with audio cues
             if (buttonTriggered)
             {
                 Activate();
@@ -36,7 +38,7 @@ namespace Beam.Triggers
             {
                 Deactivate();
             }
-
+            */
 
         }
 

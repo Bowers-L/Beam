@@ -6,23 +6,24 @@ namespace Beam.Triggers
 {
     public class AudioPlayerReciever : TriggerReceiver
     {
-        public AudioSource audioSource;
-        public bool stopOnDeactivate;
+        public AudioSource activatedAudioSource;
+        public AudioSource deactivatedAudioSource;
  
         public override void HandleActivated()
         {
-            if (!audioSource.isPlaying)
+            if (activatedAudioSource != null && !activatedAudioSource.isPlaying)
             {
-                audioSource.Play();
-
+                deactivatedAudioSource.Stop();
+                activatedAudioSource.Play();
             }
         }
 
         public override void HandleDeactivated()
         {
-            if (stopOnDeactivate)
+            if (deactivatedAudioSource != null && !deactivatedAudioSource.isPlaying)
             {
-                audioSource.Stop();
+                activatedAudioSource.Stop();
+                deactivatedAudioSource.Play();
             }
         }
     }
