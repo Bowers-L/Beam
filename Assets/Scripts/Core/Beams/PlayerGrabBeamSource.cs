@@ -17,6 +17,10 @@ namespace Beam.Core.Beams
 
         public void OnShootGrab(InputAction.CallbackContext ctx)
         {
+            if (Time.timeScale == 0.0f)
+            {
+                return;
+            }
             if (ctx.performed)
             {
                 ShootBeam(new Ray(transform.position, transform.forward));
