@@ -58,6 +58,8 @@ namespace Beam.Core.Beams
                 }
 
                 controller.enabled = true;
+
+                GetComponent<AudioSource>().Play();
             }
 
             currTarget = null;
