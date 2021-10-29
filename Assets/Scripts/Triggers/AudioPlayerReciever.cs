@@ -8,7 +8,7 @@ namespace Beam.Triggers
     {
         public AudioSource activatedAudioSource;
         public AudioSource deactivatedAudioSource;
- 
+        public bool playAudioOnDeactivate;
         public override void HandleActivated()
         {
             if (activatedAudioSource != null && !activatedAudioSource.isPlaying)
@@ -20,7 +20,7 @@ namespace Beam.Triggers
 
         public override void HandleDeactivated()
         {
-            if (deactivatedAudioSource != null && !deactivatedAudioSource.isPlaying)
+            if (playAudioOnDeactivate && deactivatedAudioSource != null && !deactivatedAudioSource.isPlaying)
             {
                 activatedAudioSource.Stop();
                 deactivatedAudioSource.Play();
