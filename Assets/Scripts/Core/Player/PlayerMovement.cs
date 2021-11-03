@@ -6,8 +6,9 @@ using Beam.Utility;
 
 namespace Beam.Core.Player
 {
-    
+    //Comment out the Editor region when making builds since they cause compiler errors for some reason.
     #region Editor
+    /*
     public class ReadOnlyAttribute : PropertyAttribute
     {
 
@@ -119,6 +120,7 @@ namespace Beam.Core.Player
             EditorGUILayout.PropertyField(serializedObject.FindProperty("killPlaneY"));
         }
     }
+    */
 #endregion
 
     //https://www.youtube.com/watch?v=_QajrabyTJc
