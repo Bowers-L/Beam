@@ -20,6 +20,8 @@ namespace Beam.Triggers
 
         int cubeCount;
 
+        private bool spawningCube = false;
+
         // Start is called before the first frame update
         new public void Start()
         {
@@ -31,7 +33,12 @@ namespace Beam.Triggers
 
         public override void HandleActivated()
         {
-            StartCoroutine(SpawnCube());
+            if (!spawningCube)
+            {
+                spawningCube = true;
+                StartCoroutine(SpawnCube());
+            }
+
         }
 
         public override void HandleDeactivated()
