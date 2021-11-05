@@ -12,6 +12,7 @@ namespace Beam.Core.Player
     public class PlayerSettings : ScriptableObject
     {
         public float mouseSensitivity;
+        public float volume;
         public bool triggeredCrouch;
     }
 }

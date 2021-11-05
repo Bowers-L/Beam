@@ -20,6 +20,8 @@ namespace Beam.Triggers
 
         int cubeCount;
 
+        private bool spawningCube = false;
+
         // Start is called before the first frame update
         new public void Start()
         {
@@ -31,7 +33,12 @@ namespace Beam.Triggers
 
         public override void HandleActivated()
         {
-            StartCoroutine(SpawnCube());
+            if (!spawningCube)
+            {
+                spawningCube = true;
+                StartCoroutine(SpawnCube());
+            }
+
         }
 
         public override void HandleDeactivated()
@@ -65,6 +72,7 @@ namespace Beam.Triggers
                 newCube.transform.localScale = cubePrefab.transform.localScale;
 
                 listenee = newCube.GetComponent<PlaneTrigger>(); //Change the listenee to be the cube that just spawned
+                spawningCube = false;
                 cubeCount++;
             }
 
