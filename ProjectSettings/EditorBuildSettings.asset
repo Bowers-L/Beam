@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Logan/TestScenes/Sus.unity
     guid: 8fbcce10daae04d459bcb2778eec311c
+  - enabled: 1
+    path: Assets/Scenes/Logan/Levels/GlassIntro.unity
+    guid: 416825d1f3f306847bac58b0cf3222f6
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1304b4cdcd3bf864390f9ea108e6ae18, type: 2}
