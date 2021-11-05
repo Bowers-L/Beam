@@ -244,6 +244,7 @@ MonoBehaviour:
   listenee: {fileID: 0}
   activatedAudioSource: {fileID: 8894723320917260833}
   deactivatedAudioSource: {fileID: 5213807666626169972}
+  playAudioOnDeactivate: 1
 --- !u!1 &1852906036563752101
 GameObject:
   m_ObjectHideFlags: 0
