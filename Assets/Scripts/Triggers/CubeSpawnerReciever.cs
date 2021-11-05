@@ -72,6 +72,7 @@ namespace Beam.Triggers
                 newCube.transform.localScale = cubePrefab.transform.localScale;
 
                 listenee = newCube.GetComponent<PlaneTrigger>(); //Change the listenee to be the cube that just spawned
+                spawningCube = false;
                 cubeCount++;
             }
 
