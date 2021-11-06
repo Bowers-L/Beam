@@ -63,7 +63,7 @@ namespace Beam.Triggers
 
         public void UpdateState()
         {
-            bool activated;
+            bool newActivated;
             switch (root)
             {
                 case Gate.NOT:
@@ -77,12 +77,12 @@ namespace Beam.Triggers
                     }
                     break;
                 case Gate.AND:
-                    activated = true;
+                    newActivated = true;
                     foreach (Trigger t in triggers)
                     {
-                        activated = activated && t.activated;
+                        newActivated = newActivated && t.activated;
                     }
-                    if (activated)
+                    if (newActivated)
                     {
                         Activate();
                     }
@@ -92,12 +92,12 @@ namespace Beam.Triggers
                     }
                     break;
                 case Gate.OR:
-                    activated = false;
+                    newActivated = false;
                     foreach (Trigger t in triggers)
                     {
-                        activated = activated || t.activated;
+                        newActivated = newActivated || t.activated;
                     }
-                    if (activated)
+                    if (newActivated)
                     {
                         Activate();
                     }

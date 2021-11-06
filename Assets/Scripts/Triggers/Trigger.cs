@@ -20,19 +20,27 @@ namespace Beam.Triggers
 
         private void Awake()
         {
-            Deactivate();
+            activated = false;
         }
 
         public virtual void Activate()
         {
-            activated = true;
-            EventManager.InvokeEvent<TriggerActivatedEvent, Trigger>(this);
+            //Only trigger on edge (mainly so that audio cues don't play constantly)
+            if (!activated)
+            {
+                activated = true;
+                EventManager.InvokeEvent<TriggerActivatedEvent, Trigger>(this);
+            }
         }
 
         public virtual void Deactivate()
         {
-            activated = false;
-            EventManager.InvokeEvent<TriggerDeactivatedEvent, Trigger>(this);
+            //Only trigger on edge (mainly so that audio cues don't play constantly)
+            if (activated)
+            {
+                activated = false;
+                EventManager.InvokeEvent<TriggerDeactivatedEvent, Trigger>(this);
+            }
         }
     }
 }
