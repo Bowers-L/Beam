@@ -18,6 +18,11 @@ namespace Beam.Triggers
             private set;
         }
 
+        private void Awake()
+        {
+            Deactivate();
+        }
+
         public virtual void Activate()
         {
             activated = true;
