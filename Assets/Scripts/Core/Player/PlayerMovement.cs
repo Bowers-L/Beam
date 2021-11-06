@@ -210,7 +210,6 @@ namespace Beam.Core.Player
             get
             {
                 bool center = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask, QueryTriggerInteraction.Ignore);
-                Debug.Log(center);
                 return center;
             }
         }
