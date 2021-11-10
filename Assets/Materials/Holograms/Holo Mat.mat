@@ -61,7 +61,7 @@ Material:
     - Vector1_79d796b3fc1240f3b2fcdb27612a1e18: 0
     - Vector1_a1489097a49242938b89d23c4fb3b34e: 0
     - Vector1_bf3e61e7c6db4450bc377030540072ba: 0
-    - Vector1_e7f4801d7fbd4189be256b107a4c65fa: 2000
+    - Vector1_e7f4801d7fbd4189be256b107a4c65fa: 10000
     - Vector1_f6be2e1191c3455fa8494198bc70a6e3: 0.015
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 0
@@ -106,7 +106,7 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - Color_4ebabdff775b4fecb05c6e3b785a89f1: {r: 0.15690637, g: 0.5889911, b: 0.8113207, a: 1}
-    - Color_ffe67d7a62fe43bdb5116f0f1cd0541d: {r: 0, g: 1024, b: 1004.7378, a: 0}
+    - Color_ffe67d7a62fe43bdb5116f0f1cd0541d: {r: 0, g: 1.9999998, b: 1.9685862, a: 0}
     - Vector2_6771f5f4f8fd43ad9a75a828b5bae6c0: {r: 1, g: 1, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
