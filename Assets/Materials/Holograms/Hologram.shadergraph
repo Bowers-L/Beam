@@ -37,7 +37,14 @@
             "m_Id": "bf3e61e7c6db4450bc377030540072ba"
         }
     ],
-    "m_Keywords": [],
+    "m_Keywords": [
+        {
+            "m_Id": "c84e892b07af4be5bf8938fb371e77a2"
+        },
+        {
+            "m_Id": "038dcde112834af991bdc8ea9035188f"
+        }
+    ],
     "m_Nodes": [
         {
             "m_Id": "36fb3cd82f7745b8b7c8f41d190b351d"
@@ -1014,6 +1021,25 @@
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.ShaderKeyword",
+    "m_ObjectId": "038dcde112834af991bdc8ea9035188f",
+    "m_Guid": {
+        "m_GuidSerialized": "f6cd8d79-609e-42a6-a386-885243c21f91"
+    },
+    "m_Name": "_CAST_SHADOWS_OFF",
+    "m_DefaultReferenceName": "BOOLEAN_038DCDE112834AF991BDC8EA9035188F_ON",
+    "m_OverrideReferenceName": "_CAST_SHADOWS_OFF",
+    "m_GeneratePropertyBlock": true,
+    "m_KeywordType": 0,
+    "m_KeywordDefinition": 0,
+    "m_KeywordScope": 1,
+    "m_Entries": [],
+    "m_Value": 1,
+    "m_IsEditable": true
 }
 
 {
@@ -5290,6 +5316,25 @@
     },
     "m_Labels": [],
     "m_Space": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.ShaderKeyword",
+    "m_ObjectId": "c84e892b07af4be5bf8938fb371e77a2",
+    "m_Guid": {
+        "m_GuidSerialized": "b840b1a8-85bc-480c-bfba-3629ae9fe96b"
+    },
+    "m_Name": "_RECIEVE_SHADOWS_OFF",
+    "m_DefaultReferenceName": "BOOLEAN_C84E892B07AF4BE5BF8938FB371E77A2_ON",
+    "m_OverrideReferenceName": "_RECIEVE_SHADOWS_OFF",
+    "m_GeneratePropertyBlock": true,
+    "m_KeywordType": 0,
+    "m_KeywordDefinition": 0,
+    "m_KeywordScope": 1,
+    "m_Entries": [],
+    "m_Value": 1,
+    "m_IsEditable": true
 }
 
 {
