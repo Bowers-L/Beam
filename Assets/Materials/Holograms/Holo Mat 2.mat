@@ -22,8 +22,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Holo Mat 2
   m_Shader: {fileID: -6465566751694194690, guid: a270e1dbfa699d6438ad7b79c5a9b93f, type: 3}
-  m_ShaderKeywords: _CAST_SHADOWS_OFF _RECIEVE_SHADOWS_OFF _ENABLE_FOG_ON_TRANSPARENT
-    _SURFACE_TYPE_TRANSPARENT
+  m_ShaderKeywords: _ENABLE_FOG_ON_TRANSPARENT _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -59,10 +58,10 @@ Material:
     m_Floats:
     - Vector1_6307f9e09334440ba55f861af6a13c48: 0.05
     - Vector1_6fdcbbfa1f0b4cad9ddaae340476bf26: 0
-    - Vector1_79d796b3fc1240f3b2fcdb27612a1e18: 2
+    - Vector1_79d796b3fc1240f3b2fcdb27612a1e18: 0.05
     - Vector1_a1489097a49242938b89d23c4fb3b34e: 500
     - Vector1_bf3e61e7c6db4450bc377030540072ba: 0.03
-    - Vector1_e7f4801d7fbd4189be256b107a4c65fa: 10000
+    - Vector1_e7f4801d7fbd4189be256b107a4c65fa: 3000
     - Vector1_f6be2e1191c3455fa8494198bc70a6e3: 0.01
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 0
