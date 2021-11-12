@@ -43,4 +43,9 @@ public class PauseScript : MonoBehaviour
         Time.timeScale = 0.0f;
         gameIsPaused = true;
     }
+
+     public void LoadScene(string name) 
+    {
+        SceneManager.LoadScene(name);
+    }
 }
