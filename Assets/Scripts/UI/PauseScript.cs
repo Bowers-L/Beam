@@ -7,7 +7,10 @@ public class PauseScript : MonoBehaviour
 {
     public static bool gameIsPaused = false;
     public GameObject pauseMenuUI;
-    //public string menuName;
+    private void Start() 
+    {
+        Resume();    
+    }
     public void TogglePause(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)        
@@ -33,6 +36,8 @@ public class PauseScript : MonoBehaviour
         gameIsPaused = false;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        AudioListener.pause = false;
+
     }
     public void Pause()
     {
@@ -42,10 +47,14 @@ public class PauseScript : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0.0f;
         gameIsPaused = true;
+        AudioListener.pause = true;
     }
 
      public void LoadScene(string name) 
     {
+        Time.timeScale = 1.0f;
+        gameIsPaused = false;
+        AudioListener.pause = false;
         SceneManager.LoadScene(name);
     }
 }

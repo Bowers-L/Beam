@@ -22,8 +22,8 @@ namespace Beam.Core.Player
         // Update is called once per frame
         void Update()
         {
-            float deltaX = mouseX * playerPrefs.mouseSensitivity * Time.deltaTime;
-            float deltaY = mouseY * playerPrefs.mouseSensitivity * Time.deltaTime;
+            float deltaX = mouseX * PlayerPrefs.GetFloat("sensitivity", 1.0f) * playerPrefs.mouseSensitivity * Time.deltaTime;
+            float deltaY = mouseY * PlayerPrefs.GetFloat("sensitivity", 1.0f) * playerPrefs.mouseSensitivity * Time.deltaTime;
 
             xRot -= deltaY;
 
