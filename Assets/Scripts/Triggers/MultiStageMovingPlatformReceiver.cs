@@ -7,44 +7,30 @@ using Beam.Core.Player;
 namespace Beam.Triggers
 
 {
-    public class MovingPlatformReciever : TriggerReceiver
+    public class MultiStageMovingPlatformReceiver : TriggerReceiver
     {
         //moving platform variables
         public GameObject path; //the path for the moving platform to follow
         public Transform[] movementPointTransforms; //the transforms of all of the points, taken at runtime
-
         public float movespeed = 5.0f; //speed at which platform moves between points
-        public float waitTime = 1.0f; //how long to wait at each point
 
         /*Platform Type
-         * If OneWay, the platform will move through the set of points once, then stop. (1 -> 2 -> 3)
-         * If Cycle, it will move through the points in a circle (1 -> 2 -> 3 -> 1 -> 2 -> 3)
-         * If DownBack, it will travel back and forth along the path (1 -> 2 -> 3 -> 2 -> 1)
-         * If Door, this platform will move through the points until deactivated, then it will move back
+         * This is a special type of moving platform whose position is dependent on the number of activated triggers.
+         * IE The platform is at position 0 by default. If it is activated once, then it will move to position 1. 
+         * If it is activated again, it will move 2 position 2. If it is deactivated at this point, it will move back
+         * to position 1, etc.
          */
-        public enum Type
-        {
-            ONEWAY,
-            CYCLE,
-            DOWNBACK,
-            DOOR
-        }
-        public Type type;
 
-
-        private float wait;
-        private int pointIndex = 0;
-        private bool stopMoving = true;
+        public int pointIndex = 0;
+        public int targetIndex = 0;
         private Vector3 orignialPos;
         private Rigidbody rBody;
-        Coroutine move;
+        public Coroutine move;
         PlayerMoveOnPlat pmp;
 
         void Awake()
         {
-            wait = waitTime;
             rBody = GetComponent<Rigidbody>();
-
             movementPointTransforms = path.GetComponentsInChildren<Transform>();
             Transform[] temp = new Transform[movementPointTransforms.Length - 1];
             for (int i = 0; i < movementPointTransforms.Length - 1; i++)
@@ -72,59 +58,55 @@ namespace Beam.Triggers
         void Update()
         {
             if (Time.timeScale == 0) return;
-            if (transform.position == movementPointTransforms[pointIndex].position)
+            if(transform.position != movementPointTransforms[targetIndex].position) //not at rest
             {
-                if (pointIndex == movementPointTransforms.Length - 1)
+                if (move == null)
                 {
-                    switch (type)
-                    {
-                        case Type.ONEWAY:
-                            stopMoving = true;
-                            break;
-                        case Type.DOWNBACK:
-                            Array.Reverse(movementPointTransforms);
-                            pointIndex = 0;
-                            break;
-                        case Type.DOOR:
-                            stopMoving = true;
-                            if (transform.position == orignialPos)
-                            {
-                                Array.Reverse(movementPointTransforms);
-                                pointIndex = 0;
-                            }
-                            break;
-                    }
+                    move = StartCoroutine(MovePlatformCoroutine(transform.position, movementPointTransforms[targetIndex].position));
                 }
-                if (!stopMoving)
+                //if (transform.position == movementPointTransforms[targetIndex].position)
+                //{
+               //     pointIndex = targetIndex;
+              //  }
+            }
+            else if (pointIndex != targetIndex)
+            {
+                pointIndex = targetIndex;
+                if(move != null)
                 {
-                    wait -= Time.deltaTime;
-                    if (wait <= 0)
-                    {
-                        pointIndex = ++pointIndex % movementPointTransforms.Length;
-                        move = StartCoroutine(MovePlatformCoroutine(transform.position, movementPointTransforms[pointIndex].position));
-                        wait = waitTime;
-                    }
+                    StopCoroutine(move);
+                    move = null;
                 }
             }
+            
         }
 
         public override void HandleActivated()
         {
-            stopMoving = false;
-            if (move == null)
-            {
-                move = StartCoroutine(MovePlatformCoroutine(transform.position, movementPointTransforms[++pointIndex].position));
-            }
-        }
-
-        public override void HandleDeactivated()
-        {
+            Debug.Log("Activate");
+            UpdateTarget(true);
             if (move != null)
             {
                 StopCoroutine(move);
                 move = null;
             }
-            if (type == Type.DOOR)
+            /*stopMoving = false;
+            if (move == null)
+            {
+                move = StartCoroutine(MovePlatformCoroutine(transform.position, movementPointTransforms[++pointIndex].position));
+            }*/
+        }
+
+        public override void HandleDeactivated()
+        {
+            Debug.Log("DeActivate");
+            UpdateTarget(false);
+            if (move != null)
+            {
+                StopCoroutine(move);
+                move = null;
+            }
+            /*if (type == Type.DOOR)
             {
                 if (pointIndex == movementPointTransforms.Length - 1 || !stopMoving)
                 {
@@ -140,6 +122,24 @@ namespace Beam.Triggers
                 if (pointIndex > 0)
                 {
                     pointIndex--;
+                }
+            }*/
+        }
+
+        void UpdateTarget(Boolean increase)
+        {
+            if (increase)
+            {
+                if(targetIndex < movementPointTransforms.Length - 1)
+                {
+                    targetIndex++;
+                }
+            }
+            else
+            {
+                if(targetIndex > 0)
+                {
+                    targetIndex--;
                 }
             }
         }
