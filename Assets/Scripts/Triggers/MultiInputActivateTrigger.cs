@@ -13,6 +13,9 @@ namespace Beam.Triggers
     public class MultiInputActivateTrigger : Trigger
     {
         public List<Trigger> triggers;
+        public int numActivatedTriggers;
+        public int newActivatedTriggers = 0;
+
         public override void Activate()
         {
             EventManager.InvokeEvent<TriggerActivatedEvent, Trigger>(this);
@@ -49,12 +52,18 @@ namespace Beam.Triggers
             {
                 if(t.activated)
                 {
+                    newActivatedTriggers++;
+                }
+                if (newActivatedTriggers > numActivatedTriggers)
+                {
                     Activate();
                 }
-                else
+                else if (newActivatedTriggers < numActivatedTriggers)
                 {
                     Deactivate();
                 }
+                numActivatedTriggers = newActivatedTriggers;
+                newActivatedTriggers = 0;
             }
         }
 
