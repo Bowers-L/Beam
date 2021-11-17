@@ -12,7 +12,7 @@ namespace Beam.Triggers
         //moving platform variables
         public GameObject path; //the path for the moving platform to follow
         public Transform[] movementPointTransforms; //the transforms of all of the points, taken at runtime
-        public float movespeed = 5.0f; //speed at which platform moves between points
+        public float movespeed = 2.0f; //speed at which platform moves between points
 
         /*Platform Type
          * This is a special type of moving platform whose position is dependent on the number of activated triggers.
@@ -21,12 +21,15 @@ namespace Beam.Triggers
          * to position 1, etc.
          */
 
-        public int pointIndex = 0;
+        public int lastPointIndex = 0;
+        public int nextPointIndex = 0;
         public int targetIndex = 0;
+
+        //Queue<int> nextIndQueue = new Queue<int>();
         private Vector3 orignialPos;
         private Rigidbody rBody;
         public Coroutine move;
-        PlayerMoveOnPlat pmp;
+      //  PlayerMoveOnPlat pmp;
 
         void Awake()
         {
@@ -58,7 +61,24 @@ namespace Beam.Triggers
         void Update()
         {
             if (Time.timeScale == 0) return;
-            if(transform.position != movementPointTransforms[targetIndex].position) //not at rest
+            if(transform.position != movementPointTransforms[targetIndex].position)
+            {
+                if (move == null)
+                {
+                    nextPointIndex = lastPointIndex + Math.Sign(targetIndex - lastPointIndex);
+                    move = StartCoroutine(MovePlatformCoroutine(transform.position, movementPointTransforms[nextPointIndex].position));
+                }
+                if (transform.position == movementPointTransforms[nextPointIndex].position) //reached next point
+                {
+                    lastPointIndex = nextPointIndex;
+                    if(move != null)
+                    {
+                        StopCoroutine(move);
+                        move = null;
+                    }
+                }
+            }
+            /*if(transform.position != movementPointTransforms[targetIndex].position) //not at rest
             {
                 if (move == null)
                 {
@@ -77,7 +97,7 @@ namespace Beam.Triggers
                     StopCoroutine(move);
                     move = null;
                 }
-            }
+            }*/
             
         }
 
@@ -133,6 +153,7 @@ namespace Beam.Triggers
                 if(targetIndex < movementPointTransforms.Length - 1)
                 {
                     targetIndex++;
+                   // nextIndQueue.Enqueue(++targetIndex);
                 }
             }
             else
@@ -140,8 +161,11 @@ namespace Beam.Triggers
                 if(targetIndex > 0)
                 {
                     targetIndex--;
+//nextIndQueue.Enqueue(--targetIndex);
+
                 }
             }
+            Debug.Log(targetIndex);
         }
 
 
@@ -157,7 +181,7 @@ namespace Beam.Triggers
             }
         }
 
-       public void OnTriggerEnter(Collider other)
+       /*public void OnTriggerEnter(Collider other)
         {
             Debug.Log("enter "+other.gameObject.name);
             if(other.gameObject.CompareTag("Player"))
@@ -178,7 +202,7 @@ namespace Beam.Triggers
             }
         }
 
-        /*public IEnumerator removePlayer(Collider other)
+        public IEnumerator removePlayer(Collider other)
         {
             yield return new WaitForSeconds(0.1f);
             pmp = other.gameObject.GetComponent<PlayerMoveOnPlat>();

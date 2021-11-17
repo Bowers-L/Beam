@@ -110,7 +110,7 @@ namespace Beam.Triggers
 
         public override void HandleActivated()
         {
-            Debug.Log("Activate");
+            //Debug.Log("Activate");
             if (move == null)
             {
                 move = StartCoroutine(MovePlatformCoroutine(transform.position, movementPointTransforms[++pointIndex].position));
