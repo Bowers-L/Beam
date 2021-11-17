@@ -23,7 +23,7 @@ namespace Beam.Triggers
 
         public override void Deactivate()
         {
-                EventManager.InvokeEvent<TriggerDeactivatedEvent, Trigger>(this);
+            EventManager.InvokeEvent<TriggerDeactivatedEvent, Trigger>(this);
         }
 
         public void Start()
@@ -54,7 +54,8 @@ namespace Beam.Triggers
                 {
                     newActivatedTriggers++;
                 }
-                if (newActivatedTriggers > numActivatedTriggers)
+            }
+            if (newActivatedTriggers > numActivatedTriggers)
                 {
                     Activate();
                 }
@@ -64,7 +65,6 @@ namespace Beam.Triggers
                 }
                 numActivatedTriggers = newActivatedTriggers;
                 newActivatedTriggers = 0;
-            }
         }
 
     }

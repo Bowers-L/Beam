@@ -78,27 +78,13 @@ namespace Beam.Triggers
                     }
                 }
             }
-            /*if(transform.position != movementPointTransforms[targetIndex].position) //not at rest
+            else
             {
-                if (move == null)
+                if(lastPointIndex != targetIndex)
                 {
-                    move = StartCoroutine(MovePlatformCoroutine(transform.position, movementPointTransforms[targetIndex].position));
+                    lastPointIndex = targetIndex;
                 }
-                //if (transform.position == movementPointTransforms[targetIndex].position)
-                //{
-               //     pointIndex = targetIndex;
-              //  }
             }
-            else if (pointIndex != targetIndex)
-            {
-                pointIndex = targetIndex;
-                if(move != null)
-                {
-                    StopCoroutine(move);
-                    move = null;
-                }
-            }*/
-            
         }
 
         public override void HandleActivated()
@@ -110,11 +96,6 @@ namespace Beam.Triggers
                 StopCoroutine(move);
                 move = null;
             }
-            /*stopMoving = false;
-            if (move == null)
-            {
-                move = StartCoroutine(MovePlatformCoroutine(transform.position, movementPointTransforms[++pointIndex].position));
-            }*/
         }
 
         public override void HandleDeactivated()
@@ -126,24 +107,6 @@ namespace Beam.Triggers
                 StopCoroutine(move);
                 move = null;
             }
-            /*if (type == Type.DOOR)
-            {
-                if (pointIndex == movementPointTransforms.Length - 1 || !stopMoving)
-                {
-                    Array.Reverse(movementPointTransforms);
-                    pointIndex = movementPointTransforms.Length - 1 - pointIndex;
-                    move = StartCoroutine(MovePlatformCoroutine(transform.position, movementPointTransforms[++pointIndex].position));
-                    stopMoving = false;
-                }
-            }
-            else
-            {
-                stopMoving = true;
-                if (pointIndex > 0)
-                {
-                    pointIndex--;
-                }
-            }*/
         }
 
         void UpdateTarget(Boolean increase)
@@ -153,7 +116,6 @@ namespace Beam.Triggers
                 if(targetIndex < movementPointTransforms.Length - 1)
                 {
                     targetIndex++;
-                   // nextIndQueue.Enqueue(++targetIndex);
                 }
             }
             else
@@ -161,13 +123,10 @@ namespace Beam.Triggers
                 if(targetIndex > 0)
                 {
                     targetIndex--;
-//nextIndQueue.Enqueue(--targetIndex);
-
                 }
             }
             Debug.Log(targetIndex);
         }
-
 
         IEnumerator MovePlatformCoroutine(Vector3 start, Vector3 target)
         {
@@ -200,13 +159,6 @@ namespace Beam.Triggers
                 pmp.UpdatePlatform(null);
                 //StartCoroutine(removePlayer(other));
             }
-        }
-
-        public IEnumerator removePlayer(Collider other)
-        {
-            yield return new WaitForSeconds(0.1f);
-            pmp = other.gameObject.GetComponent<PlayerMoveOnPlat>();
-            pmp.UpdatePlatform(null);
         }*/
-    }
+    }   
 }
