@@ -352,8 +352,8 @@ GameObject:
   - component: {fileID: 1852906036591472147}
   - component: {fileID: 1852906036591472156}
   - component: {fileID: 1852906036591472157}
-  - component: {fileID: 1852906036591472146}
   - component: {fileID: 1852906036591472145}
+  - component: {fileID: 9037164311307988197}
   m_Layer: 0
   m_Name: Right Door Panel
   m_TagString: Untagged
@@ -437,24 +437,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1852906036591472146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1852906036591472159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 850c39612a648ef47bb1cc4c00c780dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  listenee: {fileID: 0}
-  path: {fileID: 1852906038173259440}
-  movementPointTransforms: []
-  movespeed: 2
-  waitTime: 0
-  type: 3
 --- !u!54 &1852906036591472145
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -471,6 +453,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &9037164311307988197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852906036591472159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69df453488f7024ea2cd5447e728054, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listenee: {fileID: 0}
+  path: {fileID: 1852906038173259440}
+  movementPointTransforms: []
+  movespeed: 2
+  lastPointIndex: 0
+  nextPointIndex: 0
+  targetIndex: 0
 --- !u!1 &1852906036726089659
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,8 +801,8 @@ GameObject:
   - component: {fileID: 1852906037779448478}
   - component: {fileID: 1852906037779448479}
   - component: {fileID: 1852906037779448472}
-  - component: {fileID: 1852906037779448477}
   - component: {fileID: 1852906037779448476}
+  - component: {fileID: 2775073146907852651}
   m_Layer: 0
   m_Name: Left Door Panel
   m_TagString: Untagged
@@ -885,24 +886,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1852906037779448477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1852906037779448474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 850c39612a648ef47bb1cc4c00c780dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  listenee: {fileID: 0}
-  path: {fileID: 1852906037750078087}
-  movementPointTransforms: []
-  movespeed: 2
-  waitTime: 0
-  type: 3
 --- !u!54 &1852906037779448476
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -919,6 +902,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &2775073146907852651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852906037779448474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69df453488f7024ea2cd5447e728054, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listenee: {fileID: 0}
+  path: {fileID: 1852906037750078087}
+  movementPointTransforms: []
+  movespeed: 2
+  lastPointIndex: 0
+  nextPointIndex: 0
+  targetIndex: 0
 --- !u!1 &1852906038173259440
 GameObject:
   m_ObjectHideFlags: 0
