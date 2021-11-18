@@ -84,6 +84,10 @@ namespace Beam.Triggers
                 {
                     lastPointIndex = targetIndex;
                 }
+                else
+                {
+                    transform.position = movementPointTransforms[targetIndex].position;
+                }
             }
         }
 
@@ -134,7 +138,8 @@ namespace Beam.Triggers
 
             while (transform.position != target)
             {
-                rBody.MovePosition(Vector3.Lerp(start, target, (time / Vector3.Distance(start, target)) * movespeed));
+                //rBody.MovePosition(Vector3.Lerp(start, target, (time / Vector3.Distance(start, target)) * movespeed));
+                rBody.MovePosition(Vector3.Lerp(start, movementPointTransforms[nextPointIndex].position, (time / Vector3.Distance(start, target)) * movespeed));
                 time += Time.deltaTime;
                 yield return null;
             }
