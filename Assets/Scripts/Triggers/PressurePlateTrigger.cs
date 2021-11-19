@@ -17,7 +17,7 @@ namespace Beam.Triggers
         public List<string> tags;
         
         //First time? Thought so.
-        private bool buttonTriggered;
+        public bool buttonTriggered;
 
         public void Start()
         {

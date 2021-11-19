@@ -7,7 +7,7 @@ using Beam.Core.Player;
 namespace Beam.Triggers
 
 {
-    public class MovingPlatformReciever : TriggerReceiver
+    public class MovingPlatformReceiver : TriggerReceiver
     {
         //moving platform variables
         public GameObject path; //the path for the moving platform to follow
@@ -110,13 +110,12 @@ namespace Beam.Triggers
 
         public override void HandleActivated()
         {
-            stopMoving = false;
+            //Debug.Log("Activate");
             if (move == null)
             {
                 move = StartCoroutine(MovePlatformCoroutine(transform.position, movementPointTransforms[++pointIndex].position));
             }
         }
-
         public override void HandleDeactivated()
         {
             if (move != null)

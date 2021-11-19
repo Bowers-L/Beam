@@ -8,6 +8,8 @@ public class MovableObject : MonoBehaviour
     private Rigidbody rbody;
     private bool isOnPlatform;
     private Rigidbody platformRBody;
+
+    //private Transform parent;
     private void Awake()
     {
         rbody = GetComponent<Rigidbody>();
@@ -27,6 +29,7 @@ public class MovableObject : MonoBehaviour
     {
         if (col.gameObject.tag == "Platform")
         {
+            Debug.Log(col.gameObject);
             platformRBody = col.gameObject.GetComponent<Rigidbody>();
             col.transform.parent = platformRBody.transform;
             isOnPlatform = true;

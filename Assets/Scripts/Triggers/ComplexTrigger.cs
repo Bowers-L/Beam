@@ -15,7 +15,7 @@ namespace Beam.Triggers
         {
             NOT,
             AND,
-            OR
+            OR,
         }
 
         public Gate root;
