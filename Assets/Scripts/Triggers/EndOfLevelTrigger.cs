@@ -9,6 +9,9 @@ public class EndOfLevelTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene(sceneName);
+        if (other.CompareTag("Player"))
+        {
+            SceneManager.LoadScene(sceneName);
+        }
     }
 }
