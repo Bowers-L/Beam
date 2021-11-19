@@ -137,7 +137,7 @@ namespace Beam.Core.Player
             public float accelGround;
             public float accelAir;
 
-            //Controls how fast the player slows down when exceeding the speed cap.
+            //Controls how fast the player slows down when exceeding the speed cap.groundCheck
             [Range(0f, 1f)]
             public float overCapSmoothing;
             //The speed cap while in the air as a percentage of the liftoff speed
@@ -210,6 +210,7 @@ namespace Beam.Core.Player
             get
             {
                 bool center = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask, QueryTriggerInteraction.Ignore);
+
                 return center;
             }
         }
@@ -245,7 +246,7 @@ namespace Beam.Core.Player
 
             if (transform.position.y <= killPlaneY)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                Die();
             }
         }
 
@@ -318,15 +319,26 @@ namespace Beam.Core.Player
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
+
             //Implement collision physics manually because character controller doesn't come with rigidbody.
             if (hit.rigidbody != null) {
-                hit.rigidbody.AddForceAtPosition(vel * forceMag, hit.point); 
+                hit.rigidbody.AddForceAtPosition(vel * forceMag, hit.point);
             }
 
             if (vel.y > 0 && hit.point.y > transform.position.y + controller.height / 2) 
             {
                 //Reset y velocity to 0 if the thing is above the player
                 vel.y = 0;
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Void"))
+            {
+                //Killing the player
+                Debug.Log("Hit?");
+                Die();
             }
         }
 
@@ -393,6 +405,11 @@ namespace Beam.Core.Player
             {
                 vel.y = newXZVel.y;
             }
+        }
+
+        private void Die()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

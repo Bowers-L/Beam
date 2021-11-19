@@ -3126,8 +3126,8 @@ GameObject:
   - component: {fileID: 390645957}
   - component: {fileID: 390645962}
   m_Layer: 0
-  m_Name: BlackFloor
-  m_TagString: Untagged
+  m_Name: VoidFloor
+  m_TagString: Void
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3442,7 +3442,7 @@ MonoBehaviour:
   width: 70
   length: 97.5
   bottomLeft: {fileID: 654526537}
-  spaceBtwEffects: 4
+  spaceBtwEffects: 3
 --- !u!43 &405905988
 Mesh:
   m_ObjectHideFlags: 0
