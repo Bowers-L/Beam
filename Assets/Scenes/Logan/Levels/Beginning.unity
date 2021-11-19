@@ -8744,6 +8744,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1266810765}
     m_Modifications:
+    - target: {fileID: 881186455196973241, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
+      propertyPath: listenee
+      value: 
+      objectReference: {fileID: 635633970}
     - target: {fileID: 2664093405737575665, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -8804,6 +8808,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 2026153748}
+    - target: {fileID: 6328653913315994423, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
+      propertyPath: listenee
+      value: 
+      objectReference: {fileID: 635633970}
     - target: {fileID: 6466064741006979235, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -8823,6 +8831,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3170111766771995209, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
   m_PrefabInstance: {fileID: 635633968}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &635633970 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3170111767119501188, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
+  m_PrefabInstance: {fileID: 635633968}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b4af4e89f765d54692e2491121de0e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &644697822
 GameObject:
   m_ObjectHideFlags: 0
@@ -9995,17 +10014,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1448601504014471317, guid: 369a1daeac796fd45814e004359233a4, type: 3}
   m_PrefabInstance: {fileID: 1129261597}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &723546725 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3598431324386266566, guid: 369a1daeac796fd45814e004359233a4, type: 3}
-  m_PrefabInstance: {fileID: 1129261597}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 723546723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6376c4fca5777974db10c1b5e8f939cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &723546729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10057,7 +10065,7 @@ MonoBehaviour:
     m_ActionName: Player/Crouch[/Keyboard/leftCtrl]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 723546725}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseScript, Assembly-CSharp
         m_MethodName: TogglePause
         m_Mode: 0
@@ -76286,6 +76294,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1742509502}
     m_Modifications:
+    - target: {fileID: 881186455196973241, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
+      propertyPath: listenee
+      value: 
+      objectReference: {fileID: 2101799700}
     - target: {fileID: 2664093405737575665, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -76346,6 +76358,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1683091204}
+    - target: {fileID: 6328653913315994423, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
+      propertyPath: listenee
+      value: 
+      objectReference: {fileID: 2101799700}
     - target: {fileID: 6466064741006979235, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -76365,6 +76381,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3170111766771995209, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
   m_PrefabInstance: {fileID: 2101799698}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2101799700 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3170111767119501188, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
+  m_PrefabInstance: {fileID: 2101799698}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b4af4e89f765d54692e2491121de0e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2120022927
 GameObject:
   m_ObjectHideFlags: 0

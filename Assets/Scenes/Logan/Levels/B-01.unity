@@ -5826,6 +5826,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 881186455196973241, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
+      propertyPath: listenee
+      value: 
+      objectReference: {fileID: 894957906}
     - target: {fileID: 2664093405737575665, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -5886,6 +5890,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1949226001}
+    - target: {fileID: 6328653913315994423, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
+      propertyPath: listenee
+      value: 
+      objectReference: {fileID: 894957906}
     - target: {fileID: 6466064741006979235, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -5900,6 +5908,17 @@ PrefabInstance:
       objectReference: {fileID: 712780031}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
+--- !u!114 &894957906 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3170111767119501188, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
+  m_PrefabInstance: {fileID: 894957905}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b4af4e89f765d54692e2491121de0e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &983629963
 GameObject:
   m_ObjectHideFlags: 0
@@ -11510,6 +11529,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 881186455196973241, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
+      propertyPath: listenee
+      value: 
+      objectReference: {fileID: 1909868524}
     - target: {fileID: 2664093405737575665, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -11570,6 +11593,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 990299784}
+    - target: {fileID: 6328653913315994423, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
+      propertyPath: listenee
+      value: 
+      objectReference: {fileID: 1909868524}
     - target: {fileID: 6466064741006979235, guid: 8db644b5829fc4e4790d5e50dd79a540, type: 3}
       propertyPath: m_Mesh
       value: 
