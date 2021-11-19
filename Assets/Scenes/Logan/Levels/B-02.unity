@@ -3695,15 +3695,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 447195541}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 850c39612a648ef47bb1cc4c00c780dd, type: 3}
+  m_Script: {fileID: 11500000, guid: f69df453488f7024ea2cd5447e728054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   listenee: {fileID: 1036926224}
   path: {fileID: 744130069}
   movementPointTransforms: []
   movespeed: 2
-  waitTime: 0.1
-  type: 3
+  lastPointIndex: 0
+  nextPointIndex: 0
+  targetIndex: 0
 --- !u!54 &447195544
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17181,15 +17182,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1968933482}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 850c39612a648ef47bb1cc4c00c780dd, type: 3}
+  m_Script: {fileID: 11500000, guid: f69df453488f7024ea2cd5447e728054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   listenee: {fileID: 1399696343}
   path: {fileID: 888977331}
   movementPointTransforms: []
   movespeed: 2
-  waitTime: 0.1
-  type: 3
+  lastPointIndex: 0
+  nextPointIndex: 0
+  targetIndex: 0
 --- !u!54 &1968933485
 Rigidbody:
   m_ObjectHideFlags: 0

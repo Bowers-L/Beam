@@ -27,7 +27,7 @@ namespace Beam.Triggers
             ONEWAY,
             CYCLE,
             DOWNBACK,
-            DOOR
+            //DOOR  //Use MultiStageMovingPlatform instead.
         }
         public Type type;
 
