@@ -85,6 +85,7 @@ namespace Beam.Triggers
                             Array.Reverse(movementPointTransforms);
                             pointIndex = 0;
                             break;
+                        /*
                         case Type.DOOR:
                             stopMoving = true;
                             if (transform.position == orignialPos)
@@ -93,6 +94,7 @@ namespace Beam.Triggers
                                 pointIndex = 0;
                             }
                             break;
+                        */
                     }
                 }
                 if (!stopMoving)
@@ -123,6 +125,7 @@ namespace Beam.Triggers
                 StopCoroutine(move);
                 move = null;
             }
+            /*
             if (type == Type.DOOR)
             {
                 if (pointIndex == movementPointTransforms.Length - 1 || !stopMoving)
@@ -135,12 +138,13 @@ namespace Beam.Triggers
             }
             else
             {
+            */
                 stopMoving = true;
                 if (pointIndex > 0)
                 {
                     pointIndex--;
                 }
-            }
+            //}
         }
 
 
