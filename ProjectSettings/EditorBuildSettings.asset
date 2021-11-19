@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Logan/Levels/Beginning.unity
     guid: 5601fd3bc4dba9d4e8e894acef6eb089
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Chase/Level Select.unity
     guid: 69173bed017c00846b01bdb97a9efc08
   - enabled: 1
@@ -26,5 +26,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Chase/Gravity.unity
     guid: 935761a6d1a9b304e9ce4d09275d0a16
+  - enabled: 1
+    path: Assets/Scenes/Logan/Level Select.unity
+    guid: 18507cf3352046c498586cf6c950d3ec
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1304b4cdcd3bf864390f9ea108e6ae18, type: 2}
