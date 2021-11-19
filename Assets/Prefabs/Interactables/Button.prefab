@@ -1494,6 +1494,7 @@ MonoBehaviour:
   tags:
   - PressurePlateTarget
   - Player
+  buttonTriggered: 0
 --- !u!1 &9165015178528016575
 GameObject:
   m_ObjectHideFlags: 0
