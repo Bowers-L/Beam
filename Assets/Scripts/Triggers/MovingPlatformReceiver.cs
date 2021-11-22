@@ -27,7 +27,7 @@ namespace Beam.Triggers
             ONEWAY,
             CYCLE,
             DOWNBACK,
-            DOOR
+            DOOR  //Use MultiStageMovingPlatform instead.
         }
         public Type type;
 
@@ -39,6 +39,8 @@ namespace Beam.Triggers
         private Rigidbody rBody;
         Coroutine move;
         PlayerMoveOnPlat pmp;
+
+        private float closeDistance = 0.1f;
 
         void Awake()
         {
@@ -72,7 +74,7 @@ namespace Beam.Triggers
         void Update()
         {
             if (Time.timeScale == 0) return;
-            if (transform.position == movementPointTransforms[pointIndex].position)
+            if (Vector3.Distance(transform.position, movementPointTransforms[pointIndex].position) < 0.1f)
             {
                 if (pointIndex == movementPointTransforms.Length - 1)
                 {
@@ -85,6 +87,7 @@ namespace Beam.Triggers
                             Array.Reverse(movementPointTransforms);
                             pointIndex = 0;
                             break;
+                        
                         case Type.DOOR:
                             stopMoving = true;
                             if (transform.position == orignialPos)
@@ -93,6 +96,7 @@ namespace Beam.Triggers
                                 pointIndex = 0;
                             }
                             break;
+                        
                     }
                 }
                 if (!stopMoving)
@@ -100,6 +104,7 @@ namespace Beam.Triggers
                     wait -= Time.deltaTime;
                     if (wait <= 0)
                     {
+                        Debug.Log("GO");
                         pointIndex = ++pointIndex % movementPointTransforms.Length;
                         move = StartCoroutine(MovePlatformCoroutine(transform.position, movementPointTransforms[pointIndex].position));
                         wait = waitTime;
@@ -123,6 +128,7 @@ namespace Beam.Triggers
                 StopCoroutine(move);
                 move = null;
             }
+            
             if (type == Type.DOOR)
             {
                 if (pointIndex == movementPointTransforms.Length - 1 || !stopMoving)
@@ -135,6 +141,7 @@ namespace Beam.Triggers
             }
             else
             {
+            
                 stopMoving = true;
                 if (pointIndex > 0)
                 {
@@ -147,6 +154,7 @@ namespace Beam.Triggers
         IEnumerator MovePlatformCoroutine(Vector3 start, Vector3 target)
         {
             float time = 0f;
+            stopMoving = false;
 
             while (transform.position != target)
             {
