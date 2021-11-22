@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Chase/Main Menu.unity
+    path: Assets/Scenes/Chase/UI/Main Menu.unity
     guid: fa84e9fbd1e191345b9517093fe1f7ae
   - enabled: 1
     path: Assets/Scenes/Logan/Levels/Beginning.unity
     guid: 5601fd3bc4dba9d4e8e894acef6eb089
   - enabled: 1
-    path: Assets/Scenes/Chase/Level Select.unity
+    path: Assets/Scenes/Chase/UI/Level Select.unity
     guid: 69173bed017c00846b01bdb97a9efc08
   - enabled: 1
     path: Assets/Scenes/Logan/TestScenes/Sus.unity
@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Chase/Chase Test Scene.unity
     guid: 54a15678f7b3c0a4a8da7aa0bae0dd08
   - enabled: 1
-    path: Assets/Scenes/Chase/Gravity.unity
+    path: Assets/Scenes/Chase/Levels/Gravity.unity
     guid: 935761a6d1a9b304e9ce4d09275d0a16
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1304b4cdcd3bf864390f9ea108e6ae18, type: 2}
