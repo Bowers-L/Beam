@@ -93,7 +93,7 @@ namespace Beam.Triggers
 
         public override void HandleActivated()
         {
-            Debug.Log("Activate");
+            //Debug.Log("Activate");
             UpdateTarget(true);
             if (move != null)
             {
@@ -104,7 +104,7 @@ namespace Beam.Triggers
 
         public override void HandleDeactivated()
         {
-            Debug.Log("DeActivate");
+            //Debug.Log("DeActivate");
             UpdateTarget(false);
             if (move != null)
             {
@@ -129,7 +129,7 @@ namespace Beam.Triggers
                     targetIndex--;
                 }
             }
-            Debug.Log(targetIndex);
+            //Debug.Log(targetIndex);
         }
 
         IEnumerator MovePlatformCoroutine(Vector3 start, Vector3 target)
