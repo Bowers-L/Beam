@@ -21,14 +21,14 @@ namespace Beam.Triggers
             EventManager.StopListening<TriggerDeactivatedEvent, Trigger>(OnDeactivated);
         }
 
-        public void OnActivated(Trigger trigger)
+        public virtual void OnActivated(Trigger trigger)
         {
             if (trigger == listenee)
             {
                 HandleActivated();
             }
         }
-        public void OnDeactivated(Trigger trigger)
+        public virtual void OnDeactivated(Trigger trigger)
         {
             if (trigger == listenee)
             {
