@@ -15,7 +15,7 @@ namespace Beam.Triggers
         {
             NOT,
             AND,
-            OR
+            OR,
         }
 
         public Gate root;
@@ -29,54 +29,83 @@ namespace Beam.Triggers
             }
             EventManager.StartListening<TriggerActivatedEvent, Trigger>(TriggerUpdated);
             EventManager.StartListening<TriggerDeactivatedEvent, Trigger>(TriggerUpdated);
+
+            InitState();
+        }
+
+        public void OnDestroy()
+        {
+            EventManager.StopListening<TriggerActivatedEvent, Trigger>(TriggerUpdated);
+            EventManager.StopListening<TriggerDeactivatedEvent, Trigger>(TriggerUpdated);
         }
 
         public void TriggerUpdated(Trigger trigger)
         {
             if (triggers.Contains(trigger))
             {
-                bool activated;
-                switch (root)
+                UpdateState();
+            }
+        }
+
+        public void InitState()
+        {
+            foreach (Trigger t in triggers)
+            {
+                //Force all triggers below to initialize their state before doing it here.
+                if (t is ComplexTrigger)
                 {
-                    case Gate.NOT:
-                        if (trigger.activated == false)
-                        {
-                            Activate();
-                        } else
-                        {
-                            Deactivate();
-                        }
-                        break;
-                    case Gate.AND:
-                        activated = true;
-                        foreach (Trigger t in triggers)
-                        {
-                            activated = activated && t.activated;
-                        }
-                        if (activated)
-                        {
-                            Activate();
-                        } else
-                        {
-                            Deactivate();
-                        }
-                        break;
-                    case Gate.OR:
-                        activated = false;
-                        foreach (Trigger t in triggers)
-                        {
-                            activated = activated || t.activated;
-                        }
-                        if (activated)
-                        {
-                            Activate();
-                        }
-                        else
-                        {
-                            Deactivate();
-                        }
-                        break;
+                    (t as ComplexTrigger).InitState();
                 }
+            }
+
+            UpdateState();
+        }
+
+        public void UpdateState()
+        {
+            bool newActivated;
+            switch (root)
+            {
+                case Gate.NOT:
+                    if (!triggers[0].activated)
+                    {
+                        Activate();
+                    }
+                    else
+                    {
+                        Deactivate();
+                    }
+                    break;
+                case Gate.AND:
+                    newActivated = true;
+                    foreach (Trigger t in triggers)
+                    {
+                        newActivated = newActivated && t.activated;
+                    }
+                    if (newActivated)
+                    {
+                        Activate();
+                    }
+                    else
+                    {
+                        Deactivate();
+                    }
+                    break;
+                case Gate.OR:
+                    newActivated = false;
+                    foreach (Trigger t in triggers)
+                    {
+                        newActivated = newActivated || t.activated;
+                    }
+                    if (newActivated)
+                    {
+                        Activate();
+                    }
+                    else
+                    {
+                        Deactivate();
+                    }
+                    break;
             }
         }
     }
