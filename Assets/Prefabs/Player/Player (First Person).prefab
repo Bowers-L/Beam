@@ -217,6 +217,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ce091c20-67a0-41a8-ab7e-481c6032c13a
     m_ActionName: Player/Crouch[/Keyboard/ctrl]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 69eb7f11-fb67-4424-a244-df738fda19f3
+    m_ActionName: Player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -255,9 +259,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: 30
   jumpHeight: 2
-  crouchingHeight: 2
+  crouchingHeight: 2.5
   standingHeight: 3
-  crouchSpeedFactor: 0.45
+  crouchSpeedFactor: 0.3
   isCrouching: 0
   groundCheck: {fileID: 2722610955488524463}
   groundDistance: 0.2
