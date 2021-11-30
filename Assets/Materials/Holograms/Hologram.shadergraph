@@ -1772,11 +1772,11 @@
     "m_TransparentWritesMotionVec": false,
     "m_AlphaToMask": false,
     "m_DepthOffset": false,
-    "m_TransparencyFog": true,
+    "m_TransparencyFog": false,
     "m_AlphaTestShadow": false,
     "m_BackThenFrontRendering": false,
-    "m_TransparentDepthPrepass": false,
-    "m_TransparentDepthPostpass": false,
+    "m_TransparentDepthPrepass": true,
+    "m_TransparentDepthPostpass": true,
     "m_SupportLodCrossFade": false
 }
 
@@ -5325,9 +5325,9 @@
     "m_Guid": {
         "m_GuidSerialized": "b840b1a8-85bc-480c-bfba-3629ae9fe96b"
     },
-    "m_Name": "_RECIEVE_SHADOWS_OFF",
+    "m_Name": "_RECEIVE_SHADOWS_OFF",
     "m_DefaultReferenceName": "BOOLEAN_C84E892B07AF4BE5BF8938FB371E77A2_ON",
-    "m_OverrideReferenceName": "_RECIEVE_SHADOWS_OFF",
+    "m_OverrideReferenceName": "_RECEIVE_SHADOWS_OFF",
     "m_GeneratePropertyBlock": true,
     "m_KeywordType": 0,
     "m_KeywordDefinition": 0,
