@@ -490,12 +490,8 @@ PrefabInstance:
       value: Player (First Person)
       objectReference: {fileID: 0}
     - target: {fileID: 2785743722217414107, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
-      propertyPath: m_NotificationBehavior
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2785743722217414107, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 17
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 2785743722217414107, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_ActionId
@@ -506,31 +502,27 @@ PrefabInstance:
       value: Player/Pause[/Keyboard/escape]
       objectReference: {fileID: 0}
     - target: {fileID: 2785743722217414107, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
-      propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2785743722217414107, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2785743722217414107, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 7107363420980885617}
     - target: {fileID: 2785743722217414107, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
-      propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 7107363420980885617}
+    - target: {fileID: 2785743722217414107, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
+      propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2785743722217414107, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
-      propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: TogglePause
       objectReference: {fileID: 0}
     - target: {fileID: 2785743722217414107, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
-      propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: PauseScript, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2785743722217414107, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
-      propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3627940316773768363, guid: 4b6fefda47095ff41994cb42f79a9221, type: 3}
