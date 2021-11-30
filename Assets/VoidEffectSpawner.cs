@@ -14,8 +14,11 @@ public class VoidEffectSpawner : MonoBehaviour
     public Transform bottomLeft;    //Used to make this easier to manage
     public float spaceBtwEffects;
 
+    public float effectSize;
+
     public void Start()
     {
+        voidEffectPrefab.GetComponentInChildren<VisualEffect>().SetFloat("FlameSize", effectSize);
         for (float x = 0; x < width; x += spaceBtwEffects)
         {
             for (float z = 0; z < length; z += spaceBtwEffects)
