@@ -2968,7 +2968,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1020426779178570269, guid: af6bbbb9ec9b26e49897ba718c8c28b6, type: 3}
+  - {fileID: 2100000, guid: 2edad62a0ad01ab4eac9345975f4363c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3237,7 +3237,7 @@ MonoBehaviour:
   width: 70
   length: 97.5
   bottomLeft: {fileID: 654526537}
-  spaceBtwEffects: 6
+  spaceBtwEffects: 10
 --- !u!43 &405905988
 Mesh:
   m_ObjectHideFlags: 0
@@ -15803,7 +15803,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-81004
+  m_Name: pb_Mesh26008
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
