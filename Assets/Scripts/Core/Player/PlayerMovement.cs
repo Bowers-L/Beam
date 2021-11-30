@@ -315,6 +315,15 @@ namespace Beam.Core.Player
             }
             return false;
         }
+
+        public void OnReset(InputAction.CallbackContext ctx)
+        {
+            Debug.Log("Called this?");
+            if (ctx.performed)
+            {
+                Die();
+            }
+        }
         #endregion
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -407,7 +416,7 @@ namespace Beam.Core.Player
             }
         }
 
-        private void Die()
+        public void Die()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
