@@ -631,11 +631,11 @@ PrefabInstance:
     - target: {fileID: 4828950603430926457, guid: d3ee9fdac54208e459306a330a31e732, type: 3}
       propertyPath: clips.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: 35c39e82a83ee49479a63d8a219eb147, type: 3}
+      objectReference: {fileID: 8300000, guid: a2f0e0a0b83662548aa406f41af05d8a, type: 3}
     - target: {fileID: 4828950603430926457, guid: d3ee9fdac54208e459306a330a31e732, type: 3}
       propertyPath: clips.Array.data[1]
       value: 
-      objectReference: {fileID: 8300000, guid: 3f07055d20349ce4cb42fccd6628eff1, type: 3}
+      objectReference: {fileID: 8300000, guid: 0eb7fc515c1ca8a4eae2f4e68acde80b, type: 3}
     - target: {fileID: 4828950603430926457, guid: d3ee9fdac54208e459306a330a31e732, type: 3}
       propertyPath: triggers.Array.size
       value: 2
