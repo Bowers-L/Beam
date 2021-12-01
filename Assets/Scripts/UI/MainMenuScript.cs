@@ -20,7 +20,7 @@ public class MainMenuScript : MonoBehaviour
     }
     public void DisplaySubMenu(int menuNum)
     {
-        if(currentMenu != menuNum)
+        if(currentMenu == 0)
         {
            // subMenus[currentMenu].SetActive(false);
             subMenus[menuNum].SetActive(true);
