@@ -21695,7 +21695,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 816747186011166886, guid: 7d3f330bcc6c6e349a1271ea3a35d5b2, type: 3}
       propertyPath: sceneName
-      value: B-01
+      value: Snake
       objectReference: {fileID: 0}
     - target: {fileID: 4085993258289777912, guid: 7d3f330bcc6c6e349a1271ea3a35d5b2, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -24576,6 +24576,10 @@ PrefabInstance:
     - target: {fileID: 7100888874361832787, guid: 8a19788540c657143b3452beae64dfb4, type: 3}
       propertyPath: m_Name
       value: EndOfLevelTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100888874361832788, guid: 8a19788540c657143b3452beae64dfb4, type: 3}
+      propertyPath: sceneName
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7100888874361832789, guid: 8a19788540c657143b3452beae64dfb4, type: 3}
       propertyPath: m_Size.x

@@ -318,7 +318,6 @@ namespace Beam.Core.Player
 
         public void OnReset(InputAction.CallbackContext ctx)
         {
-            Debug.Log("Called this?");
             if (ctx.performed)
             {
                 Die();
@@ -348,6 +347,9 @@ namespace Beam.Core.Player
                 //Killing the player
                 Debug.Log("Hit?");
                 Die();
+            } else if (other.CompareTag("TrueVoid"))
+            {
+                SceneManager.LoadScene("Credits");
             }
         }
 
