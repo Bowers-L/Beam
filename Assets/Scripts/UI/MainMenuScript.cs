@@ -20,9 +20,18 @@ public class MainMenuScript : MonoBehaviour
     }
     public void DisplaySubMenu(int menuNum)
     {
-        subMenus[currentMenu].SetActive(false);
-        subMenus[menuNum].SetActive(true);
-        currentMenu = menuNum;
+        if(currentMenu != menuNum)
+        {
+           // subMenus[currentMenu].SetActive(false);
+            subMenus[menuNum].SetActive(true);
+            currentMenu = menuNum;
+        }
+        else
+        {
+            subMenus[currentMenu].SetActive(false);
+            //subMenus[0].SetActive(true);
+            currentMenu = 0;
+        }
     }
     public void Quit()
     {
