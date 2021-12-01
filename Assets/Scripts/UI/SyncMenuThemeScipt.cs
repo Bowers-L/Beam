@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SyncMenuThemeScipt : MonoBehaviour
 {
-    public static float mainThemeTime;
+    public static float mainThemeTime = 1.0f;
     public AudioSource audioSource;
 
     // Start is called before the first frame update
@@ -12,14 +12,19 @@ public class SyncMenuThemeScipt : MonoBehaviour
     {
         if (mainThemeTime != 0)
         {
-            if(SceneManager.GetActiveScene().name == "TheEnd")     //reset theme for end
+            /*if(SceneManager.GetActiveScene().name == "TheEnd")     //reset theme for end
             {
                 mainThemeTime = 0.0f;
-            }
+            }*/
             audioSource.time = mainThemeTime;
         }
     }
-    private void OnDestroy() {
-        mainThemeTime = audioSource.time;
+    private void Update() {
+        SyncMenuThemeScipt.mainThemeTime = audioSource.time;
     }
+   /* private void OnDestroy() {
+        Debug.Log(audioSource.time);
+        SyncMenuThemeScipt.mainThemeTime = audioSource.time;
+        Debug.Log(mainThemeTime);
+    }*/
 }

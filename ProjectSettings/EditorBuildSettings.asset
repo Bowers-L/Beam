@@ -24,9 +24,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Chase/Levels/Snake.unity
     guid: d9bc1cf06a0895747a48eb8d50bf91c8
   - enabled: 1
-    path: Assets/Scenes/Chase/Credits.unity
-    guid: ac17d6c94f4480944b59be5af5412935
-  - enabled: 1
     path: Assets/Scenes/Logan/Levels/Beginning.unity
     guid: 5601fd3bc4dba9d4e8e894acef6eb089
   - enabled: 1
@@ -50,5 +47,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Boomo/G-03.unity
     guid: 605434ec366586c4fa900e66fe1450ba
+  - enabled: 1
+    path: Assets/Scenes/Chase/UI/Credits.unity
+    guid: b2980f9e64ca0a141909edb50ea75d70
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1304b4cdcd3bf864390f9ea108e6ae18, type: 2}
