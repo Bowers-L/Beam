@@ -13,7 +13,10 @@ namespace Beam.Triggers
         {
             if (activatedAudioSource != null && !activatedAudioSource.isPlaying)
             {
-                deactivatedAudioSource.Stop();
+                if (deactivatedAudioSource != null)
+                {
+                    deactivatedAudioSource.Stop();
+                }
                 activatedAudioSource.Play();
             }
         }
@@ -22,7 +25,10 @@ namespace Beam.Triggers
         {
             if (playAudioOnDeactivate && deactivatedAudioSource != null && !deactivatedAudioSource.isPlaying)
             {
-                activatedAudioSource.Stop();
+                if (activatedAudioSource != null)
+                {
+                    activatedAudioSource.Stop();
+                }
                 deactivatedAudioSource.Play();
             }
         }
