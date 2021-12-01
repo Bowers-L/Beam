@@ -19,9 +19,6 @@ namespace Beam.Triggers
         private void Awake() 
         {
             activated.Clear();
-        }
-        private void Start() 
-        {
             EventManager.StartListening<TriggerActivatedEvent, Trigger>(OnActivated);
             if(clips.Count != triggers.Count)
             {
@@ -32,6 +29,10 @@ namespace Beam.Triggers
             {
                 clipDictionary.Add(triggers[i], clips[i]);
             }
+        }
+        private void Start() 
+        {
+            
         }
         public void OnDestroy()
         {
@@ -51,7 +52,10 @@ namespace Beam.Triggers
             if (triggers.Contains(trigger) && !activated.Contains(trigger))
             {
                 clipQueue.Enqueue(clipDictionary[trigger]);
-                activated.Add(trigger); 
+                if(!(trigger is DefaultTrigger))
+                {
+                    activated.Add(trigger);
+                }
             }
         }
 
