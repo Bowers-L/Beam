@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuScript : MonoBehaviour
 {
     public  GameObject[] subMenus;
-    int currentMenu = 0;
+    int currentMenu = -1;   //Start with no subMenus active.
     public void StartGame(string log)
     {
             Debug.Log(log);
@@ -24,13 +24,17 @@ public class MainMenuScript : MonoBehaviour
         {
            // subMenus[currentMenu].SetActive(false);
             subMenus[menuNum].SetActive(true);
+            if (currentMenu != -1)
+            {
+                subMenus[currentMenu].SetActive(false);
+            }
             currentMenu = menuNum;
         }
         else
         {
             subMenus[currentMenu].SetActive(false);
             //subMenus[0].SetActive(true);
-            currentMenu = 0;
+            currentMenu = -1;
         }
     }
     public void Quit()

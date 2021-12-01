@@ -44,11 +44,12 @@ namespace Beam.Core.Beams
                 controller.enabled = false; //Disable player's collisions.
 
                 //Teleport the player (probably want to start some kind of coroutine/animation here)
-                Vector3 tempPos = controller.transform.position;
-                controller.transform.position = currTarget.transform.position;
-                currTarget.transform.position = tempPos;
-                controller.transform.forward = currTarget.transform.position - controller.transform.position;
-                controller.transform.rotation = Quaternion.Euler(0, controller.transform.rotation.eulerAngles.y, 0);
+                Vector3 tempPos = currTarget.transform.position;
+                currTarget.transform.position = controller.transform.position;
+                controller.transform.position = tempPos + Vector3.down * (controller.height / 4);
+                
+                controller.transform.forward = currTarget.transform.position - controller.transform.position;   //Face the thing the player just swapped with.
+                controller.transform.rotation = Quaternion.Euler(0, controller.transform.rotation.eulerAngles.y, 0);    //zero out the x and z rotation
                 Rigidbody targetRb = currTarget.GetComponent<Rigidbody>();
                 if (targetRb != null)
                 {
