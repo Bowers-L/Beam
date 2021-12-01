@@ -9,6 +9,7 @@ TagManager:
   - Mirror
   - Platform
   - Void
+  - TrueVoid
   layers:
   - Default
   - TransparentFX

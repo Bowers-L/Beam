@@ -347,6 +347,9 @@ namespace Beam.Core.Player
                 //Killing the player
                 Debug.Log("Hit?");
                 Die();
+            } else if (other.CompareTag("TrueVoid"))
+            {
+                SceneManager.LoadScene("Credits");
             }
         }
 

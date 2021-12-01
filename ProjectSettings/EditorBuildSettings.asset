@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Chase/Levels/Snake.unity
     guid: d9bc1cf06a0895747a48eb8d50bf91c8
   - enabled: 1
+    path: Assets/Scenes/Chase/Credits.unity
+    guid: ac17d6c94f4480944b59be5af5412935
+  - enabled: 1
     path: Assets/Scenes/Logan/Levels/Beginning.unity
     guid: 5601fd3bc4dba9d4e8e894acef6eb089
   - enabled: 1

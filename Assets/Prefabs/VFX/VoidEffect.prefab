@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 420792927166249311}
   m_Layer: 0
   m_Name: VoidEffect
-  m_TagString: Void
+  m_TagString: TrueVoid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,7 +94,7 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 0
+      - m_Value: 10
         m_Name: FlameSize
         m_Overridden: 1
     m_Vector2f:
