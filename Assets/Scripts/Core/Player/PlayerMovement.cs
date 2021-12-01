@@ -349,7 +349,7 @@ namespace Beam.Core.Player
                 Die();
             } else if (other.CompareTag("TrueVoid"))
             {
-                SceneManager.LoadScene("Main Menu");
+                SceneManager.LoadScene("Credits");
             }
         }
 
