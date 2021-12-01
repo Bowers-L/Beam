@@ -556,7 +556,8 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2335689904168661057, guid: 5d914e181b652314d85f590e462e0f29, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5d914e181b652314d85f590e462e0f29, type: 3}
 --- !u!4 &1842595268399423602 stripped
 Transform:
@@ -844,7 +845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2005443585392254087, guid: 2c15d7413bec3cc4ebb11ddcb75e0636, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Level Select
+      value: Main Menu
       objectReference: {fileID: 0}
     - target: {fileID: 2005443585642873156, guid: 2c15d7413bec3cc4ebb11ddcb75e0636, type: 3}
       propertyPath: m_text

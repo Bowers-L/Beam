@@ -8714,6 +8714,7 @@ GameObject:
   - component: {fileID: 1647992908}
   - component: {fileID: 1647992910}
   - component: {fileID: 1647992909}
+  - component: {fileID: 1647992911}
   m_Layer: 0
   m_Name: MusicTrigger
   m_TagString: Untagged
@@ -8733,7 +8734,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e4cfe1af687f45546aad78f4aafb3b58, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -8874,6 +8875,19 @@ MonoBehaviour:
   activatedAudioSource: {fileID: 1647992906}
   deactivatedAudioSource: {fileID: 1647992906}
   playAudioOnDeactivate: 0
+--- !u!114 &1647992911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647992905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eb96064f5ef9024f89c34f1004b7ba9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 1647992906}
 --- !u!1 &1678660550
 GameObject:
   m_ObjectHideFlags: 0
