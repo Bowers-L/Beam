@@ -6102,8 +6102,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 432171809}
-  - component: {fileID: 432171811}
   - component: {fileID: 432171810}
+  - component: {fileID: 432171811}
   m_Layer: 0
   m_Name: Orange Glass OnOff
   m_TagString: Untagged
@@ -6151,15 +6151,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 432171808}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 850c39612a648ef47bb1cc4c00c780dd, type: 3}
+  m_Script: {fileID: 11500000, guid: f69df453488f7024ea2cd5447e728054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   listenee: {fileID: 978828161}
   path: {fileID: 3711567}
   movementPointTransforms: []
-  movespeed: 50
-  waitTime: 0.1
-  type: 3
+  movespeed: 4
+  lastPointIndex: 0
+  nextPointIndex: 0
+  targetIndex: 0
 --- !u!43 &449017563
 Mesh:
   m_ObjectHideFlags: 0
@@ -17630,7 +17631,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2870
+  m_Name: pb_Mesh-23738
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

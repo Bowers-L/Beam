@@ -27,7 +27,6 @@ namespace Beam.Triggers
             ONEWAY,
             CYCLE,
             DOWNBACK,
-            DOOR  //Use MultiStageMovingPlatform instead.
         }
         public Type type;
 
@@ -86,17 +85,7 @@ namespace Beam.Triggers
                         case Type.DOWNBACK:
                             Array.Reverse(movementPointTransforms);
                             pointIndex = 0;
-                            break;
-                        
-                        case Type.DOOR:
-                            stopMoving = true;
-                            if (transform.position == orignialPos)
-                            {
-                                Array.Reverse(movementPointTransforms);
-                                pointIndex = 0;
-                            }
-                            break;
-                        
+                            break;                                             
                     }
                 }
                 if (!stopMoving)
@@ -127,26 +116,12 @@ namespace Beam.Triggers
             {
                 StopCoroutine(move);
                 move = null;
-            }
+            }         
             
-            if (type == Type.DOOR)
+            stopMoving = true;
+            if (pointIndex > 0)
             {
-                if (pointIndex == movementPointTransforms.Length - 1 || !stopMoving)
-                {
-                    Array.Reverse(movementPointTransforms);
-                    pointIndex = movementPointTransforms.Length - 1 - pointIndex;
-                    move = StartCoroutine(MovePlatformCoroutine(transform.position, movementPointTransforms[++pointIndex].position));
-                    stopMoving = false;
-                }
-            }
-            else
-            {
-            
-                stopMoving = true;
-                if (pointIndex > 0)
-                {
-                    pointIndex--;
-                }
+                pointIndex--;
             }
         }
 

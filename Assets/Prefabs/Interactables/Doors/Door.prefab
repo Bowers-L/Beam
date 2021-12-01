@@ -468,7 +468,7 @@ MonoBehaviour:
   listenee: {fileID: 0}
   path: {fileID: 1852906038173259440}
   movementPointTransforms: []
-  movespeed: 2
+  movespeed: 1.25
   lastPointIndex: 0
   nextPointIndex: 0
   targetIndex: 0
@@ -917,7 +917,7 @@ MonoBehaviour:
   listenee: {fileID: 0}
   path: {fileID: 1852906037750078087}
   movementPointTransforms: []
-  movespeed: 2
+  movespeed: 1.25
   lastPointIndex: 0
   nextPointIndex: 0
   targetIndex: 0
