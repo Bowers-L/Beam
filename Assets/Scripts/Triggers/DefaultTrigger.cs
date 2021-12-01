@@ -6,6 +6,7 @@ namespace Beam.Triggers
     {
         void Start()
         {
+            Debug.Log("default");
             Activate();
         }
     }

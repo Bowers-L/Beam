@@ -4477,11 +4477,11 @@ PrefabInstance:
     - target: {fileID: 4828950603430926457, guid: d3ee9fdac54208e459306a330a31e732, type: 3}
       propertyPath: clips.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: fd886d6ebae38da4c8ea636932876a89, type: 3}
+      objectReference: {fileID: 8300000, guid: 7b26b4cf078ed0d49b65492e762196f3, type: 3}
     - target: {fileID: 4828950603430926457, guid: d3ee9fdac54208e459306a330a31e732, type: 3}
       propertyPath: clips.Array.data[1]
       value: 
-      objectReference: {fileID: 8300000, guid: 0ce713fc064a9cd43964ea6369b0e4cd, type: 3}
+      objectReference: {fileID: 8300000, guid: c272688d96b73a34180cf44d11c0237c, type: 3}
     - target: {fileID: 4828950603430926457, guid: d3ee9fdac54208e459306a330a31e732, type: 3}
       propertyPath: triggers.Array.size
       value: 2

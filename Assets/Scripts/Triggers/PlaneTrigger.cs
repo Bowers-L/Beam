@@ -25,5 +25,14 @@ namespace Beam.Triggers
                 Destroy(this.gameObject);
             }
         }
+
+        private void OnCollisionEnter(Collision other) 
+        {
+            if(other.gameObject.tag == "Void")
+            {
+                Activate();
+                Destroy(this.gameObject);
+            }
+        }
     }
 }

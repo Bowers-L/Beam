@@ -8918,9 +8918,9 @@ MonoBehaviour:
   - {fileID: 1336772436}
   - {fileID: 947445083}
   clips:
-  - {fileID: 8300000, guid: 84ccd71718a02b449852af3a09a7eb4c, type: 3}
-  - {fileID: 8300000, guid: d13f1b17ae35ddd49be3fd6e772a5cd7, type: 3}
-  - {fileID: 8300000, guid: 14a51e4366f98f24ba6074b7b0d79c32, type: 3}
+  - {fileID: 8300000, guid: ef09a6e513fdfbe4ab306accebad25a6, type: 3}
+  - {fileID: 8300000, guid: 82b925d3f9dd4694cb76083dc5ab61d5, type: 3}
+  - {fileID: 8300000, guid: 7959a448a11090746b48fed352052e50, type: 3}
 --- !u!4 &1021644203
 Transform:
   m_ObjectHideFlags: 0
