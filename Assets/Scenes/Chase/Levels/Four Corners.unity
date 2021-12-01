@@ -3053,7 +3053,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2550448505684413311, guid: a1cdc72aa4afc9f4aa7c0eac5fc9d4f7, type: 3}
       propertyPath: sceneName
-      value: Credits
+      value: TheEnd
       objectReference: {fileID: 0}
     - target: {fileID: 5942622442565161093, guid: a1cdc72aa4afc9f4aa7c0eac5fc9d4f7, type: 3}
       propertyPath: m_Name
@@ -9296,7 +9296,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh85242
+  m_Name: pb_Mesh342954
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

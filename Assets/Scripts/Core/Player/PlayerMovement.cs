@@ -318,7 +318,6 @@ namespace Beam.Core.Player
 
         public void OnReset(InputAction.CallbackContext ctx)
         {
-            Debug.Log("Called this?");
             if (ctx.performed)
             {
                 Die();
