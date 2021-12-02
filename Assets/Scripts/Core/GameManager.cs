@@ -29,5 +29,34 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public bool debug;
+    public static bool debug;
+    public static bool showTimer = false;
+    public static bool runTimer = false;
+    public static float time;
+
+    public static void StartTimer()
+    {
+        Debug.Log("Started Timer");
+        time = 0f;
+        showTimer = true;
+        runTimer = true;
+    }
+
+    private void Update()
+    {
+        if (runTimer)
+        {
+            time += Time.deltaTime;
+        }
+    }
+
+    public static void ResumeTimer()
+    {
+        runTimer = true;
+    }
+
+    public static void StopTimer()
+    {
+        runTimer = false;
+    }
 }
