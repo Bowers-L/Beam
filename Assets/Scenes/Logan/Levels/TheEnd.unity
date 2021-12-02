@@ -868,7 +868,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7571943254236415004, guid: a4707d7859a2d964dacdb6bd600fa1be, type: 3}
       propertyPath: movespeed
-      value: 1.5
+      value: 1.93
       objectReference: {fileID: 0}
     - target: {fileID: 7571943254236415005, guid: a4707d7859a2d964dacdb6bd600fa1be, type: 3}
       propertyPath: m_Mesh
@@ -2072,7 +2072,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh433924
+  m_Name: pb_Mesh25900
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2296,7 +2296,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh433788
+  m_Name: pb_Mesh25730
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6722,7 +6722,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh433838
+  m_Name: pb_Mesh25790
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8288,7 +8288,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7571943254236415004, guid: a4707d7859a2d964dacdb6bd600fa1be, type: 3}
       propertyPath: movespeed
-      value: 1.5
+      value: 1.93
       objectReference: {fileID: 0}
     - target: {fileID: 7571943254236415005, guid: a4707d7859a2d964dacdb6bd600fa1be, type: 3}
       propertyPath: m_Mesh
@@ -8858,7 +8858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tags:
-  - Player
+  - Platform
 --- !u!114 &1647992910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8888,6 +8888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1647992906}
+  ShortVersion: 1
 --- !u!1 &1678660550
 GameObject:
   m_ObjectHideFlags: 0

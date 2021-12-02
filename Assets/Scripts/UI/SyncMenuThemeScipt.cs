@@ -7,10 +7,12 @@ public class SyncMenuThemeScipt : MonoBehaviour
     public static float mainThemeTime = 1.0f;
     public AudioSource audioSource;
 
+    public bool ShortVersion;
+
     // Start is called before the first frame update
     void Start()
     {
-        if (mainThemeTime != 0)
+        if (mainThemeTime != 0 && !ShortVersion)
         {
             /*if(SceneManager.GetActiveScene().name == "TheEnd")     //reset theme for end
             {
@@ -20,7 +22,7 @@ public class SyncMenuThemeScipt : MonoBehaviour
         }
     }
     private void Update() {
-        SyncMenuThemeScipt.mainThemeTime = audioSource.time;
+        SyncMenuThemeScipt.mainThemeTime = ShortVersion ? audioSource.time + 59.0f : audioSource.time;
     }
    /* private void OnDestroy() {
         Debug.Log(audioSource.time);
