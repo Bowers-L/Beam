@@ -33,5 +33,13 @@ namespace Beam.Utility
             Vector3 OP = point - line.origin;
             return line.origin + Vector3.Project(OP, line.direction);
         }
+
+        public static string FormatTime(float time)
+        {
+            int minutes = (int)time / 60;
+            int seconds = (int)time - 60 * minutes;
+            int milliseconds = (int)(time * 1000) - 1000 * seconds;
+            return string.Format("{0:00}:{1:00}:{2:000}", minutes, seconds, milliseconds);
+        }
     }
 }
