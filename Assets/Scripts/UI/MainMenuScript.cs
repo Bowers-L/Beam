@@ -16,6 +16,18 @@ public class MainMenuScript : MonoBehaviour
 
     public void LoadScene(string name) 
     {
+        if (name.Equals("Beginning"))
+        {
+            if (Input.GetKey(KeyCode.T))
+            {
+                Debug.Log("Pressed T");
+                GameManager.showTimer = true;
+                GameManager.StartTimer();
+            } else
+            {
+                GameManager.showTimer = false;
+            }
+        }
         SceneManager.LoadScene(name);
     }
     public void DisplaySubMenu(int menuNum)

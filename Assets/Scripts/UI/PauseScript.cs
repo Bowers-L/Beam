@@ -37,7 +37,7 @@ public class PauseScript : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         AudioListener.pause = false;
-
+        GameManager.ResumeTimer();
     }
     public void Pause()
     {
@@ -48,6 +48,7 @@ public class PauseScript : MonoBehaviour
         Time.timeScale = 0.0f;
         gameIsPaused = true;
         AudioListener.pause = true;
+        GameManager.StopTimer();
     }
 
      public void LoadScene(string name) 
