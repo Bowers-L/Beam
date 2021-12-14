@@ -173,6 +173,7 @@ namespace Beam.Core.Player
         public Transform groundCheck;
         public float groundDistance = 0.1f;
         public LayerMask groundMask;
+        public bool isGrounded { get; private set; }
 
         public float forceMag = 10.0f;  //used for physics when the player collides with a rigidbody.
 
@@ -203,18 +204,6 @@ namespace Beam.Core.Player
             }
         }
 
-
-        [SerializeField]
-        public bool isGrounded
-        {
-            get
-            {
-                bool center = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask, QueryTriggerInteraction.Ignore);
-
-                return center;
-            }
-        }
-
         private void Start()
         {
             if (GetComponentInChildren<MouseCameraControl>() != null)
@@ -228,27 +217,47 @@ namespace Beam.Core.Player
             controller = GetComponent<CharacterController>();
             anim = GetComponent<Animator>();
             playerCameraTrans = GetComponentInChildren<Camera>().GetComponent<Transform>();
+
+            GetComponent<CharacterController>().enabled = !noClip;
+            isGrounded = false;
         }
 
         // Update is called once per frame
         void Update()
         {
+            isGrounded = GroundCheck(); //Perform the check in FixedUpdate 
             UpdateVelocity();
 
-            GetComponent<CharacterController>().enabled = !noClip;
             if (noClip)
             {
                 transform.position += vel * Time.deltaTime;
             } else
             {
-                controller.Move(vel * Time.deltaTime);
+                CollisionFlags flags = controller.Move(vel * Time.deltaTime);
+                //Debug.Log(flags);
             }
+
+
 
             if (transform.position.y <= killPlaneY)
             {
                 Die();
             }
+
+
         }
+
+        void FixedUpdate()
+        {
+
+        }
+
+        public void Die()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+
 
         #region Input Callbacks
         public void OnMove(InputAction.CallbackContext ctx)
@@ -368,6 +377,7 @@ namespace Beam.Core.Player
             }
             else
             {
+                Debug.Log("Changing vel.y");
                 vel.y -= gravity * Time.deltaTime;
             }
             #endregion
@@ -418,9 +428,11 @@ namespace Beam.Core.Player
             }
         }
 
-        public void Die()
+        private bool GroundCheck()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            bool center = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask, QueryTriggerInteraction.Ignore);
+            Debug.Log("Ground Check: " + center);
+            return center;
         }
     }
 }
