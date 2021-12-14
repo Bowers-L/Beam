@@ -42,7 +42,12 @@ public class GameManager : MonoBehaviour
         runTimer = true;
     }
 
-    private void Update()
+    void Start()
+    {
+        Application.targetFrameRate = 60;   //Target 60 fps  
+    }
+
+    void Update()
     {
         if (runTimer)
         {

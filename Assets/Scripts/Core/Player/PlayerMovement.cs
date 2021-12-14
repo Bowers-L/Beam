@@ -2,7 +2,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using Beam.Core.Beams;
 using Beam.Utility;
+
 
 namespace Beam.Core.Player
 {
@@ -173,6 +175,8 @@ namespace Beam.Core.Player
         public Transform groundCheck;
         public float groundDistance = 0.1f;
         public LayerMask groundMask;
+        [SerializeField]
+        public bool isGrounded;
 
         public float forceMag = 10.0f;  //used for physics when the player collides with a rigidbody.
 
@@ -203,18 +207,6 @@ namespace Beam.Core.Player
             }
         }
 
-
-        [SerializeField]
-        public bool isGrounded
-        {
-            get
-            {
-                bool center = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask, QueryTriggerInteraction.Ignore);
-
-                return center;
-            }
-        }
-
         private void Start()
         {
             if (GetComponentInChildren<MouseCameraControl>() != null)
@@ -228,27 +220,47 @@ namespace Beam.Core.Player
             controller = GetComponent<CharacterController>();
             anim = GetComponent<Animator>();
             playerCameraTrans = GetComponentInChildren<Camera>().GetComponent<Transform>();
+
+            GetComponent<CharacterController>().enabled = !noClip;
+            isGrounded = false;
         }
 
         // Update is called once per frame
         void Update()
         {
+            isGrounded = GroundCheck(); //Perform the check in FixedUpdate 
             UpdateVelocity();
 
-            GetComponent<CharacterController>().enabled = !noClip;
             if (noClip)
             {
                 transform.position += vel * Time.deltaTime;
             } else
             {
-                controller.Move(vel * Time.deltaTime);
+                CollisionFlags flags = controller.Move(vel * Time.deltaTime);
+                //Debug.Log(flags);
             }
+
+
 
             if (transform.position.y <= killPlaneY)
             {
                 Die();
             }
+
+
         }
+
+        void FixedUpdate()
+        {
+
+        }
+
+        public void Die()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+
 
         #region Input Callbacks
         public void OnMove(InputAction.CallbackContext ctx)
@@ -338,6 +350,8 @@ namespace Beam.Core.Player
                 //Reset y velocity to 0 if the thing is above the player
                 vel.y = 0;
             }
+
+            DisableBeamIfTouching(hit.gameObject);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -351,6 +365,11 @@ namespace Beam.Core.Player
             {
                 SceneManager.LoadScene("Credits");
             }
+        }
+
+        private void OnCollisionStay(Collision other)
+        {
+
         }
 
         //Updates the player's velocity, taking into account smoothing, player rotation, input, etc.
@@ -418,9 +437,38 @@ namespace Beam.Core.Player
             }
         }
 
-        public void Die()
+        private bool GroundCheck()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Collider[] others = Physics.OverlapSphere(groundCheck.position, groundDistance, groundMask, QueryTriggerInteraction.Ignore);
+
+            bool grounded = others.Length != 0;
+            if (grounded)
+            {
+                foreach (Collider other in others)
+                {
+                    //this shouldn't be a very long loop.
+                    DisableBeamIfTouching(other.gameObject);
+                }
+
+            }
+
+            return grounded;
+        }
+
+        private void DisableBeamIfTouching(GameObject other)
+        {
+            //If player touches beamed object, disable beam.
+            PlayerGrabBeamSource grabBeam = GetComponentInChildren<PlayerGrabBeamSource>();
+            PlayerSwapBeamSource swapBeam = GetComponentInChildren<PlayerSwapBeamSource>();
+            if (grabBeam != null && grabBeam.Target != null && grabBeam.Target.gameObject == other)
+            {
+                grabBeam.ReleaseBeam();
+            }
+
+            if (swapBeam != null && swapBeam.Target != null && swapBeam.Target.gameObject == other)
+            {
+                swapBeam.ReleaseBeam();
+            }
         }
     }
 }
