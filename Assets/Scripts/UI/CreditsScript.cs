@@ -23,7 +23,7 @@ public class CreditsScript : MonoBehaviour
     void Update()
     {
         if(Time.timeScale == 0) return;
-        transform.Translate(Vector3.up * scrollSpeed);
+        transform.Translate(Vector3.up * scrollSpeed * Time.deltaTime);
         if(transform.position.y > maxY)
         {
             SceneManager.LoadScene("Main Menu");
