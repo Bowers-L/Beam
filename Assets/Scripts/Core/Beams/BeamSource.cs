@@ -36,6 +36,11 @@ namespace Beam.Core.Beams
         [HideInInspector]
         public GameObject beamEffectInst;
 
+        public BeamTarget Target
+        {
+            get { return currTarget; }
+        }
+
         public void Start()
         {
             currTarget = null;
@@ -166,5 +171,4 @@ namespace Beam.Core.Beams
             return positionsForEffect;
         }
     }
-
 }

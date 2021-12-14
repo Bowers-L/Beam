@@ -2,7 +2,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using Beam.Core.Beams;
 using Beam.Utility;
+
 
 namespace Beam.Core.Player
 {
@@ -173,7 +175,8 @@ namespace Beam.Core.Player
         public Transform groundCheck;
         public float groundDistance = 0.1f;
         public LayerMask groundMask;
-        public bool isGrounded { get; private set; }
+        [SerializeField]
+        public bool isGrounded;
 
         public float forceMag = 10.0f;  //used for physics when the player collides with a rigidbody.
 
@@ -347,6 +350,8 @@ namespace Beam.Core.Player
                 //Reset y velocity to 0 if the thing is above the player
                 vel.y = 0;
             }
+
+            DisableBeamIfTouching(hit.gameObject);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -360,6 +365,11 @@ namespace Beam.Core.Player
             {
                 SceneManager.LoadScene("Credits");
             }
+        }
+
+        private void OnCollisionStay(Collision other)
+        {
+
         }
 
         //Updates the player's velocity, taking into account smoothing, player rotation, input, etc.
@@ -377,7 +387,6 @@ namespace Beam.Core.Player
             }
             else
             {
-                Debug.Log("Changing vel.y");
                 vel.y -= gravity * Time.deltaTime;
             }
             #endregion
@@ -430,9 +439,36 @@ namespace Beam.Core.Player
 
         private bool GroundCheck()
         {
-            bool center = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask, QueryTriggerInteraction.Ignore);
-            Debug.Log("Ground Check: " + center);
-            return center;
+            Collider[] others = Physics.OverlapSphere(groundCheck.position, groundDistance, groundMask, QueryTriggerInteraction.Ignore);
+
+            bool grounded = others.Length != 0;
+            if (grounded)
+            {
+                foreach (Collider other in others)
+                {
+                    //this shouldn't be a very long loop.
+                    DisableBeamIfTouching(other.gameObject);
+                }
+
+            }
+
+            return grounded;
+        }
+
+        private void DisableBeamIfTouching(GameObject other)
+        {
+            //If player touches beamed object, disable beam.
+            PlayerGrabBeamSource grabBeam = GetComponentInChildren<PlayerGrabBeamSource>();
+            PlayerSwapBeamSource swapBeam = GetComponentInChildren<PlayerSwapBeamSource>();
+            if (grabBeam != null && grabBeam.Target != null && grabBeam.Target.gameObject == other)
+            {
+                grabBeam.ReleaseBeam();
+            }
+
+            if (swapBeam != null && swapBeam.Target != null && swapBeam.Target.gameObject == other)
+            {
+                swapBeam.ReleaseBeam();
+            }
         }
     }
 }
