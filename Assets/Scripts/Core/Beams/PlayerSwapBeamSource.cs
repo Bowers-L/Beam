@@ -43,7 +43,6 @@ namespace Beam.Core.Beams
                 PlayerMovement player = GetComponentInParent<PlayerMovement>();
                 controller.enabled = false; //Disable player's collisions.
 
-                //Teleport the player (probably want to start some kind of coroutine/animation here)
                 Vector3 tempPos = currTarget.transform.position;
                 currTarget.transform.position = controller.transform.position;
                 controller.transform.position = tempPos + Vector3.down * (controller.height / 4);
