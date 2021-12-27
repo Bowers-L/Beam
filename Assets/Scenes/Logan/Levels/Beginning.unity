@@ -13302,7 +13302,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-224262
+  m_Name: pb_Mesh-37514
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -20554,7 +20554,7 @@ MonoBehaviour:
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
-  m_SelectedVertices: 09000000
+  m_SelectedVertices: 
 --- !u!4 &1453379733
 Transform:
   m_ObjectHideFlags: 0
@@ -56651,7 +56651,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871073305819370707, guid: 60f1709c67263a84381008d1d5bea619, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 42.855156
+      value: 42.75
       objectReference: {fileID: 0}
     - target: {fileID: 8871073305819370707, guid: 60f1709c67263a84381008d1d5bea619, type: 3}
       propertyPath: m_LocalPosition.y
