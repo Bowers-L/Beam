@@ -1493,7 +1493,6 @@ MonoBehaviour:
   downPos: {fileID: 7992748318862784060}
   tags:
   - PressurePlateTarget
-  - Player
   buttonTriggered: 0
 --- !u!1 &9165015178528016575
 GameObject:
