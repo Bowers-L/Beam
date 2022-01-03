@@ -42,7 +42,7 @@ namespace Beam.Core.Beams
                 CharacterController controller = GetComponentInParent<CharacterController>();
                 PlayerMovement player = GetComponentInParent<PlayerMovement>();
                 controller.enabled = false; //Disable player's collisions.
-
+                
                 Vector3 tempPos = currTarget.transform.position;
                 currTarget.transform.position = controller.transform.position;
                 controller.transform.position = tempPos + Vector3.down * (controller.height / 4);
