@@ -16,8 +16,9 @@ namespace Beam.Triggers
 
         public List<string> tags;
         
-        //First time? Thought so.
         public bool buttonTriggered;
+
+        private List<GameObject> objectsOn;
 
         public void Start()
         {
@@ -40,11 +41,12 @@ namespace Beam.Triggers
             }
             */
 
+            objectsOn = new List<GameObject>();
+
         }
 
         public void Update()
         {
-            //I want to put buttonTriggered here, but C# isn't C++ and doesn't support static local variables. Waaaah, waaaah.
             if (this.transform.localPosition.y <= 0.51)
             {
                 if (!buttonTriggered)
@@ -66,7 +68,13 @@ namespace Beam.Triggers
             foreach (string tag in tags) {
                 if (other.CompareTag(tag))
                 {
-                    anim.SetBool("BoxOn", true);
+                    if (!objectsOn.Contains(other.gameObject))
+                    {
+                        objectsOn.Add(other.gameObject);
+                        anim.SetBool("ObjectOn", true);
+                    }
+
+                    //Updating object to move with button
                     if (tag.CompareTo("Player") == 0)
                     {
                         PlayerMoveOnPlat pmp = other.GetComponent<PlayerMoveOnPlat>();
@@ -85,7 +93,17 @@ namespace Beam.Triggers
             foreach (string tag in tags) {
                 if (other.CompareTag(tag))
                 {
-                    anim.SetBool("BoxOn", false);
+                    if (objectsOn.Contains(other.gameObject))
+                    {
+                        objectsOn.Remove(other.gameObject);
+                    }
+
+                    if (objectsOn.Count == 0)
+                    {
+                        anim.SetBool("ObjectOn", false);
+                    }
+
+                    //Updating object to not move with button
                     if (tag.CompareTo("Player") == 0)
                     {
                         PlayerMoveOnPlat pmp = other.GetComponent<PlayerMoveOnPlat>();
