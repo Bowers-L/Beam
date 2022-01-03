@@ -10245,7 +10245,6 @@ MonoBehaviour:
   downPos: {fileID: 0}
   tags:
   - PressurePlateTarget
-  - Player
   buttonTriggered: 0
 --- !u!65 &1036926225
 BoxCollider:
@@ -11966,7 +11965,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh232106
+  m_Name: pb_Mesh200642
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14726,7 +14725,6 @@ MonoBehaviour:
   downPos: {fileID: 0}
   tags:
   - PressurePlateTarget
-  - Player
   buttonTriggered: 0
 --- !u!65 &1399696344
 BoxCollider:
