@@ -8,14 +8,20 @@ namespace Beam.Core.Beams
 {
     public class GrabBeamTarget : BeamTarget
     {
+        public ForceMode forceMode;
         public float beamReleaseVelocityCap;
+        public bool snapToBeam;
+        public bool defaultUsesGravity;
 
         public void AttachBeam(GrabBeamSource source, Ray beam)
         {
 
             //snap object center to the cursor
-            rb.MovePosition(UnityEngineExt.ProjectPointOntoLine(transform.position, beam));
-            currBeamDist = (transform.position - beam.origin).magnitude;
+            if (snapToBeam)
+            {
+                rb.MovePosition(UnityEngineExt.ProjectPointOntoLine(transform.position, beam));
+                currBeamDist = (transform.position - beam.origin).magnitude;
+            }
 
             rb.useGravity = false;
         }
@@ -25,7 +31,11 @@ namespace Beam.Core.Beams
             //Stop translational and rotational velocity
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-            transform.forward = source.transform.forward;
+            if (snapToBeam)
+            {
+                transform.forward = source.transform.forward;
+            }
+
 
             //Check how much the beam bends and detach if needed
             Vector3 sourceToTarget = transform.position - source.transform.position;
@@ -41,13 +51,13 @@ namespace Beam.Core.Beams
                 Vector3 targetPos = reflectionList[reflectionList.Count-1].origin + reflectionList[reflectionList.Count-1].direction * currBeamDist;
                 Vector3 targetDir = targetPos - transform.position;
 
-                rb.AddForce(targetDir * source.beamSnapSpeed, ForceMode.VelocityChange);
+                rb.AddForce(targetDir * source.beamSnapSpeed, forceMode);
             }
         }
 
         public void DetachBeam()
         {
-            rb.useGravity = true;
+            rb.useGravity = defaultUsesGravity;
             float velMag = Mathf.Min(rb.velocity.magnitude, beamReleaseVelocityCap);
             rb.velocity = rb.velocity.normalized * velMag;
         }

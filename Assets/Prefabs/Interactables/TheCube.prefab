@@ -78,7 +78,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currBeamDist: 0
+  forceMode: 2
   beamReleaseVelocityCap: 3
+  snapToBeam: 1
+  defaultUsesGravity: 1
 --- !u!114 &7592821253133480499
 MonoBehaviour:
   m_ObjectHideFlags: 0
